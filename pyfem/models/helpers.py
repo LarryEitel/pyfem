@@ -1,7 +1,7 @@
 import datetime
 import models
 
-def recurseValidate(doc_class, key, val, attrPath, doc_errors):
+def recurseValidate(doc, doc_class, key, val, attrPath, doc_errors):
     '''this will be called by recursiveDoc function and be executed on each doc/embedded doc'''
     doc = doc_class(**val)
     errors = doc.validate()
@@ -12,7 +12,7 @@ def recurseValidate(doc_class, key, val, attrPath, doc_errors):
         doc_errors.append(error)
 
 
-def recurseVOnUpSert(doc_class, key, val, attrPath, doc_errors):
+def recurseVOnUpSert(doc, doc_class, key, val, attrPath, doc_errors):
     '''this will be called by recursiveDoc function and be executed on each doc/embedded doc'''
     if '_cls' in val:
         if hasattr(doc_class, 'vOnUpSert'):
@@ -23,51 +23,73 @@ def recurseVOnUpSert(doc_class, key, val, attrPath, doc_errors):
                     error['eId'] = val['eId']
                 doc_errors.append(error)
 
-def recurseDoc(key, val, recurseFn, attrPath, doc_errors):
+def recurseDoc(doc, key, val, recurseFn, attrPath, doc_errors):
     '''Recursively traverse model class fields executing validate on any docs/embedded docs'''
     keyvals = {}
     if type(val) == dict:
         doc_class = getattr(models, val['_cls']) if '_cls' in val else None
         if doc_class:
             # this enables using same recursive funct to execute something on any docs/embedded docs
-            recurseFn(doc_class, key, val, attrPath, doc_errors)
+            recurseFn(val, doc_class, key, val, attrPath, doc_errors)
         for key in val.keys():
-            if key in ['_cls', '_types']:
+            if key in ['_cls', '_types', '_eIds']:
                 keyvals[key] = val[key]
                 continue
-            keyvals[key] = recurseDoc(key, val[key], recurseFn, attrPath + [key], doc_errors)
+            val[key] = recurseDoc(val, key, val[key], recurseFn, attrPath + [key], doc_errors)
+            x=0
     elif type(val) == list:
+        # Let's make sure members of this list have eId's initialized
+        if not '_eIds' in doc:
+            doc['_eIds'] = {}
+
+        # do all the list items have eId's? If so, set
+        max_eId = 0
+        allItemsHave_eId = True
+        for item in val: # val is a list here
+            if not 'eId' in item:
+                allItemsHave_eId = False
+                break
+            if item['eId'] > max_eId:
+                max_eId = item['eId']
+
+        # if all items do not have an eId, reset all to default (incremented from 1)
+        if not allItemsHave_eId:
+            for i in range(len(val)):
+                val[i]['eId'] = i + 1
+
+        # either set next eId for this list to max eId's or count of items + 1
+        doc['_eIds'][key] = max_eId + 1 if allItemsHave_eId else len(val) + 1
+
+        # now go ahead and process each item in the list for possible further recursion
         for i in range(len(val)):
-            thisId = str(val[i]['eId'] if 'eId' in val[i] and val[i]['eId'] else i)
-            val[i] = recurseDoc(key, val[i], recurseFn, attrPath + [thisId], doc_errors)
+            recurseDoc(val[i], key, val[i], recurseFn, attrPath + [str(val[i]['eId'])], doc_errors)
         return val
     else:
         return val
 
-    return keyvals
-
 def recurseValidateAndVOnUpSert(m):
     '''recursively handle validate and execute any doc.vOnUpSert functions'''
-
-    fields_to_process = m.fieldsToHandle()
+    docData = m.validDocData()
+    doc = docData
 
     doc_errors = []
     attrPath = [m._cls, m.id if m.id else 'new']
-    m_data_handled = recurseDoc(m._cls, fields_to_process, recurseValidate, attrPath, doc_errors)
+
+    attrPath = []
+    recurseDoc(docData, m._cls, docData, recurseValidate, attrPath, doc_errors)
 
     if doc_errors:
         return doc_errors
 
-    doc_errors = []
-    attrPath = [m._cls, m.id if m.id else 'new']
-    m_data_handled = recurseDoc(m._cls, fields_to_process, recurseVOnUpSert, attrPath, doc_errors)
+    attrPath = []
+    recurseDoc(docData, m._cls, docData, recurseVOnUpSert, attrPath, doc_errors)
 
     if doc_errors:
         return doc_errors
 
     for field in m._fields.keys():
-        if field in m_data_handled:
-            setattr(m, field, m_data_handled[field])
+        if field in docData:
+            setattr(m, field, docData[field])
 
     return m
 

@@ -22,6 +22,7 @@ class Cnt(MyDoc, Mixin):
         if type(errors) == list:
             self._data['myErrors'] = errors
         else:
+            kwargs['validate'] = False
             super(Cnt, self).save(*args, **kwargs)
 
 

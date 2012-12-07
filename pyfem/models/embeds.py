@@ -7,9 +7,9 @@ from models.myfields import MyStringField, MyEmailField
 
 class EmbedMixin(object):
     typ     = MyStringField(required= True)
+    _eIds   = app.db.DictField()
     dNam    = app.db.StringField()
     dNamS   = app.db.StringField()
-    #eId    = app.db.SequenceField(primary_key=True, required= True)
     eId     = app.db.IntField()
     w       = app.db.FloatField()
     prim    = app.db.BooleanField()
@@ -20,8 +20,8 @@ class Tel(MyEmbedDoc, EmbedMixin):
 class Note(MyEmbedDoc, EmbedMixin):
     #address = app.db.EmailField(required= True)
     title = MyStringField(required= True)
-    body    = app.db.StringField()
-    tels = app.db.ListField(app.db.EmbeddedDocumentField(Tel))
+    body  = app.db.StringField()
+    tels  = app.db.ListField(app.db.EmbeddedDocumentField(Tel))
 
     def __str__(self):
         s = ('[' + str(self.eId) + '] ') if self.eId else ''
@@ -40,7 +40,7 @@ class Note(MyEmbedDoc, EmbedMixin):
 
 class Email(MyEmbedDoc, EmbedMixin):
     address = MyEmailField(required= True)
-    notes = app.db.ListField(app.db.EmbeddedDocumentField(Note))
+    notes   = app.db.ListField(app.db.EmbeddedDocumentField(Note))
 
     def __str__(self):
         s = ('[' + str(self.eId) + '] ') if self.eId else ''
@@ -58,19 +58,20 @@ class Email(MyEmbedDoc, EmbedMixin):
         return {'doc_dict': d, 'errors': errors}
 
 class Mixin(object):
+    _eIds  = app.db.DictField()
     emails = app.db.ListField(app.db.EmbeddedDocumentField(Email))
-    notes = app.db.ListField(app.db.EmbeddedDocumentField(Note))
-    dNam = app.db.StringField()
-    dNamS = app.db.StringField()
-    slug = app.db.StringField()
-
-    sId = app.db.SequenceField()
-
-    oBy = app.db.ObjectIdField()
-    oOn = app.db.DateTimeField()
-    cBy = app.db.ObjectIdField()
-    cOn = app.db.DateTimeField()
-    mBy = app.db.ObjectIdField()
-    mOn = app.db.DateTimeField()
-    dOn = app.db.DateTimeField()
-    dBy = app.db.ObjectIdField()
+    notes  = app.db.ListField(app.db.EmbeddedDocumentField(Note))
+    dNam   = app.db.StringField()
+    dNamS  = app.db.StringField()
+    slug   = app.db.StringField()
+    
+    sId    = app.db.SequenceField()
+    
+    oBy    = app.db.ObjectIdField()
+    oOn    = app.db.DateTimeField()
+    cBy    = app.db.ObjectIdField()
+    cOn    = app.db.DateTimeField()
+    mBy    = app.db.ObjectIdField()
+    mOn    = app.db.DateTimeField()
+    dOn    = app.db.DateTimeField()
+    dBy    = app.db.ObjectIdField()

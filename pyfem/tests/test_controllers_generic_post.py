@@ -13,9 +13,29 @@ import controllers
 
 class ControllersGenericPostTests(BaseMongoTestCase):
 
-    def test_post_new(self):
+    def setUp(self):
+        super(ControllersGenericPostTests, self).setUp()
         ucs = self.usecase
         ucs.load('usecases')
+        self.ucs = ucs
+
+    def test_post_recursePreProcess(self):
+        ucs = self.ucs
+        ucs = self.usecase
+        ucs.load('usecases')
+        samp_prss = ucs.uc_dat['prs']
+        emails_with_no_eIds = samp_prss['emails_with_no_eIds']
+
+        fn = controllers.generic_post.GenericPost(self.g)
+
+        # try one doc
+        resp = fn.post(**{'docs': [emails_with_no_eIds]})
+        assert resp['status'] == 200
+        assert len(resp['response']['docs']) == 1
+
+
+    def test_post_new(self):
+        ucs = self.ucs
         samp_prss = ucs.uc_dat['prs']
         larry_stooge = samp_prss['larry_stooge']
 
@@ -27,13 +47,12 @@ class ControllersGenericPostTests(BaseMongoTestCase):
         assert len(resp['response']['docs']) == 1
 
         # try several docs
-        multiple_docs = samp_prss.values()
+        multiple_docs = samp_prss.values()[:1]
         resp = fn.post(**{'docs': multiple_docs})
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == len(multiple_docs)
 
         x=0
         # test validation including embedded docs!
-
 if __name__ == "__main__":
     unittest.main()

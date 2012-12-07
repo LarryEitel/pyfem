@@ -1,5 +1,27 @@
 # http://yaml-online-parser.appspot.com
 # Attribute Types
+emails_with_no_eIds:
+  _cls: Prs
+  slug  : emails_with_no_eIds
+  fNam  : Larry
+  lNam  : Stooge
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      eId    : 6
+      address: bill@ms.com
+      prim   : true
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      eId    : 2
+      address: steve@apple.com
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      eId    : 3
+      address: sue@apple.com
 larry_stooge:
   _cls: Prs
   slug  : larry_stooge
@@ -19,7 +41,7 @@ larry_stooge:
       address: steve@apple.com
     - _cls   : Email
       _types : [Email]
-      eId    : 3
+      eId    : 
       typ    : work
       address: sue@apple.com
       notes:
@@ -34,7 +56,7 @@ larry_stooge:
               _types : [Tel]
               eId    : 1
               typ    : work
-              text   : 858 123-1234
+              text   : 123 123 1234
   notes:
     - _cls   : Note
       _types : [Note]
@@ -42,6 +64,11 @@ larry_stooge:
       typ    : work
       title  : this is a test
       body   : Now is the time
+      tels   :
+        - _cls   : Tel
+          _types : [Tel]
+          typ    : work
+          text   : 123 123 1234
 moe_stooge:
   _cls: Prs
   slug  : moe_stooge

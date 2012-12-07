@@ -1,16 +1,18 @@
 from app import app
 from mongoengine.base import ValidationError
 
-def fieldsToHandle(m):
+def validDocData(m):
+    '''Return dict with model _data that actually valid. doc._data contains invalid data.'''
     m_data = m._data
-    fields = {}
+    data = {}
     for k, v in m_data.iteritems():
         if v and k:
-            fields[k] = v
+            data[k] = v
 
-    fields['_cls'] = m._cls
-    fields['_types'] = [m._cls]
-    return fields
+    # make sure these are set
+    data['_cls'] = m._cls
+    data['_types'] = [m._cls]
+    return data
 
 def validate(doc):
     # Get a list of tuples of field names and their current values
@@ -40,16 +42,16 @@ def validate(doc):
 # inspired by http://stackoverflow.com/questions/6102103/using-mongoengine-document-class-methods-for-custom-validation-and-pre-save-hook
 class MyDoc(app.db.Document):
 
-    def fieldsToHandle(self):
-        return fieldsToHandle(self)
+    def validDocData(self):
+        return validDocData(self)
 
     def validate(self):
         return validate(self)
 
 class MyEmbedDoc(app.db.EmbeddedDocument):
 
-    def fieldsToHandle(self):
-        return fieldsToHandle(self)
+    def validDocData(self):
+        return validDocData(self)
 
     def validate(self):
         return validate(self)
