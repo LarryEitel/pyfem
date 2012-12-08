@@ -1,5 +1,43 @@
 # http://yaml-online-parser.appspot.com
 # Attribute Types
+test_model_helpers_1_no_eid_fld:
+  _cls: Prs
+  slug  : test_model_helpers_1
+  fNam  : Larry
+  lNam  : Stooge
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: bill@ms.com
+      prim   : true
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: steve@apple.com
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: sue@apple.com
+test_model_helpers_1_no_eids:
+  _cls: Prs
+  slug  : test_model_helpers_1
+  fNam  : Larry
+  lNam  : Stooge
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: bill@ms.com
+      prim   : true
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: steve@apple.com
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: sue@apple.com
 emails_with_no_eIds:
   _cls: Prs
   slug  : emails_with_no_eIds

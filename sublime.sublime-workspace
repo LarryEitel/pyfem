@@ -1,0 +1,1093 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ya",
+				"yaml_path"
+			],
+			[
+				"sampe",
+				"sample_doc"
+			],
+			[
+				"us",
+				"usrOID"
+			],
+			[
+				"sl",
+				"slugify"
+			],
+			[
+				"attr",
+				"attributeName"
+			],
+			[
+				"att",
+				"attributeName"
+			],
+			[
+				"attrib",
+				"attributeVal"
+			],
+			[
+				"targ",
+				"targetOID"
+			],
+			[
+				"rel",
+				"relationship"
+			],
+			[
+				"max",
+				"maxTries"
+			],
+			[
+				"pl",
+				"pltypes"
+			],
+			[
+				"O",
+				"ObjectId"
+			],
+			[
+				"Ob",
+				"ObjectIdType"
+			],
+			[
+				"min",
+				"minimized_field_name"
+			],
+			[
+				"_",
+				"_Model"
+			],
+			[
+				"pr",
+				"pprint  (function)"
+			],
+			[
+				"loca",
+				"local_settings"
+			],
+			[
+				"doc",
+				"doc_errors"
+			],
+			[
+				"docs",
+				"docs_found"
+			],
+			[
+				"sample",
+				"sample_doc"
+			],
+			[
+				"sa",
+				"sample_docs"
+			],
+			[
+				"sampl",
+				"sample_doc"
+			],
+			[
+				"rep",
+				"replacement_values"
+			],
+			[
+				"resp",
+				"response"
+			],
+			[
+				"post",
+				"posted_docs"
+			],
+			[
+				"col",
+				"collection"
+			],
+			[
+				"respon",
+				"response_item"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"js",
+				"json_params"
+			],
+			[
+				"company",
+				"companyName"
+			],
+			[
+				"po",
+				"postsShow"
+			],
+			[
+				"jade",
+				"jadeStr"
+			],
+			[
+				"des",
+				"destName"
+			],
+			[
+				"con",
+				"contact"
+			],
+			[
+				"cont",
+				"contacts"
+			],
+			[
+				"co",
+				"contacts"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"GM",
+				"GMarker"
+			],
+			[
+				"mo",
+				"module"
+			],
+			[
+				"home",
+				"homeView"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"pre",
+				"preferences"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"previo",
+				"previousnumber"
+			],
+			[
+				"bou",
+				"boundaries"
+			],
+			[
+				"lat",
+				"latlngs"
+			],
+			[
+				"Boundarie",
+				"BoundariesView"
+			],
+			[
+				"cur",
+				"cursor_live"
+			],
+			[
+				"Home",
+				"HomeControl"
+			],
+			[
+				"z",
+				"z-index"
+			],
+			[
+				"curr",
+				"currentPlace"
+			],
+			[
+				"objec",
+				"objects"
+			],
+			[
+				"clo",
+				"closestPlace"
+			],
+			[
+				"InfoWindow",
+				"editInfoWindow"
+			],
+			[
+				"get",
+				"get_point"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "pyfem/app.py",
+			"settings":
+			{
+				"buffer_size": 1490,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 1323,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/CoffeeScript/Commands/CoffeeScript.sublime-build",
+	"command_palette":
+	{
+		"height": 311.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: disa",
+				"Package Control: Disable Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"insta	",
+				"Package Control: Install Package"
+			],
+			[
+				"openu",
+				"File: Open In Browser - Production Server"
+			],
+			[
+				"date",
+				"Snippet: input - datetime-local"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"pl",
+				"Package Control: List Packages"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in	",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: insta	",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: re",
+				"Package Control: Remove Package"
+			],
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				":W",
+				":w - Save"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"pack	",
+				"Package Control: Install Package"
+			],
+			[
+				"java",
+				"Format: Javascript"
+			],
+			[
+				"Snippet: bd",
+				"Snippet: <bdo>"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"HTML: Encode Special Characters"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"prev",
+				"Markdown Preview: current file in browser"
+			],
+			[
+				"mark",
+				"Markdown Preview: current file in browser"
+			],
+			[
+				"previ",
+				"Markdown Preview: current file in Sublime Text"
+			],
+			[
+				"fetch",
+				"Fetch: Manage remote files"
+			],
+			[
+				"fet",
+				"Fetch: Manage remote files"
+			],
+			[
+				"package",
+				"Package Control: Add Repository"
+			],
+			[
+				"mar",
+				"Set Syntax: Markdown"
+			]
+		],
+		"width": 528.0
+	},
+	"console":
+	{
+		"height": 107.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/api/__init__.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/default_settings.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/flask_seed.wpr",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/flask_seed.wpu",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/local_settings.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/settings.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/core.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/web/home.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/test_models_generic.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/controllers/generic.py",
+		"/C/Users/Larry/Dropbox/_bu/autostart_console.bat",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/core.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/test_usecases.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/app.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/test_controllers_generic_post.py",
+		"/C/Users/Larry/__prjs/flask_seed/venv/Lib/site-packages/mongoengine/document.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/models/__init__.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/models/mydocument.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/base.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/data/yaml/usecases.yaml",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/data/yaml/prs.yaml",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/usecase.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/models/helpers.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/models/doc.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/tes_models_generic.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/data/yaml/prss.yaml",
+		"/C/Users/Larry/__prjs/flask_seed/activate.cmd",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/load_sample_data.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/test_load_sample_data.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/data/yaml/scenarios.yaml",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/data/yaml/load.yaml",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/data/yaml/cnts.yaml",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/data/yaml/cnts.yaml",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/globals.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/views_.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/utils/myyaml.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/utils/myyaml.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/utils/__init__.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/globals.yaml",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/globals.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/fabfile.py",
+		"/C/Users/Larry/__prjs/flask_seed/fabfile.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/models/test_generic.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/runserver.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/__init__.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/tests/controllers/test_generic.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/flask_seed.wpu",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/controllers/__init__.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/views_/home.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/apps/web/views/home.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/views_/__init__.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/apps/__init__.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/apps/web/__init__.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/views/home.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/views/__init__.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/views2/home.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/views2/__init__.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/views.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/controllers/person.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/controllers_.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/controllers.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/app.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/runserver.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/util.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/tests/test_models.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/util.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/templates/base.html",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/requirements.txt",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/default_settings.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/models/person.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/views.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/requirements.txt",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/templates/home.html",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/models/person.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/templates/base.html",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/docs/source/conf.py",
+		"/C/Users/Larry/__prjs/flask_seed/flask_seed/run_server.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/controllers/test_generic_mongo.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/embedded_documents.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/schematics/serialize.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/base.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/models/base.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/json_schema.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/models/_cs.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/cnts.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/venv/Lib/site-packages/schematics_/serialize.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/schematics/types/compound.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/tests/test_validation.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/demos/json_schema.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/demos/minimize.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/demos/basic_objects.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/schematics/validation.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/READISH.md",
+		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/demos/simple_lists.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/models/__init__.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/test_embedded_documents.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/controllers/__init__.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/__init__.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/venv/Lib/site-packages/schematics/models.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/base_save.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/run.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/venv/Lib/site-packages/schematics/serialize.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/g.yaml",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/g.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/utils/test_nextid.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/utils/test_myyaml.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/requirements.txt",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/main.yaml",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/venv/Lib/site-packages/flaskext/yamlconfig.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/models/embed.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/docs/pseudo/init.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/models/mod.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/utils/test_yaml.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/utils/yaml.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/utils/nextid.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/data/collections/dxrels.yaml",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/models/loc.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/data/collections/typs.yaml",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/models/extensions.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/models/logit.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/venv/Lib/site-packages/schematics/types/base.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/models/tag.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/models/lang.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/models/__init__.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/utils/random_names.txt",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/controllers/generic_id.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/data/api.yaml",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/controllers/test_generic.py"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem",
+			"C:\\Users\\Larry\\__prjs\\flask_seed\\flask_seed",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\kardboard\\kardboard\\tests",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\kardboard",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\kardboard\\kardboard\\templates",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\kardboard",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\kardboard\\kardboard",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\_flask\\kardboard\\kardboard",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\venv\\Lib\\site-packages\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\gsapi",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\venv\\Lib\\site-packages\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\gsapi",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\gsapi",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\gsapi\\models",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\venv\\Lib\\site-packages\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\gsapi",
+			"C:\\Users\\Larry\\__prjs\\flask_seed",
+			"C:\\Users\\Larry\\__prjs\\flask-seed\\flask-seed",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\gsapi\\tests\\data",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\gsapi\\data\\collections",
+			"C:\\Program Files (x86)\\Wing IDE 4.1",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\gsapi\\models",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\gsapi\\tests",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\venv\\Lib\\site-packages\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi\\gsapi\\tests",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\elastic\\pyes\\tests",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\_flask",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\gsapi",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\exapi\\conf",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f2\\ex",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\exapi_\\exapi\\views_",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f1\\ex\\views",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f2\\ex\\views",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics\\demos",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\schematics\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\_flask",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f2\\ex",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f2",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f2\\ex",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f2\\venv",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\_flask",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\_flask\\ihatemoney\\budget",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\flask-mongorest",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f1\\structures",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\flask-peewee",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\flask-peewee\\flask_peewee",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\flask-peewee\\example",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\flask-mongorest",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\mongodb-d4",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\flask-restless",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\ihatemoney",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\aweb",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\exapi_",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f1",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f1\\ex\\models",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f1\\ex\\views",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\f1",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\e1\\src\\bottle",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\ab\\bottle\\test",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\e1\\ea",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\exapi\\structures",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\e1\\src\\schematics",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\e1\\ea",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\exapi\\structures",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\e1\\src\\dictshield",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\structures",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\bottle",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py\\kardboard",
+			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\py",
+			"Z:\\_of\\_prjs\\samples\\calipso\\modules",
+			"Z:\\_of\\_prjs\\samples\\tower\\test\\example\\app\\models",
+			"Z:\\_of\\_prjs\\samples\\mt",
+			"Z:\\_of\\_prjs\\of2\\a\\src",
+			"Z:\\_of\\_prjs\\of2\\a",
+			"Z:\\_of\\_prjs\\of2\\a\\src",
+			"C:\\Users\\Larry\\AppData\\Roaming\\Sublime Text 2\\Packages",
+			"C:\\Users\\Larry\\__prjs\\a2",
+			"C:\\Users\\Larry\\__prjs\\gitprjs\\angular-google-maps",
+			"C:\\Users\\Larry\\__prjs\\a",
+			"C:\\Users\\Larry\\__prjs\\gitprjs\\angular-google-maps",
+			"C:\\Users\\Larry\\__prjs\\_ajs\\angular-phonecat",
+			"C:\\Users\\Larry\\__prjs\\node\\node-login",
+			"C:\\Users\\Larry\\__prjs\\node\\node-login\\app\\server",
+			"C:\\Users\\Larry\\__prjs\\node\\node-login",
+			"C:\\Users\\Larry\\__prjs\\ourfield\\static",
+			"C:\\Users\\Larry\\__prjs\\ourfield",
+			"C:\\Users\\Larry\\__prjs\\ofm",
+			"C:\\Users\\Larry\\__prjs\\ourfield",
+			"C:\\Users\\Larry\\__prjs\\node\\express-backbone-coffee-template",
+			"C:\\Users\\Larry\\__prjs\\ofm",
+			"C:\\Users\\Larry\\__prjs\\ofm\\node_modules",
+			"C:\\Users\\Larry\\__prjs\\node\\backbone-cellar\\tutorial\\final",
+			"C:\\Users\\Larry\\__prjs\\nodeblox",
+			"C:\\Users\\Larry\\__prjs\\ubuntu\\dev\\tw",
+			"C:\\Users\\Larry\\__prjs\\ubuntu\\dev\\basic",
+			"C:\\Users\\Larry\\__prjs\\ubuntu\\dev\\tw",
+			"C:\\Users\\Larry\\__prjs\\ubuntu\\dev\\ofb",
+			"C:\\Users\\Larry\\__prjs\\ourfield",
+			"C:\\Users\\Larry\\__prjs\\nb\\nbn\\answers",
+			"C:\\Users\\Larry\\__prjs\\nb\\nbn\\answers,*.js",
+			"C:\\Users\\Larry\\__prjs\\nb\\nbn,*.php",
+			"C:\\Users\\Larry\\__prjs\\nb\\nbn",
+			"C:\\Users\\Larry\\__prjs\\nb\\nbn\\answers\\qa-include",
+			"C:\\Users\\Larry\\__prjs\\nb\\nbn\\answers",
+			"C:\\Users\\Larry\\__prjs\\nb\\nbn\\_lib",
+			"C:\\Users\\Larry\\__prjs\\nb\\nbn\\answers",
+			"C:\\Users\\Larry\\__prjs\\nb\\nbn\\qa",
+			"C:\\Users\\Larry\\__prjs\\ourfield\\static\\coffee",
+			"C:\\_prm",
+			"C:\\Users\\Larry\\__prjs\\ourfield\\static\\coffee",
+			"C:\\Users\\Larry\\__prjs\\ourfield\\ve\\Lib\\site-packages\\pinax\\projects\\basic_project",
+			"C:\\Users\\Larry\\__prjs\\ourfield",
+			"C:\\Users\\Larry\\__prjs\\ourfield_2\\templates",
+			"C:\\Users\\Larry\\__prjs\\ourfield\\templates",
+			"C:\\Users\\Larry\\__prjs\\ourfield_2"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"flask_seed",
+			"pyfme",
+			";%PROJECT_ROOT%",
+			"setattr",
+			"flask_seed.",
+			"views2",
+			"relativedelta",
+			"Kardboard",
+			"Person",
+			"slugify",
+			"toolbar",
+			"Toolbar",
+			"debug",
+			"DebugToolbarExtension",
+			"slug",
+			"templates",
+			"state",
+			"kardboard",
+			"KARDBOARD",
+			"kardboard",
+			"path",
+			"socket",
+			"state",
+			"views",
+			"state",
+			"recursive",
+			"for_jsonschema",
+			"_cls",
+			"_types",
+			"make_safe_python",
+			"make_safe_pytho",
+			"make_safe_python",
+			"_types",
+			"validate_class_partial",
+			"modelexception",
+			"to_python",
+			"base64",
+			"models",
+			"session",
+			"api",
+			"_cs",
+			"AppYAMLConfig",
+			"ext.",
+			"flaskext",
+			"docAttrsInit",
+			"_cs",
+			"post_sample_Prs",
+			"yaml",
+			"GeoPointType",
+			"logit",
+			"usrOID",
+			"json_util",
+			"dumps",
+			"yaml",
+			"isodate",
+			"coll",
+			"elem",
+			"logit",
+			"status_code",
+			"doc_remove_empty_keys",
+			"update",
+			"nextId",
+			"post_sample_cnt",
+			"listType",
+			"listTypeNamVal",
+			"listTypeNam_c",
+			"compound",
+			"mixin",
+			"EmbeddedDocument",
+			"mixin",
+			"unset",
+			"_isTmp",
+			"usrId",
+			"usrid",
+			"description=.*?description",
+			"minimized_field_name",
+			"print_name=\".*?\"",
+			"print_name='.*?', ",
+			"minimized_field_name",
+			"to_python",
+			"python",
+			"mixin",
+			"UU",
+			"UUU",
+			"collection",
+			"from jsondatetime",
+			"from utils.extensions",
+			"from extensions",
+			"from utils ",
+			"gsapi.utils",
+			"utils",
+			"m",
+			"model",
+			"collection_name",
+			"_c",
+			",",
+			"request",
+			"gsapi",
+			"models",
+			"flask-seed",
+			"gsapi",
+			"attribute",
+			"elemKey",
+			"onsave",
+			"dx",
+			"id",
+			"statis",
+			"email",
+			"%JAVA_HOME%\\bin\\java",
+			"duplicate-line",
+			"email",
+			"PYTHON_EXE",
+			"PROJECT_ROOT",
+			"PYTHON_HOME",
+			"PYTHON_ROOT",
+			"subl",
+			"python_exe",
+			"C:\\Users\\Larry",
+			"geo",
+			"tNam",
+			"locals",
+			"BaseType",
+			"Tel",
+			"primary",
+			"Phone",
+			"from model import Mod",
+			"user_id",
+			"^"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": true,
+		"regex": false,
+		"replace_history":
+		[
+			"pyfem",
+			"",
+			"flask_seed",
+			"Core",
+			"flask_seed",
+			"FLASKSEED",
+			"flask_seed",
+			"initDocListTypes",
+			"collNam",
+			"attrVal",
+			"status",
+			"attr",
+			"listTypeVal",
+			"listType_c",
+			"isTmp",
+			"usrOID",
+			"usrId",
+			"description",
+			"",
+			"print_name",
+			"coll",
+			"from utils.jsondatetime",
+			"from models.extensions",
+			"from utils.extensions",
+			"utils.utils",
+			"model",
+			"modelClass",
+			"collNam",
+			"trueteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteEiteE",
+			"\\n",
+			"/n",
+			"flask_seed",
+			"flask-seed",
+			"attr",
+			"elemId",
+			"slug",
+			"%JAVA_HOME%\\java",
+			"PYTHONEXE",
+			"PYTHONHOME",
+			"PYTHON_HOME",
+			"SUBL",
+			"PYTHON_EXE",
+			"%USERPROFILE%",
+			"nam",
+			"locs",
+			"prim",
+			"from mod import Mod",
+			"usrId",
+			"','",
+			"',/n'",
+			"tNam",
+			"Level ",
+			" ",
+			"- ",
+			"-",
+			"/n-",
+			"}]}",
+			"[",
+			"}}]}",
+			"[{us_en:",
+			", desc: }}}",
+			", desc: }",
+			"us_en: {tNamS: ",
+			"    ",
+			"Cmp",
+			"prefix",
+			", ",
+			"",
+			"\\n",
+			"docsFolder",
+			"PROJECTS_ROOT",
+			"%PYTHON_ROOT%",
+			"    ",
+			"\\\"",
+			",\\n",
+			"dNam",
+			"gsapi.existints",
+			"gsapi",
+			"exapi",
+			"class_name",
+			"Prs",
+			"model_classes_by_id",
+			"class_id",
+			"model_classes_by_c",
+			"'_c'",
+			"class_id",
+			"model_classes_by_c",
+			"\"_c\"",
+			"base_route",
+			"model_classes_by_route",
+			"model_name",
+			"Person",
+			"load_errors",
+			",\\n",
+			"schematics",
+			"\\\\",
+			"schematics",
+			"lNam",
+			"fNam",
+			"lNam",
+			"fNam",
+			"GenericHandler",
+			"ex",
+			"mongo.db",
+			"",
+			":",
+			"sample",
+			"docs_to_patch",
+			"docs_to_post",
+			"generic",
+			"\"",
+			"loads",
+			"contact_",
+			"Contact",
+			"ex",
+			"Contacts",
+			"contacts",
+			"ex",
+			"Contacts",
+			"contacts",
+			"DATABASE_URI",
+			"ex",
+			"BaseRequest",
+			"structures",
+			"schematics",
+			"lnam",
+			"self",
+			"model"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "pyfem/app.py",
+					"settings":
+					{
+						"buffer_size": 1490,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								563,
+								563
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 162.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "README.md",
+					"settings":
+					{
+						"buffer_size": 1323,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								330,
+								330
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/Markdown/Markdown.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 118.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"instal",
+				"node-mongoskin/deps/mongodb/install.js"
+			],
+			[
+				"ins",
+				"a2/node_modules/mongodb/install.js"
+			],
+			[
+				"las",
+				"of_api/v1/models/lastmod.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"insta",
+				"/C/Users/Larry/AppData/Roaming/Sublime Text 2/Packages/User/misc.sublime-project"
+			],
+			[
+				"",
+				"/C/Users/Larry/__prjs/ourfield/templates/map/ourfield.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 233.0,
+	"status_bar_visible": true
+}
