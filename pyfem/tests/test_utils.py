@@ -6,9 +6,9 @@ except ImportError:
 
 from core import BaseMongoTestCase
 
-class ModelsHelpers(BaseMongoTestCase):
+class Utils(BaseMongoTestCase):
     def setUp(self):
-        super(ModelsHelpers, self).setUp()
+        super(Utils, self).setUp()
 
     def test_prs(self):
         uc = self.usecase
