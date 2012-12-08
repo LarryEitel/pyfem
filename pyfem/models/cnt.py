@@ -18,7 +18,6 @@ class Cnt(MyDoc, Mixin):
 
         self._meta['fldsThatUpdt_dNam'] = ['fNam']
 
-
         errors = helpers.recurseValidateAndVOnUpSert(self)
 
         self._meta['collection'] = 'cnts'
@@ -62,8 +61,3 @@ class Prs(Cnt):
         if not 'slug' in d or not d['slug']:
             d['slug'] = d['dNamS']
         return {'doc_dict': d, 'errors': errors}
-
-    def save(self, *args, **kwargs):
-        #kwargs['validate'] = False
-        #kwargs['cascade_kwargs'] = kwargs
-        super(Prs, self).save(*args, **kwargs)
