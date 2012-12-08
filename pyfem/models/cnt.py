@@ -16,12 +16,16 @@ class Cnt(MyDoc, Mixin):
 
         self.mOn = now
 
+        self._meta['fldsThatUpdt_dNam'] = ['fNam']
+
+
         errors = helpers.recurseValidateAndVOnUpSert(self)
 
         self._meta['collection'] = 'cnts'
         if type(errors) == list:
             self._data['myErrors'] = errors
         else:
+            # turning off validation cause we do that in recurseValidateAndVOnUpSert
             kwargs['validate'] = False
             super(Cnt, self).save(*args, **kwargs)
 
@@ -60,4 +64,6 @@ class Prs(Cnt):
         return {'doc_dict': d, 'errors': errors}
 
     def save(self, *args, **kwargs):
+        #kwargs['validate'] = False
+        #kwargs['cascade_kwargs'] = kwargs
         super(Prs, self).save(*args, **kwargs)

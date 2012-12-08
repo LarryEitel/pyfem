@@ -23,8 +23,9 @@ def recurseVOnUpSert(doc, doc_class, key, val, attrPath, doc_errors):
                     error['eId'] = val['eId']
                 doc_errors.append(error)
 
+
 def recurseDoc(doc, key, val, recurseFn, attrPath, doc_errors):
-    '''Recursively traverse model class fields executing validate on any docs/embedded docs'''
+    '''Recursively traverse model class fields executing recurseFn function on any docs/embedded docs'''
     keyvals = {}
     if type(val) == dict:
         doc_class = getattr(models, val['_cls']) if '_cls' in val else None
