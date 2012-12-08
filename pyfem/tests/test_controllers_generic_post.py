@@ -4,11 +4,7 @@ try:
 except ImportError:
     import unittest  # NOQA
 
-import datetime
 from core import BaseMongoTestCase
-from bson import ObjectId
-from utils import myyaml
-import models
 import controllers
 
 class ControllersGenericPostTests(BaseMongoTestCase):
@@ -18,21 +14,6 @@ class ControllersGenericPostTests(BaseMongoTestCase):
         ucs = self.usecase
         ucs.load('usecases')
         self.ucs = ucs
-
-    def test_post_recursePreProcess(self):
-        ucs = self.ucs
-        ucs = self.usecase
-        ucs.load('usecases')
-        samp_prss = ucs.uc_dat['prs']
-        emails_with_no_eIds = samp_prss['emails_with_no_eIds']
-
-        fn = controllers.generic_post.GenericPost(self.g)
-
-        # try one doc
-        resp = fn.post(**{'docs': [emails_with_no_eIds]})
-        assert resp['status'] == 200
-        assert len(resp['response']['docs']) == 1
-
 
     def test_post_new(self):
         ucs = self.ucs
@@ -52,7 +33,5 @@ class ControllersGenericPostTests(BaseMongoTestCase):
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == len(multiple_docs)
 
-        x=0
-        # test validation including embedded docs!
 if __name__ == "__main__":
     unittest.main()

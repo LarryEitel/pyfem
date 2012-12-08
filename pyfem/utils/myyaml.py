@@ -8,6 +8,7 @@ except ImportError:
 # http://pyyaml.org/wiki/PyYAMLDocumentation
 
 def pyObj(yamlFilePath):
+    yamlFilePath += '.yaml' if '.yaml' not in yamlFilePath else ''
     "Returns python object from yaml file."
     if not os.path.exists(yamlFilePath):
         raise Exception('File does not exist: %s' % yamlFilePath)
