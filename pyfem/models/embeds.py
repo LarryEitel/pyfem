@@ -19,7 +19,7 @@ class Tel(MyEmbedDoc, EmbedMixin):
 
 class Note(MyEmbedDoc, EmbedMixin):
     #address = app.db.EmailField(required= True)
-    title = MyStringField(required= True)
+    title = MyStringField(required= True, max_length=10)
     body  = app.db.StringField()
     tels  = app.db.ListField(app.db.EmbeddedDocumentField(Tel))
 
@@ -29,13 +29,15 @@ class Note(MyEmbedDoc, EmbedMixin):
         s += self.title if self.title else ''
         return s
 
+    _meta = {'fldsThatUpdt_dNam': ['typ', 'title']}
+
     @staticmethod
     def vOnUpSert(d):
         errors = []
         dNam = (d['typ'] + ': ') if 'typ' in d and d['typ'] else ''
-        dNam += d['title'].lower() if 'title' in d and d['title'] else ''
+        dNam += d['title'] if 'title' in d and d['title'] else ''
         d['dNam'] = dNam
-        d['dNamS'] = d['title'].lower().replace(' ', '_')
+        d['dNamS'] = d['dNam'].lower().replace(' ', '_')
         return {'doc_dict': d, 'errors': errors}
 
 class Email(MyEmbedDoc, EmbedMixin):
@@ -64,9 +66,9 @@ class Mixin(object):
     dNam   = app.db.StringField()
     dNamS  = app.db.StringField()
     slug   = app.db.StringField()
-    
+
     sId    = app.db.SequenceField()
-    
+
     oBy    = app.db.ObjectIdField()
     oOn    = app.db.DateTimeField()
     cBy    = app.db.ObjectIdField()

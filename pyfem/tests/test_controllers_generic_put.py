@@ -27,10 +27,20 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == 1
 
-        data = sampDat['PrsPut_fNam']
+        #sampItem = sampDat['PrsPut_fNam']
+        #resp = put(**sampItem)
+        #assert resp['status'] == 200
+        #respDoc = resp['response']['doc']
+        #assert respDoc['fNam'] == sampItem['update']['flds']['fNam']['val']
 
-        resp = put(**data)
+        sampItem = sampDat['PrsPut_emails_2_notes_1']
+        resp = put(**sampItem)
+        assert resp['status'] == 200
 
+
+        sampItem = sampDat['PrsPut_emails_2_typ']
+        resp = put(**sampItem)
+        assert resp['status'] == 200
         x=0
 
 

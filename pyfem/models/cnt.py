@@ -47,7 +47,7 @@ class Prs(Cnt):
     prefix    = app.db.StringField()
 
     # givenName
-    fNam      = MyStringField(required=True, max_length=10)
+    fNam      = MyStringField(required=True)
 
     # additionalName
     fNam2     = app.db.StringField()
