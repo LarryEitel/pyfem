@@ -36,17 +36,19 @@ class GenericPut(object):
 
         # first seg will be the primary field name that we are focused on
         # ie, emails
-        primFldNam = eIdPath[0]
+        baseFldNam = eIdPath[0]
+
+        logFlds = ['oBy', 'oOn', 'oAt']
 
         # get doc with emails parent doc
         # for convenience, lets get _id in case another query was used
         # Note that we are limiting updates to ONE doc at this time
-        doc = coll.find_one(query = qryDat, fields = ['_id', primFldNam])
+        baseDoc = coll.find_one(query = qryDat, fields = ['_id', baseFldNam] + logFlds)
 
         # need to convert eId to offset notation
         # used by pymongo to reach in to a subdoc
-        docFld = doc[primFldNam]
-        targetDoc = doc
+        docFld = baseDoc[baseFldNam]
+        targetDoc = baseDoc
         offsetPath = []
         for seg in eIdPath:
             if not seg.isdigit():
@@ -91,6 +93,7 @@ class GenericPut(object):
             new = True
         )
 
+
         # validate actions and update values to be put/patched to the targetDoc
         errors = {}
         patchActions = {}
@@ -117,6 +120,13 @@ class GenericPut(object):
         patchActions['$unset'][targetPath + '.locked'] = True
 
         # need to log change
+        resp = models.logit(self.usr, baseDoc, targetDoc)
+        updtFlds = resp['response']['updtFlds']
+        if updtFlds:
+            if not '$set' in patchActions:
+                patchActions['$set'] = {}
+            for fld, val in updtFlds.iteritems():
+                patchActions['$set'][targetPath + '.' + fld] = val
 
         # if targetDoc has fields that are used to generate dNam/dNamS (Display Name & Short)
         # need to fire targetDocCls.vOnUpSert() function and add dNam/dNamS to patchActions
@@ -141,123 +151,9 @@ class GenericPut(object):
         )
 
 
-        # need to get base doc/sub-doc in order to validate, update eId's, logit etc
-        # although very brief, need to lock doc/sub-doc just in case of a race.
-        qryDat = {'slug': 'LarryStooge'}
-        doc = coll.find_and_modify(
-            query = qryDat,
-            update = {'$set': {'locked': True}},
-            new = True
-        )
-        doc = coll.find_one(
-            query = qryDat,
-            fields = ['emails']
-        )
-
-        # need to validate submitted values
-        errors = {}
-        for fldNam in fldNams:
-            fldCls = getattr(mCls, fldNam)
-            if 'fld' in patchDat['flds'][fldNam]:
-                fldMember = fldCls.field.lookup_member(patchDat['flds'][fldNam]['fld'])
-            else:
-                fldMember = fldCls.field.lookup_member(fldNam)
-
-            fldMember.validate(patchDat['flds'][fldNam]['val'])
-            if hasattr(fldMember, 'myError'):
-                errors[fldNam] = fldMember.myError
-                patchDat['flds'][fldNam]['error'] = fldMember.myError
-
-        # handle errors
-        if errors:
-            response['errors'] = errors
-            response['patchDat'] = patchDat
-            return {'response': response, 'status': 400}
-
-        # build find_and_modify patchDat params
-        fldsToUpdt = {}
-        for fldNam in fldNams:
-            fld = patchDat['flds'][fldNam]
-            fldsToUpdt[fld['pos']] = fld['val']
-
-        # If so, need to check for an tos/frs to traverse since they contain refs to this dNam
-
-        # need to log patchDat
-        # need to increment eId if list item
-        doc = coll.find_and_modify(
-            query = qryDat,
-            update = {patchDat['cmd']: fldsToUpdt},
-            new = True
-        )
-        #query = {'slug': 'LarryStooge', 'emails.eId':2}
-        #patchDat = {'$set': {'emails.$.typ': 'fun'}}
-        #doc = coll.find_and_modify(
-            #query = query,
-            #patchDat = patchDat,
-            #new = True
-        #)
         response['_id'] = doc['_id']
         response['OID'] = doc['_id'].__str__()
+        response['baseFld'] = {baseFldNam: doc[baseFldNam]}
         response['doc'] = doc
 
         return {'response': response, 'status': status}
-        x=0
-
-
-        # # if element eId was passed, expect to put/patch change to one element in a Listfld
-        # if eId and len(patch) == 1:
-        #     elem    = patch.popitem()
-        #     attrNam = elem[0]
-
-        #     # enhance to support putting/updating multiple list elements
-        #     attrVal = elem[1][0]
-
-        #     resp    = preSave(attrVal, self.usr)
-        #     if not resp['status'] == 200:
-        #         return {'response': resp, 'status': 400}
-
-        #     attrVal = resp['response']['doc']
-        #     # http://docs.mongodb.org/manual/applications/patchDat/
-        #     # patch patchDat in tmp collection
-        #     attrEl = attrNam + '.$'
-        #     doc = collTmp.find_and_modify(
-        #         query = where,
-        #         patchDat = { "$set": { attrEl: attrVal }},
-        #         new = True
-        #     )
-        #     response['collection'] = collNamTmp
-        #     response['total_invalid'] = 0
-        #     response['id'] = id.__str__()
-
-        #     # remove this, not needed
-        #     response['doc'] = doc
-
-        #     return {'response': response, 'status': 200}
-        # else:
-        #     # validate patch
-        #     # init mCls for this doc
-        #     patch_errors = validate_partial(mCls, patch)
-        #     if patch_errors:
-        #         response['errors'] = patch_errors['errors']
-        #         response['total_errors'] = patch_errors['count']
-        #         status = 500
-
-        #         return prep_response(response, status = status)
-
-        #     # logit patchDat
-        #     patch = logit(self.usr, patch)
-
-        #     # patch patchDat in tmp collection
-        #     doc = collTmp.find_and_modify(
-        #         query = where,
-        #         patchDat = {"$set": patch},
-        #         new = True
-        #     )
-
-        # # init model instance
-        # model      = mCls(**doc)
-
-        # response['total_invalid'] = 0
-        # response['id'] = id.__str__()
-
-        # return {'response': response, 'status': status}

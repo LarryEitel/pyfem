@@ -38,10 +38,10 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         assert resp['status'] == 200
 
 
-        sampItem = sampDat['PrsPut_emails_2_typ']
-        resp = put(**sampItem)
-        assert resp['status'] == 200
-        x=0
+        #sampItem = sampDat['PrsPut_emails_2_typ']
+        #resp = put(**sampItem)
+        #assert resp['status'] == 200
+        #x=0
 
 
 

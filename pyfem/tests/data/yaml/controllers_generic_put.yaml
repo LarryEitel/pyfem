@@ -46,6 +46,7 @@ PrsLarryStooge:
   slug  : LarryStooge
   fNam  : Larry
   lNam  : Stooge
+  oBy  : 50c502b7936aa20e20edd211
   emails:
     - _cls   : Email
       _types : [Email]
