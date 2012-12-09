@@ -4,8 +4,6 @@
 test:
   - [add, Prs, larry_stooge]
   - [add, Prs, moe_stooge]
-  - [add, Tel, test_home_1, moe_stooge]
-  - [del, Tel, test_home_1, moe_stooge]
 one:
   - [add, Prs, larry_stooge]
   - [add, Prs, moe_stooge]

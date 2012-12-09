@@ -8,6 +8,13 @@ import helpers
 class Cnt(MyDoc, Mixin):
     code = app.db.StringField()
 
+
+    _meta = {
+        'collection': 'cnts',
+        'allow_inheritance': True,
+        'fldsThatUpdt_dNam': ['fNam']
+        }
+
     def save(self, *args, **kwargs):
         now = datetime.datetime.now()
 
@@ -16,6 +23,7 @@ class Cnt(MyDoc, Mixin):
 
         self.mOn = now
 
+        # mongoengine may not extend this to subclassed models
         self._meta['fldsThatUpdt_dNam'] = ['fNam']
 
         errors = helpers.recurseValidateAndVOnUpSert(self)
@@ -31,6 +39,7 @@ class Cnt(MyDoc, Mixin):
 
 class Cmp(Cnt):
     symbol = app.db.StringField()
+
 
 class Prs(Cnt):
     # namePrefix
@@ -51,6 +60,11 @@ class Prs(Cnt):
     gen       = app.db.StringField()
     rBy       = app.db.ObjectIdField()
 
+
+    meta = {
+        'collection': 'cnts',
+        'allow_inheritance': True,
+        }
 
     @staticmethod
     def vOnUpSert(d):

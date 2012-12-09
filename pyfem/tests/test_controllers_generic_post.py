@@ -6,32 +6,40 @@ except ImportError:
 
 from core import BaseMongoTestCase
 import controllers
+from utils import myyaml
 
 class ControllersGenericPostTests(BaseMongoTestCase):
 
     def setUp(self):
         super(ControllersGenericPostTests, self).setUp()
-        ucs = self.usecase
+        ucs          = self.usecase
         ucs.load('usecases')
-        self.ucs = ucs
+        self.ucs     = ucs
+        self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'controllers_generic_post')
 
-    def test_post_new(self):
-        ucs = self.ucs
-        samp_prss = ucs.uc_dat['prs']
-        larry_stooge = samp_prss['larry_stooge']
-
-        fn = controllers.generic_post.GenericPost(self.g)
-
+    def test_post_new_one(self):
+        ucs     = self.ucs
+        sampDat = self.sampDat
+        doc     = sampDat['PrsMoeStooge']
+        
+        post    = controllers.generic_post.GenericPost(self.g).post
+        
         # try one doc
-        resp = fn.post(**{'docs': [larry_stooge]})
+        resp    = post(**{'docs': [doc]})
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == 1
 
+    def test_post_new_several(self):
+        ucs     = self.ucs
+        sampDat = self.sampDat
+        
+        post    = controllers.generic_post.GenericPost(self.g).post
+        
         # try several docs
-        multiple_docs = samp_prss.values()[:1]
-        resp = fn.post(**{'docs': multiple_docs})
+        docs    = sampDat.values()[:1]
+        resp    = post(**{'docs': docs})
         assert resp['status'] == 200
-        assert len(resp['response']['docs']) == len(multiple_docs)
+        assert len(resp['response']['docs']) == len(docs)
 
 if __name__ == "__main__":
     unittest.main()
