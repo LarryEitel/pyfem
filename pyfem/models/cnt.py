@@ -3,6 +3,7 @@ import datetime
 from app import app
 import models
 from models import Mixin, Email, Note, MyDoc
+from models.myfields import MyStringField
 import helpers
 
 class Cnt(MyDoc, Mixin):
@@ -46,7 +47,7 @@ class Prs(Cnt):
     prefix    = app.db.StringField()
 
     # givenName
-    fNam      = app.db.StringField(required= True)
+    fNam      = MyStringField(required=True, max_length=10)
 
     # additionalName
     fNam2     = app.db.StringField()

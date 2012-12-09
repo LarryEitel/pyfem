@@ -6,15 +6,16 @@ PrsPut_fNam:
   query: 
     slug: LarryStooge
   update:
-    - $cmd: set
-      pos: fNam
-      field: fNam
-      _cls: String
-      val : Mary
-    - pos: lNam
-      field: lNam
-      _cls: String # default to non-validating field
-      val : Smith
+    cmd: $set
+    items:
+      - pos: fNam
+        field: fNam
+        _cls: String
+        val : Mary
+      - pos: lNam
+        field: lNam
+        _cls: String # default to non-validating field
+        val : Smith
 PrsLarryStooge:
   _cls: Prs
   slug  : LarryStooge

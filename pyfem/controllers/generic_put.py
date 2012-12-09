@@ -31,27 +31,53 @@ class GenericPut(object):
         status     = 200
 
         # get fields targeted for update
-        fields = [updateItem['field'] for updateItem in update if 'field' in updateItem]
+        fields = [updateItem['field'] for updateItem in update['items'] if 'field' in updateItem]
+
+        # are any of them involved in generating dNam/dNamS?
         updateLnks = False
         if 'fldsThatUpdt_dNam' in modelClass._meta:
             dNamFlds = set(modelClass._meta['fldsThatUpdt_dNam'])
             fldsThatUpdt_dNam = [field for i, field in enumerate(fields) if field in dNamFlds]
             updateLnks = len(fldsThatUpdt_dNam) > 0
 
+
+        # need to validate submitted values
+        errors = {}
+        for i, item in enumerate(update['items']):
+            fieldClass = getattr(modelClass, item['field'])
+            fieldClass.validate(item['val'])
+            if hasattr(fieldClass, 'myError'):
+                errors[item['field']] = fieldClass.myError
+                update['items'][i]['error'] = fieldClass.myError
+
+        # handle errors
+        if errors:
+            response['errors'] = errors
+            response['update'] = update
+            return {'response': response, 'status': 400}
+
+        # build find_and_modify update params
+        updateFieldValues = {}
+        for i, item in enumerate(update['items']):
+            updateFieldValues[item['pos']] = item['val']
+
+        # If so, need to check for an tos/frs to traverse since they contain refs to this dNam
+
+        # need to log update
+        # need to increment eId if list item
+
+        doc = coll.find_and_modify(
+            query = query,
+            update = {update['cmd']: updateFieldValues},
+            new = True
+        )
         x=0
+
 
         # do they impact dNam?
         # is the update val a class that needs to be validated?
 
 
-
-
-        # doc = coll.find_and_modify(
-        #     query = query,
-        #     update = update,
-        #     new = True
-        # )
-        # x=0
 
 
         # # if element eId was passed, expect to put/patch change to one element in a ListField
