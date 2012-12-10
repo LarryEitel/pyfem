@@ -104,8 +104,6 @@ class GenericPut(object):
             new = True
         )
 
-
-
         # are any of them involved in generating dNam/dNamS?
         updateLnks = False
         if 'fldsThatUpdt_dNam' in targetDocCls._meta:
@@ -113,43 +111,78 @@ class GenericPut(object):
             fldsThatUpdt_dNam = [fld for i, fld in enumerate(fldNams) if fld in dNamFlds]
             updateLnks = len(fldsThatUpdt_dNam) > 0
 
-
-
         # validate actions and update values to be put/patched to the targetDoc
         errors = {}
         patchActions = {}
+        fldCls = None
         for a, action in enumerate(patchDat['actions']):
             flds = patchDat['actions'][action]['flds']
-            fldUpdates = {}
-            for fld, val in flds.iteritems():
-                # need to validate val
-                # targetNote is the dict of the doc containing the field to update
-                fldCls = getattr(targetDocCls, fld)
 
-                doc_errors = []
-                attrPath = []
-                recurseDoc(targetDoc, fld, targetDoc, recurseValidate, attrPath, doc_errors)
+            if action in ['$push', '$pushAll']:
+                listItemsToAdd = []
+                # push can add 1 or more vals/items
+                for fld, val in flds.iteritems():
+                    fldUpdates = {}
 
-                if doc_errors:
-                    return doc_errors
+                    # need to init targetDocFld class,
+                    fldCls = getattr(models, val[0]['_cls']) if not fldCls else fldCls
+                    for i, docVal in enumerate(val):
+                        # need to validate docVal
 
-                attrPath = []
-                recurseDoc(targetDoc, fld, targetDoc, recurseVOnUpSert, attrPath, doc_errors)
+                        doc_errors = []
+                        attrPath = []
+                        key = None
+                        recurseDoc(docVal, key, docVal, recurseValidate, attrPath, doc_errors)
 
-                if doc_errors:
-                    return doc_errors
+                        if doc_errors:
+                            return doc_errors
 
-                if hasattr(fldCls, 'myError'):
-                    errors[fld] = fldCls.myError
-                    flds[fld] = {'val': val, 'error': fldCls.myError}
-                else:
-                    targetDoc[fld] = val
-                    fldUpdates['.'.join(target_offsetPath + [fld])] = val
+                        attrPath = []
+                        recurseDoc(docVal, key, docVal, recurseVOnUpSert, attrPath, doc_errors)
 
-                    if '_eIds' in targetDoc:
-                        fldUpdates['.'.join(target_offsetPath + ['_eIds'])] = targetDoc['_eIds']
+                        if doc_errors:
+                            return doc_errors
 
-            patchActions[action] = fldUpdates
+                        if hasattr(fldCls, 'myError'):
+                            errors[fld] = fldCls.myError
+                            flds[fld] = {'val': docVal, 'error': fldCls.myError}
+                        else:
+                            targetDoc[fld] = docVal
+                            listItemsToAdd.append(docVal)
+
+                    fldUpdates['.'.join(target_offsetPath + [fld])] = listItemsToAdd
+                patchActions[action] = fldUpdates
+            else:
+                fldUpdates = {}
+                for fld, val in flds.iteritems():
+                    # need to validate val
+                    # targetNote is the dict of the doc containing the field to update
+                    fldCls = getattr(targetDocCls, fld)
+
+                    doc_errors = []
+                    attrPath = []
+                    recurseDoc(targetDoc, fld, targetDoc, recurseValidate, attrPath, doc_errors)
+
+                    if doc_errors:
+                        return doc_errors
+
+                    attrPath = []
+                    recurseDoc(targetDoc, fld, targetDoc, recurseVOnUpSert, attrPath, doc_errors)
+
+                    if doc_errors:
+                        return doc_errors
+
+                    if hasattr(fldCls, 'myError'):
+                        errors[fld] = fldCls.myError
+                        flds[fld] = {'val': val, 'error': fldCls.myError}
+                    else:
+                        targetDoc[fld] = val
+                        fldUpdates['.'.join(target_offsetPath + [fld])] = val
+
+                        if '_eIds' in targetDoc:
+                            fldUpdates['.'.join(target_offsetPath + ['_eIds'])] = targetDoc['_eIds']
+
+                patchActions[action] = fldUpdates
 
         # need to include fldUpdate to unlock targetDoc
         if not '$unset' in patchActions:

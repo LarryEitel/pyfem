@@ -1,8 +1,27 @@
 # http://yaml-online-parser.appspot.com
 # Attribute Types
 # http://stackoverflow.com/questions/10805474/updating-specific-record-in-inner-collection-with-mongodb
+PrsPutAddEmail:
+  # add a new email to emails
+  _cls: Prs
+  query: 
+    slug: LarryStooge
+  update:
+    target_eIdPath: 
+    actions:
+      $pushAll:
+        flds:
+          emails:
+            - _cls   : Email # maybe not necessary if I know _cls of target ListField
+              _types : [Email] # necessary?
+              typ    : work
+              address: timothy@ms.com
+            - _cls   : Email # maybe not necessary if I know _cls of target ListField
+              _types : [Email] # necessary?
+              typ    : home
+              address: sam@ms.com
 PrsPut_emails_1:
-  # update first title in note.eId=1 in second email.eId=2
+  # update emails[0] fields and add a notes list with a new note missing eId
   _cls: Prs
   query: 
     slug: LarryStooge
