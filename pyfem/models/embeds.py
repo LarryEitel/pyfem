@@ -19,7 +19,7 @@ class Tel(MyEmbedDoc, EmbedMixin):
 
 class Note(MyEmbedDoc, EmbedMixin):
     #address = app.db.EmailField(required= True)
-    title = MyStringField(required= True, max_length=10)
+    title = MyStringField(required= True)
     body  = app.db.StringField()
     tels  = app.db.ListField(app.db.EmbeddedDocumentField(Tel))
 
@@ -37,7 +37,9 @@ class Note(MyEmbedDoc, EmbedMixin):
         dNam = (d['typ'] + ': ') if 'typ' in d and d['typ'] else ''
         dNam += d['title'] if 'title' in d and d['title'] else ''
         d['dNam'] = dNam
-        d['dNamS'] = d['dNam'].lower().replace(' ', '_')
+        dNamS = (d['typ'] + '__') if 'typ' in d and d['typ'] else ''
+        dNamS += d['title'].lower().replace(' ', '_')
+        d['dNamS'] = dNamS
         return {'doc_dict': d, 'errors': errors}
 
 class Email(MyEmbedDoc, EmbedMixin):

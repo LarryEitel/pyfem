@@ -74,7 +74,6 @@ def recurseValidateAndVOnUpSert(m):
     doc = docData
 
     doc_errors = []
-    attrPath = [m._cls, m.id if m.id else 'new']
 
     attrPath = []
     recurseDoc(docData, m._cls, docData, recurseValidate, attrPath, doc_errors)

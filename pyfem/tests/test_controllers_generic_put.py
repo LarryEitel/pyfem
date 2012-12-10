@@ -27,21 +27,27 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == 1
 
-        #sampItem = sampDat['PrsPut_fNam']
-        #resp = put(**sampItem)
-        #assert resp['status'] == 200
-        #respDoc = resp['response']['doc']
-        #assert respDoc['fNam'] == sampItem['update']['flds']['fNam']['val']
-
-        sampItem = sampDat['PrsPut_emails_2_notes_1']
+        # put fNam & lNam
+        sampItem = sampDat['PrsPut_fNam']
         resp = put(**sampItem)
         assert resp['status'] == 200
+        targetDoc = resp['response']['doc']
+        assert targetDoc['fNam'] == sampItem['update']['actions']['$set']['flds']['fNam']
+        assert targetDoc['dNam'] == 'Mary Smith'
 
+        # put embedded note title
+        sampItem = sampDat['PrsPut_emails_2_notes_1_title']
+        resp = put(**sampItem)
+        assert resp['status'] == 200
+        targetDoc = resp['response']['doc']['emails'][1]['notes'][0]
+        assert targetDoc['title'] == sampItem['update']['actions']['$set']['flds']['title']
+        assert 'mBy' in targetDoc
+        assert targetDoc['dNam'] == 'work: New Title'
 
         #sampItem = sampDat['PrsPut_emails_2_typ']
         #resp = put(**sampItem)
         #assert resp['status'] == 200
-        #x=0
+        x=0
 
 
 

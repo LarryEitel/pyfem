@@ -2,41 +2,35 @@
 # Attribute Types
 # http://stackoverflow.com/questions/10805474/updating-specific-record-in-inner-collection-with-mongodb
 PrsPut_fNam:
+  # update first title in note.eId=1 in second email.eId=2
   _cls: Prs
   query: 
     slug: LarryStooge
   update:
-    cmd: $set
-    flds:
-      fNam:
-        pos: fNam
-        _cls: String
-        val : Mary
-      lNam:
-        pos: lNam
-        _cls: String # default to non-validating field
-        val : Smith
-PrsPut_emails_2_typ:
+    target_eIdPath: 
+    actions:
+      $set:
+        flds:
+          fNam: Mary
+          lNam: Smith
+PrsPut_emails_2_notes_1_title:
+  # update first title in note.eId=1 in second email.eId=2
   _cls: Prs
   query: 
     slug: LarryStooge
-    emails.eId: 2
   update:
-    eId: 2
-    cmd: $set
-    flds:
-      emails:
-        pos: emails.$.typ
-        fld: typ
-        _cls: Email
-        val : 
+    target_eIdPath: emails.2.notes.1 # numbers refer to eId's, NOT element offsets
+    actions:
+      $set:
+        flds:
+          title: New Title
 PrsPut_emails_2_notes_1:
   # update first title in note.eId=1 in second email.eId=2
   _cls: Prs
   query: 
     slug: LarryStooge
   update:
-    docPath: emails.2.notes.1 # numbers refer to eId's, NOT element offsets
+    target_eIdPath: emails.2.notes.1 # numbers refer to eId's, NOT element offsets
     actions:
       $set:
         flds:
