@@ -52,13 +52,19 @@ class Email(MyEmbedDoc, EmbedMixin):
         s += self.address if self.address else ''
         return s
 
+    _meta = {'fldsThatUpdt_dNam': ['typ', 'address']}
+
     @staticmethod
     def vOnUpSert(d):
         errors = []
         dNam = (d['typ'] + ': ') if 'typ' in d and d['typ'] else ''
         dNam += d['address'].lower() if 'address' in d and d['address'] else ''
+        dNam += ' (Primary)' if 'prim' in d and d['prim'] else ''
         d['dNam'] = dNam
-        d['dNamS'] = d['address'].lower()
+        dNamS = (d['typ'] + '__') if 'typ' in d and d['typ'] else ''
+        dNamS += d['address'].lower()
+        dNamS += '__prim' if 'prim' in d and d['prim'] else ''
+        d['dNamS'] = dNamS
         return {'doc_dict': d, 'errors': errors}
 
 class Mixin(object):

@@ -1,6 +1,25 @@
 # http://yaml-online-parser.appspot.com
 # Attribute Types
 # http://stackoverflow.com/questions/10805474/updating-specific-record-in-inner-collection-with-mongodb
+PrsPut_emails_1:
+  # update first title in note.eId=1 in second email.eId=2
+  _cls: Prs
+  query: 
+    slug: LarryStooge
+  update:
+    target_eIdPath: emails.1
+    actions:
+      $set:
+        flds:
+          typ    : work
+          address: freddy@ms.com
+          prim   : true
+          notes:
+            - _cls   : Note
+              _types : [Note]
+              typ    : work
+              title  : this is a
+              body   : Now is the time
 PrsPut_fNam:
   # update first title in note.eId=1 in second email.eId=2
   _cls: Prs
@@ -14,17 +33,6 @@ PrsPut_fNam:
           fNam: Mary
           lNam: Smith
 PrsPut_emails_2_notes_1_title:
-  # update first title in note.eId=1 in second email.eId=2
-  _cls: Prs
-  query: 
-    slug: LarryStooge
-  update:
-    target_eIdPath: emails.2.notes.1 # numbers refer to eId's, NOT element offsets
-    actions:
-      $set:
-        flds:
-          title: New Title
-PrsPut_emails_2_notes_1:
   # update first title in note.eId=1 in second email.eId=2
   _cls: Prs
   query: 

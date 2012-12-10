@@ -133,16 +133,22 @@ class GenericPut(object):
                 if doc_errors:
                     return doc_errors
 
+                attrPath = []
+                recurseDoc(targetDoc, fld, targetDoc, recurseVOnUpSert, attrPath, doc_errors)
 
-                # fldCls.validate(val)
+                if doc_errors:
+                    return doc_errors
 
-                # TODO: need to consider my recurse function here because it validate more than just top level replacement value. The value can be itself a nest doc
                 if hasattr(fldCls, 'myError'):
                     errors[fld] = fldCls.myError
                     flds[fld] = {'val': val, 'error': fldCls.myError}
                 else:
                     targetDoc[fld] = val
                     fldUpdates['.'.join(target_offsetPath + [fld])] = val
+
+                    if '_eIds' in targetDoc:
+                        fldUpdates['.'.join(target_offsetPath + ['_eIds'])] = targetDoc['_eIds']
+
             patchActions[action] = fldUpdates
 
         # need to include fldUpdate to unlock targetDoc

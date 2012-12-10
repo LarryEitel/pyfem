@@ -27,26 +27,33 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == 1
 
-        # put fNam & lNam
-        sampItem = sampDat['PrsPut_fNam']
+        ## put fNam & lNam
+        #sampItem = sampDat['PrsPut_fNam']
+        #resp = put(**sampItem)
+        #assert resp['status'] == 200
+        #targetDoc = resp['response']['doc']
+        #assert targetDoc['fNam'] == sampItem['update']['actions']['$set']['flds']['fNam']
+        #assert targetDoc['dNam'] == 'Mary Smith'
+
+        ## put embedded note title
+        #sampItem = sampDat['PrsPut_emails_2_notes_1_title']
+        #resp = put(**sampItem)
+        #assert resp['status'] == 200
+        #targetDoc = resp['response']['doc']['emails'][1]['notes'][0]
+        #assert targetDoc['title'] == sampItem['update']['actions']['$set']['flds']['title']
+        #assert 'mBy' in targetDoc
+        #assert targetDoc['dNam'] == 'work: New Title'
+
+        # update emails[0] fields and add a notes list with a new note missing eId
+        sampItem = sampDat['PrsPut_emails_1']
         resp = put(**sampItem)
         assert resp['status'] == 200
         targetDoc = resp['response']['doc']
-        assert targetDoc['fNam'] == sampItem['update']['actions']['$set']['flds']['fNam']
-        assert targetDoc['dNam'] == 'Mary Smith'
+        targetElem = targetDoc['emails'][0]
+        assert targetElem['dNamS'] ==  "work__freddy@ms.com__prim"
+        assert targetElem['notes'][0]['eId'] ==  1
+        assert targetElem['_eIds']['notes'] ==  2
 
-        # put embedded note title
-        sampItem = sampDat['PrsPut_emails_2_notes_1_title']
-        resp = put(**sampItem)
-        assert resp['status'] == 200
-        targetDoc = resp['response']['doc']['emails'][1]['notes'][0]
-        assert targetDoc['title'] == sampItem['update']['actions']['$set']['flds']['title']
-        assert 'mBy' in targetDoc
-        assert targetDoc['dNam'] == 'work: New Title'
-
-        #sampItem = sampDat['PrsPut_emails_2_typ']
-        #resp = put(**sampItem)
-        #assert resp['status'] == 200
         x=0
 
 
