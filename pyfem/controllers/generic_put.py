@@ -32,7 +32,7 @@ class GenericPut(object):
         status     = 200
 
         # fields to get from baseDoc find
-        baseFldNams = ['_id', 'oBy', 'oOn', 'oAt']
+        baseFldNams = ['_id', '_eIds', 'eId', 'oBy', 'oOn', 'oAt']
 
         # get fldNams targeted for patchDat
         fldNams = []
@@ -97,7 +97,6 @@ class GenericPut(object):
         # if unsuccessful, return error
 
         # lock target doc
-        qryDat = {'slug': 'LarryStooge'}
         doc = coll.find_and_modify(
             query = qryDat,
             update = {'$set': {'.'.join(target_offsetPath + ['locked']): True}},
@@ -111,6 +110,7 @@ class GenericPut(object):
             fldsThatUpdt_dNam = [fld for i, fld in enumerate(fldNams) if fld in dNamFlds]
             updateLnks = len(fldsThatUpdt_dNam) > 0
 
+
         # validate actions and update values to be put/patched to the targetDoc
         errors = {}
         patchActions = {}
@@ -118,40 +118,68 @@ class GenericPut(object):
         for a, action in enumerate(patchDat['actions']):
             flds = patchDat['actions'][action]['flds']
 
-            if action in ['$push', '$pushAll']:
-                listItemsToAdd = []
-                # push can add 1 or more vals/items
+            if action == '$push':
+                # hackage here
+                # need to create a fake parent doc to hold the items that will be added.
+                # if there is an _eIds, grab it cause we will use it
+                # link to items to be added so that they can be validated
+                proxyTargetDoc = {}
+                if '_eIds' in targetDoc:
+                    proxyTargetDoc['_eIds'] = targetDoc['_eIds']
+
+                # add to proxy
+                for fld, fldItems in flds.iteritems():
+                    proxyTargetDoc[fld] = fldItems
+
+
+                # each fld can push/add 1 or more vals/items
                 for fld, val in flds.iteritems():
                     fldUpdates = {}
+                    # get next eId for this fld or 1 if not yet set
+                    next_eId = proxyTargetDoc['_eIds'][fld] if fld in proxyTargetDoc['_eIds'] else 1
 
-                    # need to init targetDocFld class,
-                    fldCls = getattr(models, val[0]['_cls']) if not fldCls else fldCls
-                    for i, docVal in enumerate(val):
-                        # need to validate docVal
 
-                        doc_errors = []
-                        attrPath = []
-                        key = None
-                        recurseDoc(docVal, key, docVal, recurseValidate, attrPath, doc_errors)
+                # need to set eIds for items to be added
+                proxyFld = proxyTargetDoc[fld]
+                for i, item in enumerate(proxyFld):
+                    proxyFld[i]['eId'] = next_eId
+                    next_eId += 1
+                proxyTargetDoc['_eIds'][fld] = next_eId
 
-                        if doc_errors:
-                            return doc_errors
+                doc_errors = []
+                attrPath = []
 
-                        attrPath = []
-                        recurseDoc(docVal, key, docVal, recurseVOnUpSert, attrPath, doc_errors)
+                fldCls = getattr(targetDocCls, fld)
 
-                        if doc_errors:
-                            return doc_errors
+                # need to validate docs
+                recurseDoc(proxyTargetDoc, fld, proxyTargetDoc, recurseValidate, attrPath, doc_errors)
 
-                        if hasattr(fldCls, 'myError'):
-                            errors[fld] = fldCls.myError
-                            flds[fld] = {'val': docVal, 'error': fldCls.myError}
-                        else:
-                            targetDoc[fld] = docVal
-                            listItemsToAdd.append(docVal)
+                if doc_errors:
+                    return doc_errors
 
+                attrPath = []
+                recurseDoc(proxyTargetDoc, fld, proxyTargetDoc, recurseVOnUpSert, attrPath, doc_errors)
+
+                if doc_errors:
+                    return doc_errors
+
+                listItemsToAdd = []
+                for i, item in enumerate(proxyFld):
+                    listItemsToAdd.append(item)
+
+                # if only one item use default $push and send one item
+                if len(listItemsToAdd) == 1:
+                    fldUpdates['.'.join(target_offsetPath + [fld])] = listItemsToAdd[0]
+                else:
+                    # if more than one item use $pushAll and send list of items to insert
+                    action = '$pushAll'
                     fldUpdates['.'.join(target_offsetPath + [fld])] = listItemsToAdd
+
                 patchActions[action] = fldUpdates
+                if not '$set' in patchActions:
+                    patchActions['$set'] = {}
+                patchActions['$set']['.'.join(target_offsetPath + ['_eIds'])] = proxyTargetDoc['_eIds']
+
             else:
                 fldUpdates = {}
                 for fld, val in flds.iteritems():
@@ -221,6 +249,7 @@ class GenericPut(object):
             new = True
         )
 
+        # TODO: Handle condition when doc == None
 
         response['_id'] = doc['_id']
         response['OID'] = doc['_id'].__str__()

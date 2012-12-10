@@ -14,7 +14,30 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         super(ControllersGenericPutTests, self).setUp()
         self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'controllers_generic_put')
 
-    def test_put_addtolist(self):
+    def test_add_one_to_empty_list(self):
+        sampDat = self.sampDat
+
+        doc = sampDat['PrsLarryStoogeEmptyEmails']
+
+        post         = controllers.generic_post.GenericPost(self.g).post
+        put          = controllers.generic_put.GenericPut(self.g).put
+
+        # Load one doc
+        resp = post(**{'docs': [doc]})
+        assert resp['status'] == 200
+        assert len(resp['response']['docs']) == 1
+
+        # one new email
+        sampItem = sampDat['PrsAddOneNewEmailToEmptyEmailsField']
+        resp = put(**sampItem)
+        assert resp['status'] == 200
+        targetDoc = resp['response']['doc']
+        targetElem = targetDoc['emails']
+        #assert targetElem[2]['dNam'] == 'work: timothy@ms.com'
+        #assert len(targetElem) == 3
+        x=0
+
+    def test_add_one_to_list(self):
         sampDat = self.sampDat
 
         doc = sampDat['PrsLarryStooge']
@@ -27,15 +50,44 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == 1
 
-        # new email
-        sampItem = sampDat['PrsPutAddEmail']
+        # one new email
+        sampItem = sampDat['PrsAddOneNewEmailToExistingEmailsField']
         resp = put(**sampItem)
         assert resp['status'] == 200
         targetDoc = resp['response']['doc']
-
+        targetElem = targetDoc['emails']
+        assert targetElem[2]['dNam'] == 'work: timothy@ms.com'
+        assert len(targetElem) == 3
+        assert targetElem[2]['eId'] == 3
+        assert targetDoc['_eIds']['emails'] == 4
         x=0
 
-    def test_put_update(self):
+    def test_add_two_to_list(self):
+        sampDat = self.sampDat
+
+        doc = sampDat['PrsLarryStooge']
+
+        post         = controllers.generic_post.GenericPost(self.g).post
+        put          = controllers.generic_put.GenericPut(self.g).put
+
+        # Load one doc
+        resp = post(**{'docs': [doc]})
+        assert resp['status'] == 200
+        assert len(resp['response']['docs']) == 1
+
+        # two new emails
+        sampItem = sampDat['PrsAddTwoNewEmailsToExistingEmailsField']
+        resp = put(**sampItem)
+        assert resp['status'] == 200
+        targetDoc = resp['response']['doc']
+        targetElem = targetDoc['emails']
+        assert targetElem[3]['dNam'] == 'home: sam@ms.com'
+        assert len(targetElem) == 4
+        assert targetElem[3]['eId'] == 4
+        assert targetDoc['_eIds']['emails'] == 5
+        x=0
+
+    def test_update(self):
         sampDat = self.sampDat
 
         doc = sampDat['PrsLarryStooge']
