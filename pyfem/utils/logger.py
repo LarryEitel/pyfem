@@ -13,7 +13,7 @@ def configure_logging(app):
         log_file = app.config['LOG_FILE']
         log_file = os.path.abspath(os.path.expanduser(log_file))
         new_handler = TimedRotatingFileHandler(
-            log_file, encoding='bz2')
+            log_file, when='h', interval=24, encoding='bz2')
         if app.config.get('LOG_LEVEL'):
             new_level = app.config['LOG_LEVEL']
             new_level = LEVELS.get(new_level, logging.error)
