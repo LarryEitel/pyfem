@@ -33,8 +33,36 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         assert resp['status'] == 200
         targetDoc = resp['response']['doc']
         targetElem = targetDoc['emails']
-        #assert targetElem[2]['dNam'] == 'work: timothy@ms.com'
-        #assert len(targetElem) == 3
+        assert len(targetElem) == 1
+        assert targetElem[0]['dNam'] == 'work: timothy@ms.com'
+        assert targetElem[0]['eId'] == 1
+        assert targetDoc['_eIds']['emails'] == 2
+
+    def test_add_two_to_empty_list(self):
+        sampDat = self.sampDat
+
+        doc = sampDat['PrsLarryStoogeEmptyEmails']
+
+        post         = controllers.generic_post.GenericPost(self.g).post
+        put          = controllers.generic_put.GenericPut(self.g).put
+
+        # Load one doc
+        resp = post(**{'docs': [doc]})
+        assert resp['status'] == 200
+        assert len(resp['response']['docs']) == 1
+
+
+        # two new email
+        sampItem = sampDat['PrsAddTwoNewEmailToEmptyEmailsField']
+        resp = put(**sampItem)
+        assert resp['status'] == 200
+        targetDoc = resp['response']['doc']
+        targetElem = targetDoc['emails']
+        assert len(targetElem) == 2
+        assert targetElem[1]['dNam'] == 'home: angie@ms.com (Primary)'
+        assert targetElem[1]['eId'] == 2
+        assert targetDoc['_eIds']['emails'] == 3
+        assert targetDoc['_eIds']['notes'] == 2
         x=0
 
     def test_add_one_to_list(self):
@@ -60,6 +88,7 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         assert len(targetElem) == 3
         assert targetElem[2]['eId'] == 3
         assert targetDoc['_eIds']['emails'] == 4
+        assert targetDoc['_eIds']['notes'] == 2
         x=0
 
     def test_add_two_to_list(self):

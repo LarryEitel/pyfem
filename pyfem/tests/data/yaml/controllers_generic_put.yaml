@@ -16,6 +16,26 @@ PrsAddOneNewEmailToEmptyEmailsField:
               _types : [Email] # necessary?
               typ    : work
               address: timothy@ms.com
+PrsAddTwoNewEmailToEmptyEmailsField:
+  # add a new email to emails
+  _cls: Prs
+  query: 
+    slug: PrsLarryStoogeEmptyEmails
+  update:
+    target_eIdPath: 
+    actions:
+      $push: # uses pushAll if more than one item
+        flds:
+          emails:
+            - _cls   : Email # maybe not necessary if I know _cls of target ListField
+              _types : [Email] # necessary?
+              typ    : work
+              address: timothy@ms.com  
+            - _cls   : Email # maybe not necessary if I know _cls of target ListField
+              _types : [Email] # necessary?
+              typ    : home
+              address: angie@ms.com 
+              prim   : True             
 PrsAddOneNewEmailToExistingEmailsField:
   # add a new email to emails
   _cls: Prs
@@ -80,7 +100,7 @@ PrsPut_fNam:
       $set:
         flds:
           fNam: Mary
-          lNam: Smith
+          lNam: Smith   
 PrsPut_emails_2_notes_1_title:
   # update first title in note.eId=1 in second email.eId=2
   _cls: Prs
@@ -134,4 +154,4 @@ PrsLarryStoogeEmptyEmails:
       _types : [Note]
       typ    : work
       title  : base note
-      body   : this is a base note      
+      body   : this is a base note             
