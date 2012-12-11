@@ -36,7 +36,7 @@ class ControllersGenericPostTests(BaseMongoTestCase):
         post    = controllers.generic_post.GenericPost(self.g).post
 
         # try several docs
-        docs    = sampDat.values()[:1]
+        docs    = sampDat.values()
         resp    = post(**{'docs': docs})
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == len(docs)

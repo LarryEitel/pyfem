@@ -14,6 +14,14 @@ class EmbedMixin(object):
     w       = app.db.FloatField()
     prim    = app.db.BooleanField()
 
+    def validateList(self, theList):
+        primCount = 0
+        for i, item in enumerate(theList):
+            if 'prim' in item and item['prim']:
+                primCount += 1
+        if primCount > 1:
+            print 'ERROR: Too many primary items', theList
+
 class Tel(MyEmbedDoc, EmbedMixin):
     text = MyStringField(required= True)
 

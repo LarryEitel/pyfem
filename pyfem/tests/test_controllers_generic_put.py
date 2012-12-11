@@ -30,9 +30,8 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         # one new email
         sampItem = sampDat['PrsValidateAttemptToAddSecondPrimaryEmail']
         resp = put(**sampItem)
-        assert resp['status'] == 200
-        targetDoc = resp['response']['doc']
-        targetElem = targetDoc['emails']
+        assert resp['status'] == 500
+        assert resp['response']['errors'][0]['errors'][0]['msg'] == 'Only one primary item can be set.'
         x=0
 
     def test_add_one_to_empty_list(self):

@@ -9,7 +9,6 @@ import helpers
 class Cnt(MyDoc, Mixin):
     code = app.db.StringField()
 
-
     _meta = {
         'collection': 'cnts',
         'allow_inheritance': True,
