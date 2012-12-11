@@ -1,4 +1,4 @@
-HOME_PATH    = 'C:/Users/Larry/__prjs/__py/pyfem/pyfem/'
+HOME_PATH    = '/var/www/pyfem/pyfem/'
 MONGODB_DB   = 'pyfem'
 
 MONGODB_PORT = 27017

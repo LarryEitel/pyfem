@@ -31,6 +31,7 @@ class Cnt(MyDoc, Mixin):
 
         self._meta['collection'] = 'cnts'
         if type(errors) == list:
+            print errors #for debugging
             self._data['myErrors'] = errors
         else:
             # turning off validation cause we do that in recurseValidateAndVOnUpSert

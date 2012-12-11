@@ -31,7 +31,7 @@ PrsLarryStooge:
       address: steve@apple.com
     - _cls   : Email
       _types : [Email]
-      eId    : 
+      eId    : 3
       typ    : work
       address: sue@apple.com
       notes:
@@ -52,7 +52,7 @@ PrsLarryStooge:
       _types : [Note]
       eId    : 1
       typ    : work
-      title  : this is a test
+      title  : a test
       body   : Now is the time
       tels   :
         - _cls   : Tel

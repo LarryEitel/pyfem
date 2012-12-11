@@ -14,9 +14,9 @@ class ModelsHelpers(BaseMongoTestCase):
         uc = self.usecase
         from models import Email, Prs
 
-        uc.load('usecases')
+        uc.load('shiv_usecases1')
         cmds = uc.run_all('one')
-        assert len(cmds) == 2
+        assert len(cmds) == 3
 
 
 if __name__ == "__main__":
