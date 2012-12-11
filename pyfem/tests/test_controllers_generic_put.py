@@ -14,6 +14,27 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         super(ControllersGenericPutTests, self).setUp()
         self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'controllers_generic_put')
 
+    def test_tryToAddSecondPrimaryEmail(self):
+        sampDat = self.sampDat
+
+        doc = sampDat['PrsLarryStooge']
+
+        post         = controllers.generic_post.GenericPost(self.g).post
+        put          = controllers.generic_put.GenericPut(self.g).put
+
+        # Load one doc
+        resp = post(**{'docs': [doc]})
+        assert resp['status'] == 200
+        assert len(resp['response']['docs']) == 1
+
+        # one new email
+        sampItem = sampDat['PrsValidateAttemptToAddSecondPrimaryEmail']
+        resp = put(**sampItem)
+        assert resp['status'] == 200
+        targetDoc = resp['response']['doc']
+        targetElem = targetDoc['emails']
+        x=0
+
     def test_add_one_to_empty_list(self):
         sampDat = self.sampDat
 

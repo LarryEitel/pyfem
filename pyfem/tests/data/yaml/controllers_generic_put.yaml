@@ -1,6 +1,22 @@
 # http://yaml-online-parser.appspot.com
 # Attribute Types
 # http://stackoverflow.com/questions/10805474/updating-specific-record-in-inner-collection-with-mongodb
+PrsValidateAttemptToAddSecondPrimaryEmail:
+  # add a new email to emails
+  _cls: Prs
+  query: 
+    slug: LarryStooge
+  update:
+    target_eIdPath: 
+    actions:
+      $push: # uses pushAll if more than one item
+        flds:
+          emails:
+            - _cls   : Email # maybe not necessary if I know _cls of target ListField
+              _types : [Email] # necessary?
+              typ    : work
+              prim   : True
+              address: timothy@ms.com
 PrsAddOneNewEmailToEmptyEmailsField:
   # add a new email to emails
   _cls: Prs

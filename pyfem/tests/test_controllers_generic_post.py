@@ -21,9 +21,9 @@ class ControllersGenericPostTests(BaseMongoTestCase):
         ucs     = self.ucs
         sampDat = self.sampDat
         doc     = sampDat['PrsMoeStooge']
-        
+
         post    = controllers.generic_post.GenericPost(self.g).post
-        
+
         # try one doc
         resp    = post(**{'docs': [doc]})
         assert resp['status'] == 200
@@ -32,9 +32,9 @@ class ControllersGenericPostTests(BaseMongoTestCase):
     def test_post_new_several(self):
         ucs     = self.ucs
         sampDat = self.sampDat
-        
+
         post    = controllers.generic_post.GenericPost(self.g).post
-        
+
         # try several docs
         docs    = sampDat.values()[:1]
         resp    = post(**{'docs': docs})
