@@ -24,7 +24,6 @@ class GenericPost(object):
             '''
         db           = self.db
 
-        app.logger.debug("hello logger")
         response     = {}
         docs         = {}
         status       = 200

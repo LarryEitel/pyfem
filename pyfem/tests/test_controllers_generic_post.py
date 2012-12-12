@@ -8,6 +8,7 @@ from core import BaseMongoTestCase
 import controllers
 from utils import myyaml
 from app import app
+from util import currentPath
 
 class ControllersGenericPostTests(BaseMongoTestCase):
 
@@ -17,6 +18,7 @@ class ControllersGenericPostTests(BaseMongoTestCase):
         ucs.load('usecases')
         self.ucs     = ucs
         self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'controllers_generic_post')
+
 
     def test_post_new_one(self):
         ucs     = self.ucs
@@ -28,7 +30,7 @@ class ControllersGenericPostTests(BaseMongoTestCase):
         # try one doc
         resp    = post(**{'docs': [doc]})
         assert resp['status'] == 200
-        app.logger.warn("test log")
+        app.logger.debug(currentPath(__file__, app) + " test log")
         assert len(resp['response']['docs']) == 1
 
     def test_post_new_several(self):

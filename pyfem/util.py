@@ -323,17 +323,10 @@ def configure_logging(app):
     if app.config.get('LOG_FILE'):
         log_file = app.config['LOG_FILE']
         log_file = os.path.abspath(os.path.expanduser(log_file))
-<<<<<<< HEAD
-        new_handler = TimedRotatingFileHandler(
-            log_file, when='h', interval=24, encoding=None)
-=======
 
         new_handler = TimedRotatingFileHandler(
             log_file, when='h', interval=24, encoding=None)
 
-        # new_handler = RotatingFileHandler(
-        #     log_file, maxBytes=100000, backupCount=3)
->>>>>>> master
         if app.config.get('LOG_LEVEL'):
             new_level = app.config['LOG_LEVEL']
             new_level = LEVELS.get(new_level, logging.error)
@@ -349,6 +342,10 @@ def configure_logging(app):
 
         app.logger.addHandler(new_handler)
 
+def currentPath(fileName, app):
+    currentMod = '.'.join(fileName.replace('\\', '/').lower().replace(app.config['HOME_PATH'].lower(), '').split('.')[:-1])
+
+    return currentMod
 
 class Markdown2Extension(jinja2.ext.Extension):
     tags = set(['markdown2'])
@@ -383,3 +380,4 @@ class FixGunicorn(object):
     def __call__(self, environ, start_response):
         environ['SERVER_PORT'] = str(environ['SERVER_PORT'])
         return self.app(environ, start_response)
+
