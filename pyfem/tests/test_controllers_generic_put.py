@@ -28,7 +28,7 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         assert len(resp['response']['docs']) == 1
 
         # one new email
-        sampItem = sampDat['PrsValidateAttemptToAddSecondPrimaryEmail']
+        sampItem = sampDat['PrsTryToAddSecondPrimaryEmail']
         resp = put(**sampItem)
         assert resp['status'] == 500
         assert resp['response']['errors'][0]['errors'][0]['msg'] == 'Only one primary item can be set.'

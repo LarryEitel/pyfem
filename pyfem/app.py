@@ -45,6 +45,8 @@ def get_app():
             app.jinja_env.compile_templates(compiled_templates, zip=None, py_compile=True)
         app.jinja_env.loader = ModuleLoader(compiled_templates)
 
+    configure_logging(app)
+    
     return app
 
 app = get_app()
