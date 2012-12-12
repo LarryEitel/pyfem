@@ -15,3 +15,11 @@ DEBUG: hello logger:[27]
 DEBUG: hello logger:[27]
 DEBUG: hello logger:[27]
 DEBUG: hello logger:[27]
+DEBUG: hello logger:[27]
+DEBUG: test this:[27]
+DEBUG: test this:[27]
+DEBUG: test this:[27]
+DEBUG:generic_post[27]: test this
+DEBUG:generic_post[27]: test this
+test this |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\controllers\generic_post.py:[27]
+test this |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\controllers\generic_post.py:[27]

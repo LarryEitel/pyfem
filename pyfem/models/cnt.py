@@ -69,11 +69,16 @@ class Prs(Cnt):
     meta = {
         'collection': 'cnts',
         'allow_inheritance': True,
-        'indexes': [{'fields':['slug'], 'unique': True}, {'fields':['sId'], 'unique': True}]
+        'indexes': [{'fields':['slug'], 'unique': True},
+                    {'fields':['sId'], 'unique': True}]
+        }
+        # unsuccessfully tried to use unique index to prevent dup on prim and typ+email, resorted to code hack
+        #{'fields':['emails.typ', 'emails.address'], 'unique': True}
+        #{'fields':['emails.prim'], 'unique': True}
+
         # 'indexes': [{'fields':['slug'], 'unique': True}]
         # 'indexes': [{'fields':['slug'], 'unique': True}, {'fields':['emails.prim'], 'unique': True}]
         # 'indexes': [{'fields':['dNam']}, {'fields':'emails.prim', 'unique': True}]
-        }
 
     @staticmethod
     def vOnUpSert(d):

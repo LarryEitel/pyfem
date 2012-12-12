@@ -11,20 +11,15 @@ class GenericPost(object):
 
     def __init__(self, g):
         #: Doc comment for instance attribute db
+        self.g   = g
         self.usr = g['usr']
         self.db  = g['db']
         #self.es  = g['es']
 
     def post(self, **kwargs):
-        '''Insert a doc
-            newDocTmp: Initialize a temp (tmp) doc if no OID and no data.
-            cloneDocTmp: Clone to a temp doc if OID and no isTmp flag set.
-            upsertDocTmp: Update or Insert temp doc to base collection if OID and isTmp is set.
-            insertDoc: Insert a new doc if no OID and there are more attributes than _c.
-            '''
+
         db           = self.db
 
-        app.logger.debug("hello logger")
         response     = {}
         docs         = {}
         status       = 200

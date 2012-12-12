@@ -12,12 +12,15 @@ class GenericPut(object):
 
     def __init__(self, g):
         #: Doc comment for instance attribute db
+        self.g = g
         self.usr = g['usr']
         self.db  = g['db']
         #self.es  = g['es']
 
     def put(self, **kwargs):
         """patch a doc"""
+
+        debug    = self.g['logger'].debug
         db       = self.db
 
         _cls     = kwargs['_cls']
@@ -165,9 +168,58 @@ class GenericPut(object):
                     # return doc_errors
                     break
 
+                # need to get any meta tag on the ListField[item], ie, Email.meta, if it exists
+                # at this point, proxyTargetDoc[fld] contains at least one item that has been submitted to be pushed.
+                if '_cls' in proxyTargetDoc[fld][0]:
+                    targetListItem_cls = proxyTargetDoc[fld][0]['_cls']
+                    targetListItem = getattr(models, targetListItem_cls)
+
+                    if 'unique_with' in targetListItem._meta:
+                        unique_with = targetListItem._meta['unique_with']
+
+                        # need to handle making sure item there are not more than one unique_with
+                        if type(proxyTargetDoc[fld]) == list:
+                            theExistingList = targetDoc[fld]
+                            theProxyList = proxyTargetDoc[fld]
+                            if len(theExistingList) + len(theProxyList) > 1:
+                                unique_with_vals = {}
+
+                                offendingItem = None
+                                for i, item in enumerate(theExistingList):
+                                    unique_with_val = []
+                                    for unique_with_fld in unique_with:
+                                        if unique_with_fld in item:
+                                            unique_with_val.append(item[unique_with_fld])
+                                    if unique_with_val:
+                                        unique_with_val_str = '.'.join(unique_with_val)
+                                        unique_with_vals[unique_with_val_str] = unique_with_vals[unique_with_val_str] + 1 if unique_with_val_str in unique_with_vals else 1
+                                        if unique_with_vals[unique_with_val_str] > 1:
+                                            offendingItem = item
+                                            break
+
+                                if not offendingItem:
+                                    for i, item in enumerate(theProxyList):
+                                        if 'prim' in item and item['prim']:
+                                            unique_with_val = []
+                                            for unique_with_fld in unique_with:
+                                                if unique_with_fld in item:
+                                                    unique_with_val.append(item[unique_with_fld])
+                                            if unique_with_val:
+                                                unique_with_val_str = '.'.join(unique_with_val)
+                                                unique_with_vals[unique_with_val_str] = unique_with_vals[unique_with_val_str] + 1 if unique_with_val_str in unique_with_vals else 1
+                                                if unique_with_vals[unique_with_val_str] > 1:
+                                                    offendingItem = item
+                                                    break
+
+                                if offendingItem:
+                                    error = {'attrPath': '.'.join(target_offsetPath + [fld]), 'fld':fld, '_cls': offendingItem['_cls'], 'errors': [{'msg': '+'.join(unique_with) + ' must be unique.', 'item': offendingItem}]}
+                                    doc_errors.append(error)
+                                    # return doc_errors
+                                    break
 
 
-                # need to handle making sure item there are not more than one prim set
+
+                # need to handle making sure item there are not more than one primary item set in the list
                 if type(proxyTargetDoc[fld]) == list:
                     theExistingList = targetDoc[fld]
                     theProxyList = proxyTargetDoc[fld]

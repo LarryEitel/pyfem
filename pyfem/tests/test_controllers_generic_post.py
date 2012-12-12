@@ -17,6 +17,10 @@ class ControllersGenericPostTests(BaseMongoTestCase):
         self.ucs     = ucs
         self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'controllers_generic_post')
 
+
+    #TODOs
+    # although testing is done in put to prevent multiple primary items in a list along with ability to prevent dup values like typ+address, THIS IS NOT TEST FOR POSTING new records. GOTTA RESOLVE and TEST
+
     def test_post_new_one(self):
         ucs     = self.ucs
         sampDat = self.sampDat

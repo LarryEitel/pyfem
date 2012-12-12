@@ -11,7 +11,6 @@ import usecase
 import globals
 
 
-
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
         if os.environ.get('pyfem_SETTINGS'):
@@ -65,6 +64,11 @@ class BaseMongoTestCase(unittest.TestCase):
         self.g = globals.load()
         self.g['usr']         = {"OID": "50468de92558713d84b03fd7", "at": (-84.163063, 9.980516)}
         self.g['db']         = app.db
+
+
+        self.g['logger'] = app.logger
+
+
         self.used_keys = []
 
 

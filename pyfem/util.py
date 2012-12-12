@@ -311,7 +311,6 @@ def newrelic_foot():
         return '\n'.join(content)
     return ''
 
-
 def configure_logging(app):
     LEVELS = {'debug': logging.DEBUG,
               'info': logging.INFO,
@@ -337,12 +336,17 @@ def configure_logging(app):
         # '%(asctime)-15s\n%(levelname)s in %(module)s [%(pathname)s:%(lineno)d]:\n' +
         #    '%(message)s\n
         log_format = (
-            '%(levelname)s: %(message)s:[%(lineno)d]'
+            '%(message)s |%(levelname)s:%(pathname)s:[%(lineno)d]'
         )
+
         new_handler.setFormatter(logging.Formatter(log_format))
 
         app.logger.addHandler(new_handler)
 
+def currentPath(fileName, app):
+    currentMod = '.'.join(fileName.replace('\\', '/').lower().replace(app.config['HOME_PATH'].lower(), '').split('.')[:-1])
+
+    return currentMod
 
 class Markdown2Extension(jinja2.ext.Extension):
     tags = set(['markdown2'])

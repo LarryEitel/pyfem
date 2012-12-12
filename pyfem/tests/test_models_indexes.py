@@ -25,6 +25,7 @@ class ModelsIndexesTests(BaseMongoTestCase):
         assert len(resp['response']['docs']) == 1
 
         # Load it again, this should fail cause index emails.prim is unique
+        doc     = sampDat['PrsMoeStooge']
         resp = post(**{'docs': [doc]})
         assert resp['status'] == 500
 

@@ -17,3 +17,6 @@ class MyStringField(StringField):
 class MyEmailField(EmailField):
     def error(self, message="", errors=None, field_name=None):
         myError(self, message, errors, field_name)
+
+    def validate(self, value):
+        super(MyEmailField, self).validate(value)

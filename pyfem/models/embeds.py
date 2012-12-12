@@ -60,7 +60,8 @@ class Email(MyEmbedDoc, EmbedMixin):
         s += self.address if self.address else ''
         return s
 
-    _meta = {'fldsThatUpdt_dNam': ['typ', 'address']}
+    _meta = {'fldsThatUpdt_dNam': ['typ', 'address'],
+             'unique_with': ['typ', 'address']}
 
     @staticmethod
     def vOnUpSert(d):
@@ -78,12 +79,10 @@ class Email(MyEmbedDoc, EmbedMixin):
     def save(self, *args, **kwargs):
         super(Email, self).save(*args, **kwargs)
 
-def test(val):
-    return True
 
 class Mixin(object):
     _eIds  = app.db.DictField()
-    emails = app.db.ListField(app.db.EmbeddedDocumentField(Email, validation=test))
+    emails = app.db.ListField(app.db.EmbeddedDocumentField(Email))
     notes  = app.db.ListField(app.db.EmbeddedDocumentField(Note))
     dNam   = app.db.StringField()
     dNamS  = app.db.StringField()
