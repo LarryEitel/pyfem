@@ -5,6 +5,7 @@ import datetime
 from bson import ObjectId
 import models
 import globals
+from app import app
 
 class GenericPost(object):
 
@@ -23,6 +24,7 @@ class GenericPost(object):
             '''
         db           = self.db
 
+        app.logger.debug("hello logger")
         response     = {}
         docs         = {}
         status       = 200

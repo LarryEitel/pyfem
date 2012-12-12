@@ -323,18 +323,27 @@ def configure_logging(app):
     if app.config.get('LOG_FILE'):
         log_file = app.config['LOG_FILE']
         log_file = os.path.abspath(os.path.expanduser(log_file))
+<<<<<<< HEAD
         new_handler = TimedRotatingFileHandler(
             log_file, when='h', interval=24, encoding=None)
+=======
+
+        new_handler = TimedRotatingFileHandler(
+            log_file, when='h', interval=24, encoding=None)
+
+        # new_handler = RotatingFileHandler(
+        #     log_file, maxBytes=100000, backupCount=3)
+>>>>>>> master
         if app.config.get('LOG_LEVEL'):
             new_level = app.config['LOG_LEVEL']
             new_level = LEVELS.get(new_level, logging.error)
             new_handler.setLevel(new_level)
 
+
+        # '%(asctime)-15s\n%(levelname)s in %(module)s [%(pathname)s:%(lineno)d]:\n' +
+        #    '%(message)s\n
         log_format = (
-            '-' * 80 + '\n' +
-            '%(asctime)-15s\n%(levelname)s in %(module)s [%(pathname)s:%(lineno)d]:\n' +
-            '%(message)s\n' +
-            '-' * 80
+            '%(levelname)s: %(message)s:[%(lineno)d]'
         )
         new_handler.setFormatter(logging.Formatter(log_format))
 
