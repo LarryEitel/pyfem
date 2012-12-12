@@ -9,7 +9,6 @@ import helpers
 class Cnt(MyDoc, Mixin):
     code = app.db.StringField()
 
-
     _meta = {
         'collection': 'cnts',
         'allow_inheritance': True,
@@ -36,7 +35,12 @@ class Cnt(MyDoc, Mixin):
         else:
             # turning off validation cause we do that in recurseValidateAndVOnUpSert
             kwargs['validate'] = False
-            super(Cnt, self).save(*args, **kwargs)
+
+            # this will return error if duplicate entries are attempted
+            try:
+                super(Cnt, self).save(*args, **kwargs)
+            except Exception, e:
+                self._data['myErrors'] = e
 
 
 class Cmp(Cnt):
@@ -66,6 +70,10 @@ class Prs(Cnt):
     meta = {
         'collection': 'cnts',
         'allow_inheritance': True,
+        'indexes': [{'fields':['slug'], 'unique': True}, {'fields':['sId'], 'unique': True}]
+        # 'indexes': [{'fields':['slug'], 'unique': True}]
+        # 'indexes': [{'fields':['slug'], 'unique': True}, {'fields':['emails.prim'], 'unique': True}]
+        # 'indexes': [{'fields':['dNam']}, {'fields':'emails.prim', 'unique': True}]
         }
 
     @staticmethod

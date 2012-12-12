@@ -14,6 +14,14 @@ class EmbedMixin(object):
     w       = app.db.FloatField()
     prim    = app.db.BooleanField()
 
+    def validateList(self, theList):
+        primCount = 0
+        for i, item in enumerate(theList):
+            if 'prim' in item and item['prim']:
+                primCount += 1
+        if primCount > 1:
+            print 'ERROR: Too many primary items', theList
+
 class Tel(MyEmbedDoc, EmbedMixin):
     text = MyStringField(required= True)
 
@@ -67,9 +75,15 @@ class Email(MyEmbedDoc, EmbedMixin):
         d['dNamS'] = dNamS
         return {'doc_dict': d, 'errors': errors}
 
+    def save(self, *args, **kwargs):
+        super(Email, self).save(*args, **kwargs)
+
+def test(val):
+    return True
+
 class Mixin(object):
     _eIds  = app.db.DictField()
-    emails = app.db.ListField(app.db.EmbeddedDocumentField(Email))
+    emails = app.db.ListField(app.db.EmbeddedDocumentField(Email, validation=test))
     notes  = app.db.ListField(app.db.EmbeddedDocumentField(Note))
     dNam   = app.db.StringField()
     dNamS  = app.db.StringField()
@@ -85,3 +99,8 @@ class Mixin(object):
     mOn    = app.db.DateTimeField()
     dOn    = app.db.DateTimeField()
     dBy    = app.db.ObjectIdField()
+
+
+    # not used, hacking
+    def validateList(self, theList):
+        pass

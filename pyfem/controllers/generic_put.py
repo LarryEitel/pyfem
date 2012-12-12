@@ -155,13 +155,52 @@ class GenericPut(object):
                 recurseDoc(proxyTargetDoc, fld, proxyTargetDoc, recurseValidate, attrPath, doc_errors)
 
                 if doc_errors:
-                    return doc_errors
+                    # return doc_errors
+                    break
 
                 attrPath = []
                 recurseDoc(proxyTargetDoc, fld, proxyTargetDoc, recurseVOnUpSert, attrPath, doc_errors)
 
                 if doc_errors:
-                    return doc_errors
+                    # return doc_errors
+                    break
+
+
+
+                # need to handle making sure item there are not more than one prim set
+                if type(proxyTargetDoc[fld]) == list:
+                    theExistingList = targetDoc[fld]
+                    theProxyList = proxyTargetDoc[fld]
+                    if len(theExistingList) + len(theProxyList) > 1:
+                        primCount = 0
+
+                        offendingItem = None
+                        for i, item in enumerate(theExistingList):
+                            if 'prim' in item and item['prim']:
+                                primCount += 1
+                                if primCount > 1:
+                                    offendingItem = item
+                                    break
+
+                        if not offendingItem:
+                            for i, item in enumerate(theProxyList):
+                                if 'prim' in item and item['prim']:
+                                    primCount += 1
+                                    if primCount > 1:
+                                        offendingItem = item
+                                        break
+
+                        if offendingItem:
+                            error = {'attrPath': '.'.join(target_offsetPath + [fld]), 'fld':fld, '_cls': offendingItem['_cls'], 'errors': [{'msg': 'Only one primary item can be set.', 'item': offendingItem}]}
+                            doc_errors.append(error)
+                            # return doc_errors
+                            break
+
+                        #if '_cls' in theProxyList[0]:
+                            #listItem_cls = getattr(models, theProxyList[0]['_cls'])
+
+
+
 
                 listItemsToAdd = []
                 for i, item in enumerate(proxyFld):
@@ -212,47 +251,53 @@ class GenericPut(object):
 
                 patchActions[action] = fldUpdates
 
-        # need to include fldUpdate to unlock targetDoc
-        if not '$unset' in patchActions:
-            patchActions['$unset'] = {}
 
-        patchActions['$unset']['.'.join(target_offsetPath + ['locked'])] = True
+        if doc_errors:
+            response['errors']        = doc_errors
+            status                    = 500
+        else:
 
-        # need to log change
-        resp = models.logit(self.usr, baseDoc, targetDoc)
-        updtFlds = resp['response']['updtFlds']
-        if updtFlds:
-            if not '$set' in patchActions:
-                patchActions['$set'] = {}
-            for fld, val in updtFlds.iteritems():
-                patchActions['$set']['.'.join(target_offsetPath + [fld])] = val
+            # need to include fldUpdate to unlock targetDoc
+            if not '$unset' in patchActions:
+                patchActions['$unset'] = {}
 
-        # if targetDoc has fields that are used to generate dNam/dNamS (Display Name & Short)
-        # need to fire targetDocCls.vOnUpSert() function and add dNam/dNamS to patchActions
-        if updateLnks:
-            resp = targetDocCls.vOnUpSert(targetDoc)
-            if 'errors' in resp and resp['errors']:
-                # handle errors
-                raise Exception("Failed to run vOnUpSert")
-            targetDoc = resp['doc_dict']
-            if not '$set' in patchActions:
-                patchActions['$set'] = {}
-            if 'dNam' in targetDoc:
-                patchActions['$set']['.'.join(target_offsetPath + ['dNam'])] = targetDoc['dNam']
-            if 'dNamS' in targetDoc:
-                patchActions['$set']['.'.join(target_offsetPath + ['dNamS'])] = targetDoc['dNamS']
+            patchActions['$unset']['.'.join(target_offsetPath + ['locked'])] = True
+
+            # need to log change
+            resp = models.logit(self.usr, baseDoc, targetDoc)
+            updtFlds = resp['response']['updtFlds']
+            if updtFlds:
+                if not '$set' in patchActions:
+                    patchActions['$set'] = {}
+                for fld, val in updtFlds.iteritems():
+                    patchActions['$set']['.'.join(target_offsetPath + [fld])] = val
+
+            # if targetDoc has fields that are used to generate dNam/dNamS (Display Name & Short)
+            # need to fire targetDocCls.vOnUpSert() function and add dNam/dNamS to patchActions
+            if updateLnks:
+                resp = targetDocCls.vOnUpSert(targetDoc)
+                if 'errors' in resp and resp['errors']:
+                    # handle errors
+                    raise Exception("Failed to run vOnUpSert")
+                targetDoc = resp['doc_dict']
+                if not '$set' in patchActions:
+                    patchActions['$set'] = {}
+                if 'dNam' in targetDoc:
+                    patchActions['$set']['.'.join(target_offsetPath + ['dNam'])] = targetDoc['dNam']
+                if 'dNamS' in targetDoc:
+                    patchActions['$set']['.'.join(target_offsetPath + ['dNamS'])] = targetDoc['dNamS']
 
 
-        doc = coll.find_and_modify(
-            query = qryDat,
-            update = patchActions,
-            new = True
-        )
+            doc = coll.find_and_modify(
+                query = qryDat,
+                update = patchActions,
+                new = True
+            )
 
-        # TODO: Handle condition when doc == None
+            # TODO: Handle condition when doc == None
 
-        response['_id'] = doc['_id']
-        response['OID'] = doc['_id'].__str__()
-        response['doc'] = doc
+            response['_id'] = doc['_id']
+            response['OID'] = doc['_id'].__str__()
+            response['doc'] = doc
 
         return {'response': response, 'status': status}

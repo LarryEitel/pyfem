@@ -60,10 +60,22 @@ def recurseDoc(doc, key, val, recurseFn, attrPath, doc_errors):
 
         # either set next eId for this list to max eId's or count of items + 1
         doc['_eIds'][key] = max_eId + 1 if allItemsHave_eId else len(val) + 1
+        theList = doc[key]
+        if len(theList) and '_cls' in theList[0]:
+            listItem_cls = getattr(models, theList[0]['_cls'])
+            if hasattr(listItem_cls, 'validateList'):
+                listItem = listItem_cls(**theList[0])
+                listItem.validateList(theList)
+        ########### NOT DONE YET
+        pass
+
+
+
 
         # now go ahead and process each item in the list for possible further recursion
         for i in range(len(val)):
             recurseDoc(val[i], key, val[i], recurseFn, attrPath + [str(val[i]['eId'])], doc_errors)
+
         return val
     else:
         return val
