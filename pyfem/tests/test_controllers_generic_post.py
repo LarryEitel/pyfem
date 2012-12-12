@@ -7,6 +7,7 @@ except ImportError:
 from core import BaseMongoTestCase
 import controllers
 from utils import myyaml
+import app
 
 class ControllersGenericPostTests(BaseMongoTestCase):
 
@@ -16,6 +17,7 @@ class ControllersGenericPostTests(BaseMongoTestCase):
         ucs.load('usecases')
         self.ucs     = ucs
         self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'controllers_generic_post')
+        self.logger = app.logger
 
     def test_post_new_one(self):
         ucs     = self.ucs
@@ -27,6 +29,7 @@ class ControllersGenericPostTests(BaseMongoTestCase):
         # try one doc
         resp    = post(**{'docs': [doc]})
         assert resp['status'] == 200
+        self.logger.debug("test log")
         assert len(resp['response']['docs']) == 1
 
     def test_post_new_several(self):
