@@ -6,7 +6,7 @@ import os
 import functools
 import math
 
-from logging.handlers import RotatingFileHandler
+from logging.handlers import TimedRotatingFileHandler
 
 import jinja2.ext
 import markdown2
@@ -323,8 +323,8 @@ def configure_logging(app):
     if app.config.get('LOG_FILE'):
         log_file = app.config['LOG_FILE']
         log_file = os.path.abspath(os.path.expanduser(log_file))
-        new_handler = RotatingFileHandler(
-            log_file, maxBytes=100000, backupCount=3)
+        new_handler = TimedRotatingFileHandler(
+            log_file, when='h', interval=24, encoding=None)
         if app.config.get('LOG_LEVEL'):
             new_level = app.config['LOG_LEVEL']
             new_level = LEVELS.get(new_level, logging.error)

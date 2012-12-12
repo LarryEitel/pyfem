@@ -37,6 +37,7 @@ def get_app():
     app.jinja_env.filters['jsonencode'] = jsonencode
     app.jinja_env.globals['newrelic_head'] = newrelic_head
     app.jinja_env.globals['newrelic_foot'] = newrelic_foot
+
     configure_logging(app)
 
     if not app.config.get('TEMPLATE_DEBUG', True):
