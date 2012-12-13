@@ -1,6 +1,17 @@
 # http://yaml-online-parser.appspot.com
 # Attribute Types
 # http://stackoverflow.com/questions/10805474/updating-specific-record-in-inner-collection-with-mongodb
+PrsTryToSetSecondPrimTel:
+  # update first title in note.eId=1 in second email.eId=2
+  _cls: Prs
+  query: 
+    slug: LarryStooge
+  update:
+    target_eIdPath: emails.2.notes.1.tels.3 # numbers refer to eId's, NOT element offsets
+    actions:
+      $set:
+        flds:
+          prim: true
 PrsTryToAddDupTypEmail:
   # add a new email to emails
   _cls: Prs
@@ -144,6 +155,54 @@ PrsPut_emails_2_notes_1_title:
       $set:
         flds:
           title: New Title
+PrsDeepNestOfTels:
+  _cls: Prs
+  slug  : LarryStooge
+  fNam  : Larry
+  lNam  : Stooge
+  oBy  : 50c502b7936aa20e20edd211
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      eId    : 1
+      typ    : work
+      address: bill@ms.com
+      prim   : true
+    - _cls   : Email
+      _types : [Email]
+      eId    : 2
+      typ    : work
+      address: steve@apple.com
+      notes:
+        - _cls   : Note
+          _types : [Note]
+          eId    : 1
+          typ    : work
+          title  : this is a
+          body   : Now is the time
+          tels:
+            - _cls   : Tel
+              _types : [Tel]
+              eId    : 1
+              typ    : work
+              text  : 123 456 7890
+            - _cls   : Tel
+              _types : [Tel]
+              eId    : 2
+              typ    : home
+              text  : 123 456 7890
+              prim   : true
+            - _cls   : Tel
+              _types : [Tel]
+              eId    : 3
+              typ    : other
+              text  : 123 456 7890
+  notes:
+    - _cls   : Note
+      _types : [Note]
+      typ    : work
+      title  : base note
+      body   : this is a base note
 PrsLarryStooge:
   _cls: Prs
   slug  : LarryStooge

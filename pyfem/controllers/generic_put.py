@@ -69,26 +69,33 @@ class GenericPut(object):
         targetDoc = baseDoc = coll.find_one(query = qryDat, fields = baseFldNams)
 
         if target_eIdPath:
-            # need to convert eId to offset notation
+            # need to convert eId to targetOffset notation
             # used by pymongo to reach in to a subdoc
             docFld = baseDoc[baseFldNam]
+
+            # since target involves a ListTypeItem, need to save pointer to actual list so that we can run list-level validation
+            targetList = docFld # this is the root targetList
+
+            # traverse eIdPath
             for seg in target_eIdPathSegs:
+                # if not digit, it is the name of a list field
                 if not seg.isdigit():
                     target_offsetPath.append(seg)
-                    targetDoc = targetDoc[seg]
+                    targetList = targetDoc  = targetDoc[seg]
                 else:
                     eId = int(seg)
-                    offset = -1
+                    targetOffset = -1
                     for i, item in enumerate(targetDoc):
                         if item['eId'] == eId:
-                            offset = i
+                            # The last time this is set will give us the where in targetList to set changes to then validate the updated item against the entire list.
+                            targetOffset = i
                             targetDoc = targetDoc[i]
                             break
 
-                    if offset == -1:
+                    if targetOffset == -1:
                         raise Exception('Failed to find eId in list')
 
-                    target_offsetPath.append(str(offset))
+                    target_offsetPath.append(str(targetOffset))
 
             # init the class for targetDoc
             targetDocCls = getattr(models, targetDoc['_cls'])
@@ -108,7 +115,7 @@ class GenericPut(object):
 
         # are any of them involved in generating dNam/dNamS?
         updateLnks = False
-        if 'fldsThatUpdt_dNam' in targetDocCls._meta:
+        if hasattr(targetDocCls, '_meta') and 'fldsThatUpdt_dNam' in targetDocCls._meta:
             dNamFlds = set(targetDocCls._meta['fldsThatUpdt_dNam'])
             fldsThatUpdt_dNam = [fld for i, fld in enumerate(fldNams) if fld in dNamFlds]
             updateLnks = len(fldsThatUpdt_dNam) > 0
@@ -138,52 +145,30 @@ class GenericPut(object):
 
                 fldUpdates = {}
 
-                # each fld can push/add 1 or more vals/items
-                #for fld, val in flds.iteritems():
-                    #fldUpdates = {}
-                    ## get next eId for this fld or 1 if not yet set
-                    #next_eId = proxyTargetDoc['_eIds'][fld] if fld in proxyTargetDoc['_eIds'] else 1
-
-                #for fld, val in flds.iteritems():
-                    #fldUpdates = {}
-                    ## get next eId for this fld or 1 if not yet set
-                    #next_eId = targetDoc['_eIds'][fld] if fld in targetDoc['_eIds'] else 1
-
-
                 # need to set eIds for items to be added
                 # what about when items are to be added to existing list WITH eId's?
                 proxyFld = proxyTargetDoc[fld]
 
+                # init next_eId for this list
                 next_eId = targetDoc['_eIds'][fld] if fld in targetDoc['_eIds'] else 1
 
+                # starting with the next_eId from the existing list of items, incrementally set each eId
                 for i, item in enumerate(proxyFld):
                     proxyFld[i]['eId'] = next_eId
                     next_eId += 1
                 proxyTargetDoc['_eIds'][fld] = next_eId
 
                 doc_errors = []
+
                 attrPath = []
-
-                fldCls = getattr(targetDocCls, fld)
-
-                # room for optimization here
-                # need to combine existing list items with intended new items and run through validation
-
-
-
-
                 # need to validate docs
                 recurseDoc(proxyTargetDoc, fld, proxyTargetDoc, recurseValidate, attrPath, doc_errors)
-
                 if doc_errors:
-                    # return doc_errors
                     break
 
                 attrPath = []
                 recurseDoc(proxyTargetDoc, fld, proxyTargetDoc, recurseVOnUpSert, attrPath, doc_errors)
-
                 if doc_errors:
-                    # return doc_errors
                     break
 
 
@@ -237,12 +222,28 @@ class GenericPut(object):
                     if hasattr(fldCls, 'myError'):
                         errors[fld] = fldCls.myError
                         flds[fld] = {'val': val, 'error': fldCls.myError}
-                    else:
-                        targetDoc[fld] = val
-                        fldUpdates['.'.join(target_offsetPath + [fld])] = val
+                        break
 
-                        if '_eIds' in targetDoc:
-                            fldUpdates['.'.join(target_offsetPath + ['_eIds'])] = targetDoc['_eIds']
+                    targetDoc[fld] = val
+
+                    if target_eIdPath:
+                        targetList[targetOffset][fld] = val
+
+
+                    fldUpdates['.'.join(target_offsetPath + [fld])] = val
+
+                    if '_eIds' in targetDoc:
+                        fldUpdates['.'.join(target_offsetPath + ['_eIds'])] = targetDoc['_eIds']
+
+                # run listField.validateList against the existing AND proposed additions
+                if target_eIdPath and '_cls' in targetList[0]:
+                    targetListItem_cls = targetList[0]['_cls']
+                    targetListItem = getattr(models, targetListItem_cls)(**targetList[0])
+                    errors = targetListItem.validateList(targetList)
+                    if errors:
+                        error = {'attrPath': '.'.join(target_offsetPath + [fld]), 'fld':fld, 'errors': errors}
+                        doc_errors.append(error)
+                        break
 
                 patchActions[action] = fldUpdates
 

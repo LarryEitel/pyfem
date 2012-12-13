@@ -199,6 +199,31 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         x=0
 
 
+    def test_tryToSetSecondPrimEmail(self):
+        sampDat = self.sampDat
+
+        doc = sampDat['PrsDeepNestOfTels']
+
+        post         = controllers.generic_post.GenericPost(self.g).post
+        put          = controllers.generic_put.GenericPut(self.g).put
+
+        # Load one doc
+        resp = post(**{'docs': [doc]})
+        status = resp['status']
+        errors = resp['response']['errors'][0]['errors'][0] if not status == 200 else None
+        assert status == 200
+        assert len(resp['response']['docs']) == 1
+
+        sampItem = sampDat['PrsTryToSetSecondPrimTel']
+        resp = put(**sampItem)
+        status = resp['status']
+        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
+        if errors: print errors
+        assert resp['status'] == 500
+        assert errors['prim'] == 'Only one permited primary item.'
+
+        x=0
+
 
 if __name__ == "__main__":
     unittest.main()
