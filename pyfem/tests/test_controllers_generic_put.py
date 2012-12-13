@@ -31,7 +31,7 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         sampItem = sampDat['PrsTryToAddDupTypEmail']
         resp = put(**sampItem)
         assert resp['status'] == 500
-        assert resp['response']['errors'][0]['errors'][0]['msg'] == 'typ+address must be unique.'
+        assert resp['response']['errors'][0]['errors']['typ+address'] == 'typ+address must be unique.'
         x=0
 
     def test_tryToAddSecondPrimaryEmail(self):
@@ -51,7 +51,7 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         sampItem = sampDat['PrsTryToAddSecondPrimaryEmail']
         resp = put(**sampItem)
         assert resp['status'] == 500
-        assert resp['response']['errors'][0]['errors'][0]['msg'] == 'Only one primary item can be set.'
+        assert resp['response']['errors'][0]['errors']['prim'] == 'Only one permited primary item.'
         x=0
 
     def test_add_one_to_empty_list(self):

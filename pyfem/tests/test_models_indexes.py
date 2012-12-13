@@ -13,7 +13,6 @@ class ModelsIndexesTests(BaseMongoTestCase):
         super(ModelsIndexesTests, self).setUp()
         self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'models_indexes.yaml')
 
-
     def test_tryToAddDupSlug(self):
         sampDat = self.sampDat
 

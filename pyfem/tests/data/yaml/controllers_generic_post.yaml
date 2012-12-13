@@ -60,6 +60,42 @@ PrsMoeStooge:
       typ    : work
       address: bill@ms.com
       prim   : true
+PrsInvalidWithDupEmailTryAddress:
+  _cls: Prs
+  slug  : duptryaddress
+  fNam  : Moe
+  lNam  : Stooge
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      eId    : 1
+      typ    : work
+      address: bill@ms.com
+      prim   : true    # this is bad with two prim == true
+    - _cls   : Email
+      _types : [Email]
+      eId    : 1 # this is bad with two eId == 1
+      typ    : work
+      address: bill@ms.com
+      prim   : true    
+PrsInvalidWithDupPrimListItem:
+  _cls: Prs
+  slug  : duplistitem
+  fNam  : Moe
+  lNam  : Stooge
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      eId    : 1
+      typ    : work
+      address: bill@ms.com
+      prim   : true    # this is bad with two prim == true
+    - _cls   : Email
+      _types : [Email]
+      eId    : 1 # this is bad with two eId == 1
+      typ    : home
+      address: tim@ms.com
+      prim   : true      
 noemail:
   _cls: Prs
   slug  : noemail

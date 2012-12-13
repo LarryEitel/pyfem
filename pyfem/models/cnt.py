@@ -11,8 +11,7 @@ class Cnt(MyDoc, Mixin):
 
     _meta = {
         'collection': 'cnts',
-        'allow_inheritance': True,
-        'fldsThatUpdt_dNam': ['fNam']
+        'allow_inheritance': True
         }
 
     def save(self, *args, **kwargs):
@@ -22,9 +21,6 @@ class Cnt(MyDoc, Mixin):
             self.cOn = self.oOn = now
 
         self.mOn = now
-
-        # mongoengine may not extend this to subclassed models
-        self._meta['fldsThatUpdt_dNam'] = ['fNam']
 
         errors = helpers.recurseValidateAndVOnUpSert(self)
 
@@ -37,6 +33,8 @@ class Cnt(MyDoc, Mixin):
 
             # this will return error if duplicate entries are attempted
             try:
+                # override collection for this class
+                # self.__class__.objects._collection_obj = self.__class__.objects._collection.database[self._meta['collection']]
                 super(Cnt, self).save(*args, **kwargs)
             except Exception, e:
                 self._data['myErrors'] = e
@@ -67,11 +65,13 @@ class Prs(Cnt):
 
 
     meta = {
-        'collection': 'cnts',
         'allow_inheritance': True,
+        'fldsThatUpdt_dNam': ['prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix'],
         'indexes': [{'fields':['slug'], 'unique': True},
-                    {'fields':['sId'], 'unique': True}]
+                    {'fields':['sId'], 'unique': True}
+                    ]
         }
+
         # unsuccessfully tried to use unique index to prevent dup on prim and typ+email, resorted to code hack
         #{'fields':['emails.typ', 'emails.address'], 'unique': True}
         #{'fields':['emails.prim'], 'unique': True}
@@ -89,3 +89,12 @@ class Prs(Cnt):
         if not 'slug' in d or not d['slug']:
             d['slug'] = d['dNamS']
         return {'doc_dict': d, 'errors': errors}
+
+
+    def save(self, *args, **kwargs):
+        # this will return error if duplicate entries are attempted
+        # self._meta['collection'] = 'prss'
+        try:
+            super(Prs, self).save(*args, **kwargs)
+        except Exception, e:
+            self._data['myErrors'] = e

@@ -127,23 +127,35 @@ class GenericPut(object):
                 # if there is an _eIds, grab it cause we will use it
                 # link to items to be added so that they can be validated
                 proxyTargetDoc = {}
+
+                # use existing eIds if exists
                 if '_eIds' in targetDoc:
                     proxyTargetDoc['_eIds'] = targetDoc['_eIds']
 
-                # add to proxy
+                # add items to be added to proxy so we can validate, etc
                 for fld, fldItems in flds.iteritems():
                     proxyTargetDoc[fld] = fldItems
 
+                fldUpdates = {}
 
                 # each fld can push/add 1 or more vals/items
-                for fld, val in flds.iteritems():
-                    fldUpdates = {}
-                    # get next eId for this fld or 1 if not yet set
-                    next_eId = proxyTargetDoc['_eIds'][fld] if fld in proxyTargetDoc['_eIds'] else 1
+                #for fld, val in flds.iteritems():
+                    #fldUpdates = {}
+                    ## get next eId for this fld or 1 if not yet set
+                    #next_eId = proxyTargetDoc['_eIds'][fld] if fld in proxyTargetDoc['_eIds'] else 1
+
+                #for fld, val in flds.iteritems():
+                    #fldUpdates = {}
+                    ## get next eId for this fld or 1 if not yet set
+                    #next_eId = targetDoc['_eIds'][fld] if fld in targetDoc['_eIds'] else 1
 
 
                 # need to set eIds for items to be added
+                # what about when items are to be added to existing list WITH eId's?
                 proxyFld = proxyTargetDoc[fld]
+
+                next_eId = targetDoc['_eIds'][fld] if fld in targetDoc['_eIds'] else 1
+
                 for i, item in enumerate(proxyFld):
                     proxyFld[i]['eId'] = next_eId
                     next_eId += 1
@@ -153,6 +165,12 @@ class GenericPut(object):
                 attrPath = []
 
                 fldCls = getattr(targetDocCls, fld)
+
+                # room for optimization here
+                # need to combine existing list items with intended new items and run through validation
+
+
+
 
                 # need to validate docs
                 recurseDoc(proxyTargetDoc, fld, proxyTargetDoc, recurseValidate, attrPath, doc_errors)
@@ -168,91 +186,16 @@ class GenericPut(object):
                     # return doc_errors
                     break
 
-                # need to get any meta tag on the ListField[item], ie, Email.meta, if it exists
-                # at this point, proxyTargetDoc[fld] contains at least one item that has been submitted to be pushed.
+
+                # run listField.validateList against the existing AND proposed additions
                 if '_cls' in proxyTargetDoc[fld][0]:
                     targetListItem_cls = proxyTargetDoc[fld][0]['_cls']
-                    targetListItem = getattr(models, targetListItem_cls)
-
-                    if 'unique_with' in targetListItem._meta:
-                        unique_with = targetListItem._meta['unique_with']
-
-                        # need to handle making sure item there are not more than one unique_with
-                        if type(proxyTargetDoc[fld]) == list:
-                            theExistingList = targetDoc[fld]
-                            theProxyList = proxyTargetDoc[fld]
-                            if len(theExistingList) + len(theProxyList) > 1:
-                                unique_with_vals = {}
-
-                                offendingItem = None
-                                for i, item in enumerate(theExistingList):
-                                    unique_with_val = []
-                                    for unique_with_fld in unique_with:
-                                        if unique_with_fld in item:
-                                            unique_with_val.append(item[unique_with_fld])
-                                    if unique_with_val:
-                                        unique_with_val_str = '.'.join(unique_with_val)
-                                        unique_with_vals[unique_with_val_str] = unique_with_vals[unique_with_val_str] + 1 if unique_with_val_str in unique_with_vals else 1
-                                        if unique_with_vals[unique_with_val_str] > 1:
-                                            offendingItem = item
-                                            break
-
-                                if not offendingItem:
-                                    for i, item in enumerate(theProxyList):
-                                        if 'prim' in item and item['prim']:
-                                            unique_with_val = []
-                                            for unique_with_fld in unique_with:
-                                                if unique_with_fld in item:
-                                                    unique_with_val.append(item[unique_with_fld])
-                                            if unique_with_val:
-                                                unique_with_val_str = '.'.join(unique_with_val)
-                                                unique_with_vals[unique_with_val_str] = unique_with_vals[unique_with_val_str] + 1 if unique_with_val_str in unique_with_vals else 1
-                                                if unique_with_vals[unique_with_val_str] > 1:
-                                                    offendingItem = item
-                                                    break
-
-                                if offendingItem:
-                                    error = {'attrPath': '.'.join(target_offsetPath + [fld]), 'fld':fld, '_cls': offendingItem['_cls'], 'errors': [{'msg': '+'.join(unique_with) + ' must be unique.', 'item': offendingItem}]}
-                                    doc_errors.append(error)
-                                    # return doc_errors
-                                    break
-
-
-
-                # need to handle making sure item there are not more than one primary item set in the list
-                if type(proxyTargetDoc[fld]) == list:
-                    theExistingList = targetDoc[fld]
-                    theProxyList = proxyTargetDoc[fld]
-                    if len(theExistingList) + len(theProxyList) > 1:
-                        primCount = 0
-
-                        offendingItem = None
-                        for i, item in enumerate(theExistingList):
-                            if 'prim' in item and item['prim']:
-                                primCount += 1
-                                if primCount > 1:
-                                    offendingItem = item
-                                    break
-
-                        if not offendingItem:
-                            for i, item in enumerate(theProxyList):
-                                if 'prim' in item and item['prim']:
-                                    primCount += 1
-                                    if primCount > 1:
-                                        offendingItem = item
-                                        break
-
-                        if offendingItem:
-                            error = {'attrPath': '.'.join(target_offsetPath + [fld]), 'fld':fld, '_cls': offendingItem['_cls'], 'errors': [{'msg': 'Only one primary item can be set.', 'item': offendingItem}]}
-                            doc_errors.append(error)
-                            # return doc_errors
-                            break
-
-                        #if '_cls' in theProxyList[0]:
-                            #listItem_cls = getattr(models, theProxyList[0]['_cls'])
-
-
-
+                    targetListItem = getattr(models, targetListItem_cls)(**proxyTargetDoc[fld][0])
+                    errors = targetListItem.validateList(targetDoc[fld] + proxyTargetDoc[fld])
+                    if errors:
+                        error = {'attrPath': '.'.join(target_offsetPath + [fld]), 'fld':fld, 'errors': errors}
+                        doc_errors.append(error)
+                        break
 
                 listItemsToAdd = []
                 for i, item in enumerate(proxyFld):

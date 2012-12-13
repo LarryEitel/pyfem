@@ -41,15 +41,17 @@ class GenericPost(object):
             doc_keys   = doc_dict.keys()
 
             modelClass = getattr(models, _cls)
-            _id        = doc_dict['_id'] if '_id' in doc_keys else None
-            where      = {'_id': ObjectId(_id)} if _id else None
-            attrNam    = doc_dict['attrNam'] if 'attrNam' in doc_keys else None
-            attr_c     = doc_dict['attr_c'] if attrNam else None
-            attrVal    = doc_dict['attrVal'] if attrNam else None
+            #_id        = doc_dict['_id'] if '_id' in doc_keys else None
+            #where      = {'_id': ObjectId(_id)} if _id else None
+            #attrNam    = doc_dict['attrNam'] if 'attrNam' in doc_keys else None
+            #attr_c     = doc_dict['attr_c'] if attrNam else None
+            #attrVal    = doc_dict['attrVal'] if attrNam else None
 
             doc = modelClass(**doc_dict)
+            # resp = doc.pre_save()
             resp = doc.save()
             if 'myErrors' in doc._data:
+                # error = {'doc_dict': doc_dict, 'errors': doc._data['myErrors'], 'msg': doc._data['myErrors'].message}
                 error = {'doc_dict': doc_dict, 'errors': doc._data['myErrors']}
                 post_errors.append(error)
             else:

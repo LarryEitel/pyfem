@@ -65,11 +65,9 @@ def recurseDoc(doc, key, val, recurseFn, attrPath, doc_errors):
             listItem_cls = getattr(models, theList[0]['_cls'])
             if hasattr(listItem_cls, 'validateList'):
                 listItem = listItem_cls(**theList[0])
-                listItem.validateList(theList)
-        ########### NOT DONE YET
-        pass
-
-
+                errors = listItem.validateList(theList)
+                if errors:
+                    doc_errors.append({'attrPath': '.'.join(attrPath), 'fld':key, 'errors': errors})
 
 
         # now go ahead and process each item in the list for possible further recursion

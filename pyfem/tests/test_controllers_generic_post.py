@@ -33,14 +33,40 @@ class ControllersGenericPostTests(BaseMongoTestCase):
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == 1
 
+    def test_tryToPostPrsWithDupEmailTryAddress(self):
+        ucs     = self.ucs
+        sampDat = self.sampDat
+        doc     = sampDat['PrsInvalidWithDupEmailTryAddress']
+
+        post    = controllers.generic_post.GenericPost(self.g).post
+
+        # try one doc
+        resp    = post(**{'docs': [doc]})
+        assert resp['status'] == 500
+        assert resp['response']['errors'][0]['errors'][0]['errors']['typ+address'] == 'typ+address must be unique.'
+        x = 0
+
+    def test_tryToPostPrsWithDupPrimListItem(self):
+        ucs     = self.ucs
+        sampDat = self.sampDat
+        doc     = sampDat['PrsInvalidWithDupPrimListItem']
+
+        post    = controllers.generic_post.GenericPost(self.g).post
+
+        # try one doc
+        resp    = post(**{'docs': [doc]})
+        assert resp['status'] == 500
+        assert resp['response']['errors'][0]['errors'][0]['errors']['prim'] == 'Only one permited primary item.'
+        x = 0
+
     def test_post_new_several(self):
         ucs     = self.ucs
         sampDat = self.sampDat
 
         post    = controllers.generic_post.GenericPost(self.g).post
 
-        # try several docs
-        docs    = sampDat.values()
+        # try several docs, EXCEPT items with Invalid in the key
+        docs    = [sampDat[d] for d in sampDat if not 'Invalid' in d]
         resp    = post(**{'docs': docs})
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == len(docs)

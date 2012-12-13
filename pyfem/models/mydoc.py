@@ -39,30 +39,66 @@ def validate(doc):
                                                  field_name=field.name)
     return errors
 
+def test_hook(m):
+    return True
+
+class BaseDocMixin(object):
+    def validDocData(self):
+        return validDocData(self)
+
+    _pre_save_hooks = [
+            test_hook,
+            validate
+        ]
+
+    def pre_save(self, *args, **kwargs):
+        for hook in self._pre_save_hooks:
+            # the callable can raise an exception if
+            # it determines that it is inappropriate
+            # to save this instance; or it can modify
+            # the instance before it is saved
+            hook(self)
+        super(MyDoc, self).save(*args, **kwargs)
+
+
 # inspired by http://stackoverflow.com/questions/6102103/using-mongoengine-document-class-methods-for-custom-validation-and-pre-save-hook
-class MyDoc(app.db.Document):
+class MyDoc(app.db.Document, BaseDocMixin):
+
+    _meta = {
+        'allow_inheritance': True
+        }
+
+    def validate(self):
+        return validate(self)
+    # http://stackoverflow.com/questions/6102103/using-mongoengine-document-class-methods-for-custom-validation-and-pre-save-hook
+
+    #def save(self, *args, **kwargs):
+        #self._meta['collection'] = 'cnts'
+        #super(MyDoc, self).save(*args, **kwargs)
+
+
+class MyEmbedDoc(app.db.EmbeddedDocument, BaseDocMixin):
+    def validDocData(self):
+        return validDocData(self)
+
+    def validate(self):
+        return validate(self)
+
+    _pre_save_hooks = [
+            test_hook,
+            validate
+        ]
+    def pre_save(self, *args, **kwargs):
+        for hook in self._pre_save_hooks:
+            # the callable can raise an exception if
+            # it determines that it is inappropriate
+            # to save this instance; or it can modify
+            # the instance before it is saved
+            hook(self)
+        super(MyDoc, self).save(*args, **kwargs)
 
     # http://stackoverflow.com/questions/6102103/using-mongoengine-document-class-methods-for-custom-validation-and-pre-save-hook
     #def save(self, *args, **kwargs):
-        #for hook in self._pre_save_hooks:
-            ## the callable can raise an exception if
-            ## it determines that it is inappropriate
-            ## to save this instance; or it can modify
-            ## the instance before it is saved
-            #hook(self)
-        #super(MyDoc, self).save(*args, **kwargs)
+        #super(MyEmbedDoc, self).save(*args, **kwargs)
 
-    def validDocData(self):
-        return validDocData(self)
-
-    def validate(self):
-        return validate(self)
-
-class MyEmbedDoc(app.db.EmbeddedDocument):
-
-    def validDocData(self):
-        return validDocData(self)
-
-    def validate(self):
-        return validate(self)
 
