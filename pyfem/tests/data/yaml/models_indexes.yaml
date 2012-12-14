@@ -2,7 +2,7 @@
 
 PrsLarryStooge:
   _cls: Prs
-  slug  : LarryStooge
+  slug  : larrystooge
   fNam  : Larry
   lNam  : Stooge
   emails:
@@ -20,7 +20,7 @@ PrsLarryStooge:
 
 PrsMoeStooge:
   _cls: Prs
-  slug  : LarryStooge
+  slug  : larrystooge
   fNam  : Moe
   lNam  : Stooge
   emails:

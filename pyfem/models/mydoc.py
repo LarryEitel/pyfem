@@ -1,5 +1,7 @@
+import re
 from app import app
 from mongoengine.base import ValidationError
+from utils.name import slug
 
 def validDocData(m):
     '''Return dict with model _data that actually valid. doc._data contains invalid data.'''
@@ -73,8 +75,51 @@ class MyDoc(app.db.Document, BaseDocMixin):
     # http://stackoverflow.com/questions/6102103/using-mongoengine-document-class-methods-for-custom-validation-and-pre-save-hook
 
     #def save(self, *args, **kwargs):
-        #self._meta['collection'] = 'cnts'
         #super(MyDoc, self).save(*args, **kwargs)
+
+    def generate_slug(self, value):
+        """Query the database for similarly matching values. Then
+        increment the maximum trailing integer. In the future this
+        will rely on map-reduce(?).
+
+        This method first makes a basic slug from the given value.
+        Then it checks to see if any documents in the database share
+        that same value in the same field. If it finds matching
+        results then it will attempt to increment the counter on the
+        end of the slug.
+
+        It uses pymongo directly because mongoengine's own querysets
+        rely on each field's __set__ method, which results in endless
+        recrusion.
+        """
+        collection = self.__class__.objects._collection
+        slugVal = slug(value)
+        slug_regex = '^%s' % slugVal
+        existing_docs = [
+            {'id': doc['_id'], 'slug': doc['slug']} for doc in
+            collection.find({'slug': {'$regex':slug_regex}})
+        ]
+        matches = [int(re.search(r'-[\d]+$', doc['slug']).group()[-1:])
+            for doc in existing_docs if re.search(r'-[\d]+$', doc['slug'])]
+
+        # Four scenarios:
+        # (1) No match is found, this is a brand new slug
+        # (2) A matching document is found, but it's this one
+        # (3) A matching document is found but without any number
+        # (4) A matching document is found with an incrementing value
+        next = 1
+        if len(existing_docs) == 0:
+            return slugVal
+        elif self.id in [doc['id'] for doc in existing_docs]:
+            return self['slug']
+        elif not matches:
+            return u'%s-%s' % (slugVal, next)
+        else:
+            next = max(matches) + 1
+            return u'%s-%s' % (slugVal, next)
+
+
+
 
 
 class MyEmbedDoc(app.db.EmbeddedDocument, BaseDocMixin):

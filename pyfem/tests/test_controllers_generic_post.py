@@ -30,8 +30,32 @@ class ControllersGenericPostTests(BaseMongoTestCase):
 
         # try one doc
         resp    = post(**{'docs': [doc]})
+        status = resp['status']
+        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == 1
+
+    def test_slug_generator(self):
+        ucs     = self.ucs
+        sampDat = self.sampDat
+
+        post    = controllers.generic_post.GenericPost(self.g).post
+
+        doc     = sampDat['PrsTryWithNoSlug']
+        resp    = post(**{'docs': [doc]})
+        status = resp['status']
+        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
+        assert resp['status'] == 200
+
+        doc     = sampDat['PrsTryWithNoSlug2']
+        resp    = post(**{'docs': [doc]})
+        status = resp['status']
+        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
+        if errors: print errors
+        assert resp['status'] == 200
+        doc = resp['response']['docs'][resp['response']['docs'].keys()[0]]
+        assert doc['slug'] == 'moestooge-1'
+
 
     def test_tryToPostPrsWithDupEmailTryAddress(self):
         ucs     = self.ucs

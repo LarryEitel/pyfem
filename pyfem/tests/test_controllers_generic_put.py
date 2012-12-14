@@ -218,7 +218,6 @@ class ControllersGenericPutTests(BaseMongoTestCase):
         resp = put(**sampItem)
         status = resp['status']
         errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
-        if errors: print errors
         assert resp['status'] == 500
         assert errors['prim'] == 'Only one permited primary item.'
 

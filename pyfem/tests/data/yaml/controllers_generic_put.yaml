@@ -5,7 +5,7 @@ PrsTryToSetSecondPrimTel:
   # update first title in note.eId=1 in second email.eId=2
   _cls: Prs
   query: 
-    slug: LarryStooge
+    slug: larrystooge
   update:
     target_eIdPath: emails.2.notes.1.tels.3 # numbers refer to eId's, NOT element offsets
     actions:
@@ -16,7 +16,7 @@ PrsTryToAddDupTypEmail:
   # add a new email to emails
   _cls: Prs
   query: 
-    slug: LarryStooge
+    slug: larrystooge
   update:
     target_eIdPath: 
     actions:
@@ -32,7 +32,7 @@ PrsTryToAddSecondPrimaryEmail:
   # add a new email to emails
   _cls: Prs
   query: 
-    slug: LarryStooge
+    slug: larrystooge
   update:
     target_eIdPath: 
     actions:
@@ -83,7 +83,7 @@ PrsAddOneNewEmailToExistingEmailsField:
   # add a new email to emails
   _cls: Prs
   query: 
-    slug: LarryStooge
+    slug: larrystooge
   update:
     target_eIdPath: 
     actions:
@@ -98,7 +98,7 @@ PrsAddTwoNewEmailsToExistingEmailsField:
   # add a new email to emails
   _cls: Prs
   query: 
-    slug: LarryStooge
+    slug: larrystooge
   update:
     target_eIdPath: 
     actions:
@@ -117,7 +117,7 @@ PrsPut_emails_1:
   # update emails[0] fields and add a notes list with a new note missing eId
   _cls: Prs
   query: 
-    slug: LarryStooge
+    slug: larrystooge
   update:
     target_eIdPath: emails.1
     actions:
@@ -136,7 +136,7 @@ PrsPut_fNam:
   # update first title in note.eId=1 in second email.eId=2
   _cls: Prs
   query: 
-    slug: LarryStooge
+    slug: larrystooge
   update:
     target_eIdPath: 
     actions:
@@ -148,7 +148,7 @@ PrsPut_emails_2_notes_1_title:
   # update first title in note.eId=1 in second email.eId=2
   _cls: Prs
   query: 
-    slug: LarryStooge
+    slug: larrystooge
   update:
     target_eIdPath: emails.2.notes.1 # numbers refer to eId's, NOT element offsets
     actions:
@@ -157,7 +157,7 @@ PrsPut_emails_2_notes_1_title:
           title: New Title
 PrsDeepNestOfTels:
   _cls: Prs
-  slug  : LarryStooge
+  slug  : larrystooge
   fNam  : Larry
   lNam  : Stooge
   oBy  : 50c502b7936aa20e20edd211
@@ -205,7 +205,7 @@ PrsDeepNestOfTels:
       body   : this is a base note
 PrsLarryStooge:
   _cls: Prs
-  slug  : LarryStooge
+  slug  : larrystooge
   fNam  : Larry
   lNam  : Stooge
   oBy  : 50c502b7936aa20e20edd211

@@ -4,6 +4,7 @@ from app import app
 import models
 from models import MyEmbedDoc
 from models.myfields import MyStringField, MyEmailField
+from mongoengine_extras.fields import SlugField, AutoSlugField
 
 class EmbedMixin(object):
     typ     = MyStringField(required= True)

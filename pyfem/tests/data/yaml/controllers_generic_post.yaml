@@ -50,7 +50,7 @@ PrsLarryStooge:
           text   : 123 123 1234
 PrsMoeStooge:
   _cls: Prs
-  slug  : moestooge
+  slug  : 
   fNam  : Moe
   lNam  : Stooge
   emails:
@@ -60,6 +60,30 @@ PrsMoeStooge:
       typ    : work
       address: bill@ms.com
       prim   : true
+PrsTryWithNoSlug:
+  _cls: Prs
+  slug  : 
+  fNam  : Moe
+  lNam  : Stooge
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      eId    : 1
+      typ    : work
+      address: bill@ms.com
+      prim   : true
+PrsTryWithNoSlug2:
+  _cls: Prs
+  slug  : 
+  fNam  : Moe
+  lNam  : Stooge
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      eId    : 1
+      typ    : work
+      address: bill@ms.com
+      prim   : true      
 PrsInvalidWithDupEmailTryAddress:
   _cls: Prs
   slug  : duptryaddress

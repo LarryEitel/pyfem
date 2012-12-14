@@ -6,6 +6,8 @@ from models import Mixin, Email, Note, MyDoc
 from models.myfields import MyStringField
 import helpers
 
+import utils.name
+
 class Cnt(MyDoc, Mixin):
     code = app.db.StringField()
 
@@ -28,13 +30,15 @@ class Cnt(MyDoc, Mixin):
         if type(errors) == list:
             self._data['myErrors'] = errors
         else:
+
+            if not self.slug:
+                self.slug = self.generate_slug(self.dNamS)
+
             # turning off validation cause we do that in recurseValidateAndVOnUpSert
             kwargs['validate'] = False
 
             # this will return error if duplicate entries are attempted
             try:
-                # override collection for this class
-                # self.__class__.objects._collection_obj = self.__class__.objects._collection.database[self._meta['collection']]
                 super(Cnt, self).save(*args, **kwargs)
             except Exception, e:
                 self._data['myErrors'] = e
@@ -68,7 +72,8 @@ class Prs(Cnt):
         'allow_inheritance': True,
         'fldsThatUpdt_dNam': ['prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix'],
         'indexes': [{'fields':['slug'], 'unique': True},
-                    {'fields':['sId'], 'unique': True}
+                    {'fields':['sId'], 'unique': True},
+                    {'fields':['-mOn']}
                     ]
         }
 
@@ -80,14 +85,22 @@ class Prs(Cnt):
         # 'indexes': [{'fields':['slug'], 'unique': True}, {'fields':['emails.prim'], 'unique': True}]
         # 'indexes': [{'fields':['dNam']}, {'fields':'emails.prim', 'unique': True}]
 
+
+    def get_absolute_url(self):
+        return url_for('Prs', kwargs={"slug": self.slug})
+
+    def __unicode__(self):
+        return self.dNam
+
     @staticmethod
     def vOnUpSert(d):
         errors = []
         d['dNam'] = d['fNam'] + ' ' + d['lNam']
         if not 'dNamS' in d or not d['dNamS']:
             d['dNamS'] = d['dNam'].lower().replace(' ', '_')
-        if not 'slug' in d or not d['slug']:
-            d['slug'] = d['dNamS']
+        # if not 'slug' in d or not d['slug']:
+        #     slug = utils.name.slug(d['dNam'])
+        #     d['slug'] = slug
         return {'doc_dict': d, 'errors': errors}
 
 
