@@ -53,6 +53,23 @@ class EmbedMixin(object):
 
         return errors
 
+
+class Lnk(MyEmbedDoc, EmbedMixin):
+    doc_cls         = MyStringField(help_text='Document class "_cls".')
+    lnkTypDNam  = app.db.IntField(help_text='Link Type Display Name')
+    lnkTypDNamS = app.db.IntField(help_text='Link Type Display Name Short')
+    dDNam       = app.db.IntField(help_text='Document Display Name')
+    sDNamS      = app.db.IntField(help_text='Document Display Name Short')
+
+class Pth(MyEmbedDoc, EmbedMixin):
+    doc_cls      = MyStringField(help_text='Target document class "_cls".')
+    lnkTypId = app.db.IntField(help_text='Link Type Id.')
+    lnkTitle = MyStringField(help_text='Link Title.')
+    lnkNote  = MyStringField(help_text='Link Note.')
+    lnks     = app.db.ListField(app.db.EmbeddedDocumentField(Lnk))
+    ids      = app.db.ListField(app.db.IntField())
+
+
 class Tel(MyEmbedDoc, EmbedMixin):
     text = MyStringField(required= True)
 

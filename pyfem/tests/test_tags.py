@@ -27,7 +27,7 @@ class TagsTests(BaseMongoTestCase):
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == 1
         doc = resp['response']['docs'][resp['response']['docs'].keys()[0]]
-        assert doc['slug'] == 'pet'
+        assert doc['slug'] == 'petcat'
 
     def test_tagGrpPost(self):
         sampDat = self.sampDat

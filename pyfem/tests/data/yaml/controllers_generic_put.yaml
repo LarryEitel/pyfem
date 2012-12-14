@@ -48,7 +48,7 @@ PrsAddOneNewEmailToEmptyEmailsField:
   # add a new email to emails
   _cls: Prs
   query: 
-    slug: PrsLarryStoogeEmptyEmails
+    slug: prslarrystoogeemptyemails
   update:
     target_eIdPath: 
     actions:
@@ -63,7 +63,7 @@ PrsAddTwoNewEmailToEmptyEmailsField:
   # add a new email to emails
   _cls: Prs
   query: 
-    slug: PrsLarryStoogeEmptyEmails
+    slug: prslarrystoogeemptyemails
   update:
     target_eIdPath: 
     actions:
@@ -236,7 +236,7 @@ PrsLarryStooge:
       body   : this is a base note
 PrsLarryStoogeEmptyEmails:
   _cls: Prs
-  slug  : PrsLarryStoogeEmptyEmails
+  slug  : prslarrystoogeemptyemails
   fNam  : Larry
   lNam  : Stooge
   oBy  : 50c502b7936aa20e20edd211
