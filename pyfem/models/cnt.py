@@ -31,8 +31,11 @@ class Cnt(MyDoc, Mixin):
             self._data['myErrors'] = errors
         else:
 
-            if not self.slug:
-                self.slug = self.generate_slug(self.dNamS)
+            # we want to generate a slug and make sure whatever slug may have been
+            # given, if any, will be unique
+            slugDefault = self.slug or self.dNamS or self.dNam
+            self.slug = self.generate_slug(slugDefault)
+
 
             # turning off validation cause we do that in recurseValidateAndVOnUpSert
             kwargs['validate'] = False
