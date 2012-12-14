@@ -232,42 +232,50 @@
 	"buffers":
 	[
 		{
+			"file": "pyfem/tests/zest_models_indexes.py",
+			"settings":
+			{
+				"buffer_size": 1243,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/models/mydoc.py",
+			"settings":
+			{
+				"buffer_size": 5122,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/models/cnt.py",
+			"settings":
+			{
+				"buffer_size": 3108,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/tests/test_utils_name.py",
+			"settings":
+			{
+				"buffer_size": 3444,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/models/embeds.py",
+			"settings":
+			{
+				"buffer_size": 4664,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "pyfem/tests/test_controllers_generic_put.py",
 			"settings":
 			{
-				"buffer_size": 1345,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pyfem/controllers/generic_put.py",
-			"settings":
-			{
-				"buffer_size": 6619,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pyfem/tests/test_controllers_generic_post.py",
-			"settings":
-			{
-				"buffer_size": 1309,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pyfem/tests/data/yaml/controllers_generic_put.yaml",
-			"settings":
-			{
-				"buffer_size": 2965,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pyfem/tests/data/yaml/controllers_generic_post.yaml",
-			"settings":
-			{
-				"buffer_size": 1384,
+				"buffer_size": 7809,
 				"line_ending": "Windows"
 			}
 		},
@@ -275,7 +283,63 @@
 			"file": "pyfem/models/helpers.py",
 			"settings":
 			{
-				"buffer_size": 4318,
+				"buffer_size": 4752,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/controllers/generic_post.py",
+			"settings":
+			{
+				"buffer_size": 2117,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/controllers/generic_put.py",
+			"settings":
+			{
+				"buffer_size": 10479,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/tests/data/yaml/models_indexes.yaml",
+			"settings":
+			{
+				"buffer_size": 710,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/tests/data/yaml/controllers_generic_put.yaml",
+			"settings":
+			{
+				"buffer_size": 6668,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Larry/Dropbox/_bu/autostart_console.bat",
+			"settings":
+			{
+				"buffer_size": 1773,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/tests/data/yaml/controllers_generic_post.yaml",
+			"settings":
+			{
+				"buffer_size": 2682,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/utils/name.py",
+			"settings":
+			{
+				"buffer_size": 1493,
 				"line_ending": "Windows"
 			}
 		}
@@ -432,33 +496,48 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_models_indexes.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/extras_fields_slug.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/requirements.txt",
+		"/C/Users/Larry/__prjs/__py/pyfem/venv/Lib/site-packages/mongoengine/fields.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/venv/Lib/site-packages/mongoengine/document.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/venv/Lib/site-packages/mongoengine/base.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/models/cnt.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/usecases.yaml",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/models_indexes.yaml",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/mydoc.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/app.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/util.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/default_settings.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/models/person.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/app.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/logs/pyfem.log",
+		"/C/Users/Larry/Dropbox/_bu/autostart_console.bat",
+		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/models/kard.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/helpers.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/controllers_generic_post.yaml",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_indexes.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/models_indexs.yaml",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_controllers_generic_post.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/cnt.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/logit.py",
 		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/runserver.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/docs/elastic.omd",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/__init__.py",
 		"/C/Users/Larry/Dropbox/Photos/Shiv/note.txt",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/mydoc.py",
 		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/models/flowreport.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/deactivate.cmd",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/controllers/generic_put.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/controllers_generic_post.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_controllers_generic_post.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/embeds.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/prs.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/usecases.yaml",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/controllers/__init__.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/utils/myyaml.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/helpers.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_models_helpers.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_utils.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/fabfile.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/tels.yaml",
-		"/C/Users/Larry/Dropbox/_bu/autostart_console.bat",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/app.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/README.md",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/api/__init__.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/default_settings.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/flask_seed.wpr",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/flask_seed.wpu",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/local_settings.py",
@@ -517,7 +596,6 @@
 		"/C/Users/Larry/__prjs/flask_seed/flask_seed/controllers/person.py",
 		"/C/Users/Larry/__prjs/flask_seed/flask_seed/controllers_.py",
 		"/C/Users/Larry/__prjs/flask_seed/flask_seed/controllers.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/app.py",
 		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/util.py",
 		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/tests/test_models.py",
 		"/C/Users/Larry/__prjs/flask_seed/flask_seed/util.py",
@@ -528,7 +606,6 @@
 		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/views.py",
 		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/requirements.txt",
 		"/C/Users/Larry/__prjs/flask_seed/flask_seed/templates/home.html",
-		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/models/person.py",
 		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/templates/base.html",
 		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/docs/source/conf.py",
 		"/C/Users/Larry/__prjs/flask_seed/flask_seed/run_server.py",
@@ -546,20 +623,7 @@
 		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/demos/json_schema.py",
 		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/demos/minimize.py",
 		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/demos/basic_objects.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/schematics/validation.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/READISH.md",
-		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/demos/simple_lists.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/models/__init__.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/test_embedded_documents.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/controllers/__init__.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/schematics/__init__.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/venv/Lib/site-packages/schematics/models.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/base_save.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/run.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/venv/Lib/site-packages/schematics/serialize.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/g.yaml",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/g.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/utils/test_nextid.py"
+		"/C/Users/Larry/__prjs/_ex/_prjs/py/schematics/schematics/validation.py"
 	],
 	"find":
 	{
@@ -570,6 +634,9 @@
 		"height": 90.0,
 		"where_history":
 		[
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem\\tests",
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem",
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\venv\\Lib\\site-packages\\mongoengine",
 			"C:\\Users\\Larry\\__prjs\\_ex\\_prjs\\kardboard\\kardboard\\models",
 			"C:\\Users\\Larry\\__prjs\\__py\\pyfem",
 			"C:\\Users\\Larry\\__prjs\\flask_seed\\flask_seed",
@@ -694,10 +761,7 @@
 			"C:\\Users\\Larry\\__prjs\\ourfield\\static\\coffee",
 			"C:\\_prm",
 			"C:\\Users\\Larry\\__prjs\\ourfield\\static\\coffee",
-			"C:\\Users\\Larry\\__prjs\\ourfield\\ve\\Lib\\site-packages\\pinax\\projects\\basic_project",
-			"C:\\Users\\Larry\\__prjs\\ourfield",
-			"C:\\Users\\Larry\\__prjs\\ourfield_2\\templates",
-			"C:\\Users\\Larry\\__prjs\\ourfield\\templates"
+			"C:\\Users\\Larry\\__prjs\\ourfield\\ve\\Lib\\site-packages\\pinax\\projects\\basic_project"
 		]
 	},
 	"find_state":
@@ -705,6 +769,17 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"LarryStooge",
+			"helpers",
+			"Too many primary items",
+			"Unique",
+			"unique",
+			"config",
+			"logger",
+			"currentP",
+			"configure_logging",
+			"List",
+			"true",
 			"targetDocPath",
 			"meta",
 			"Post",
@@ -821,25 +896,15 @@
 			"%JAVA_HOME%\\bin\\java",
 			"duplicate-line",
 			"email",
-			"PYTHON_EXE",
-			"PROJECT_ROOT",
-			"PYTHON_HOME",
-			"PYTHON_ROOT",
-			"subl",
-			"python_exe",
-			"C:\\Users\\Larry",
-			"geo",
-			"tNam",
-			"locals",
-			"BaseType",
-			"Tel"
+			"PYTHON_EXE"
 		],
-		"highlight": false,
+		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
 		"regex": false,
 		"replace_history":
 		[
+			"larrystooge",
 			"target_eIdPath",
 			"Put",
 			"_cls",
@@ -966,35 +1031,34 @@
 			"contacts",
 			"DATABASE_URI",
 			"ex",
-			"BaseRequest",
-			"structures"
+			"BaseRequest"
 		],
 		"reverse": false,
 		"show_context": false,
-		"use_buffer2": false,
+		"use_buffer2": true,
 		"whole_word": true,
 		"wrap": false
 	},
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "pyfem/tests/test_controllers_generic_put.py",
+					"file": "pyfem/tests/zest_models_indexes.py",
 					"settings":
 					{
-						"buffer_size": 1345,
+						"buffer_size": 1243,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								321,
-								411
+								1243,
+								1243
 							]
 						],
 						"settings":
@@ -1004,25 +1068,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 45.0,
+						"translation.y": 135.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "pyfem/controllers/generic_put.py",
+					"file": "pyfem/models/mydoc.py",
 					"settings":
 					{
-						"buffer_size": 6619,
+						"buffer_size": 5122,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4571,
-								4571
+								93,
+								93
 							]
 						],
 						"settings":
@@ -1032,25 +1096,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1600.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "pyfem/tests/test_controllers_generic_post.py",
+					"file": "pyfem/models/cnt.py",
 					"settings":
 					{
-						"buffer_size": 1309,
+						"buffer_size": 3108,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								598,
-								598
+								2408,
+								2408
 							]
 						],
 						"settings":
@@ -1060,37 +1124,31 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 90.0,
+						"translation.y": 1170.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 3,
-					"file": "pyfem/tests/data/yaml/controllers_generic_put.yaml",
+					"file": "pyfem/tests/test_utils_name.py",
 					"settings":
 					{
-						"buffer_size": 2965,
+						"buffer_size": 3444,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								788,
-								788
+								216,
+								216
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/YAML/YAML.tmLanguage",
-							"tab_size": 2,
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -1101,18 +1159,164 @@
 				},
 				{
 					"buffer": 4,
-					"file": "pyfem/tests/data/yaml/controllers_generic_post.yaml",
+					"file": "pyfem/models/embeds.py",
 					"settings":
 					{
-						"buffer_size": 1384,
+						"buffer_size": 4664,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								322,
-								322
+								4204,
+								4204
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "pyfem/tests/test_controllers_generic_put.py",
+					"settings":
+					{
+						"buffer_size": 7809,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6951,
+								6951
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2224.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "pyfem/models/helpers.py",
+					"settings":
+					{
+						"buffer_size": 4752,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								30,
+								30
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "pyfem/controllers/generic_post.py",
+					"settings":
+					{
+						"buffer_size": 2117,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								760,
+								760
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 356.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 8,
+					"file": "pyfem/controllers/generic_put.py",
+					"settings":
+					{
+						"buffer_size": 10479,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5572,
+								5572
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2068.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "pyfem/tests/data/yaml/models_indexes.yaml",
+					"settings":
+					{
+						"buffer_size": 710,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								422,
+								422
 							]
 						],
 						"settings":
@@ -1128,19 +1332,101 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "pyfem/models/helpers.py",
+					"buffer": 10,
+					"file": "pyfem/tests/data/yaml/controllers_generic_put.yaml",
 					"settings":
 					{
-						"buffer_size": 4318,
+						"buffer_size": 6668,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3742,
-								3742
+								6668,
+								6668
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "/C/Users/Larry/Dropbox/_bu/autostart_console.bat",
+					"settings":
+					{
+						"buffer_size": 1773,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1204,
+								1205
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Batch File/Batch File.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "pyfem/tests/data/yaml/controllers_generic_post.yaml",
+					"settings":
+					{
+						"buffer_size": 2682,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1322,
+								1306
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "pyfem/utils/name.py",
+					"settings":
+					{
+						"buffer_size": 1493,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								581,
+								581
 							]
 						],
 						"settings":
@@ -1150,7 +1436,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 450.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1186,7 +1472,7 @@
 		"cols":
 		[
 			0.0,
-			0.459950287237,
+			0.505865572244,
 			1.0
 		],
 		"rows":
@@ -1244,7 +1530,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
-	"side_bar_width": 287.0,
+	"side_bar_visible": true,
+	"side_bar_width": 230.0,
 	"status_bar_visible": true
 }

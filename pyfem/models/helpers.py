@@ -39,6 +39,9 @@ def recurseDoc(doc, key, val, recurseFn, attrPath, doc_errors):
             val[key] = recurseDoc(val, key, val[key], recurseFn, attrPath + [key], doc_errors)
             x=0
     elif type(val) == list:
+        if not '_cls' in val[0]:
+            return val
+
         # Let's make sure members of this list have eId's initialized
         if not '_eIds' in doc:
             doc['_eIds'] = {}
