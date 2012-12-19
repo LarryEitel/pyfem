@@ -9,6 +9,7 @@ from copy import deepcopy
 from core import BaseTestCase, BaseMongoTestCase
 from bson import ObjectId
 from utils import myyaml
+from utils.myyaml import postToMongo
 import controllers
 import models
 
@@ -66,6 +67,12 @@ class UseCase1Tests(BaseMongoTestCase):
         self.usecase = usecase = myyaml.pyObj(self.tests_data_yaml_dir + 'usecase1')
         self.sampDat = sampDat = usecase['sampDat']
 
+        # load lnkrels
+        resp = postToMongo(post, self.data_dir + 'lnkrels')
+        assert resp['status'] == 200
+        assert len(resp['response']['docs']) == len(resp['response']['yamlData']['data'])
+
+        # load sample initial data
         for item in sampDat['initload'].itervalues():
             self.asrt(post(item))
 

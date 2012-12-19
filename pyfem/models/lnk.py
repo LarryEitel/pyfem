@@ -11,16 +11,16 @@ import utils.name
 class LnkRel(MyDoc, Mixin):
     '''Link Relationships'''
     fam      = app.db.BooleanField(help_text='Is Family Link/Relationship?')
-    chld_clss = MyStringField(help_text='Child Document class "_cls".')
+    chld_clss = app.db.ListField(MyStringField(help_text='Child Document class "_cls".'))
     chldGen  = MyStringField(help_text='Child Gender')
     chldNam  = MyStringField(help_text='Child Name/Title')
     chldNamS = MyStringField(help_text='Child Name/Title Short')
-    par_clss  = MyStringField(help_text='Parent Document class "_cls".')
+    par_clss  = app.db.ListField(MyStringField(help_text='Parent Document class "_cls".'))
     parGen   = MyStringField(help_text='Parent Gender')
     parNam   = MyStringField(help_text='Parent Name/Title')
     parNamS  = MyStringField(help_text='Parent Name/Title Short')
     mask     = MyStringField(help_text='Sharing Mask')
-    '''1, 11, 111, etc used in sh(aring) docs'''
+    w        = app.db.FloatField(help_text='Sort Weight')
 
     _meta = {
         'collection': 'lnkrels'
