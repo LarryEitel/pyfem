@@ -8,6 +8,7 @@ import datetime
 import random
 import os
 import usecase
+import usecase1
 import globals
 
 
@@ -48,12 +49,14 @@ class BaseMongoTestCase(unittest.TestCase):
 
         app.config.from_object('default_settings')
         app.config['MONGODB_DB'] = 'pyfem_unittest'
-        app.config['DEBUG'] = True
-        app.config['TESTING'] = True
+        app.config['DEBUG']      = True
+        app.config['TESTING']    = True
 
         self.tests_data_yaml_dir = app.config['HOME_PATH'] + 'tests/data/yaml/'
-        self.usecase = usecase.UseCase(self.tests_data_yaml_dir)
-        app.db = MongoEngine(app)
+        self.data_dir            = app.config['HOME_PATH'] + 'data/'
+        self.usecase             = usecase.UseCase(self.tests_data_yaml_dir)
+        self.usecase1            = usecase.UseCase(self.tests_data_yaml_dir)
+        app.db                   = MongoEngine(app)
 
         self._flush_db()
 
@@ -61,15 +64,15 @@ class BaseMongoTestCase(unittest.TestCase):
         self.app = app.test_client()
         # self.flask_app = app
 
-        self.g = globals.load()
-        self.g['usr']         = {"OID": "50468de92558713d84b03fd7", "at": (-84.163063, 9.980516)}
-        self.g['db']         = app.db
-
-
+        self.g           = globals.load()
+        self.g['usr']    = {"OID": "50468de92558713d84b03fd7", "at": (-84.163063, 9.980516)}
+        self.g['db']     = app.db
+        
+        
         self.g['logger'] = app.logger
-
-
-        self.used_keys = []
+        
+        
+        self.used_keys   = []
 
 
     def tearDown(self):

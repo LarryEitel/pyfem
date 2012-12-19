@@ -1,0 +1,77 @@
+Larry Sr
+	pls
+		pl.home address of 123 sdfas
+		pl.office at Cr
+	tels
+		tel.home
+	emails
+		email.work
+
+	Parent Links:
+		pub of belen sur
+		pub of group 1 / belen sur
+		employee of Existints
+		rents home from smith
+
+	notes
+	events
+
+	Child Links
+		chld.father of larry Jr
+		owner of Oscar
+		rents room to charlie
+
+ni
+	prggrp dept 
+	kirmse area 
+
+
+ni
+	dept prggrp
+		admin marybell
+		dept of ni
+	area kirmse
+		area of ni
+		admin sally
+
+prggrp dept
+	ni, dept of
+	marybell, admin 
+
+
+kirmse area
+	ni, area of 
+	sally, admin 
+
+unit 104
+	unit of kirmse | dept of kirmse | company of ni
+	kirmse unit / kirmse dept / ni company
+	sally admin
+
+
+Breadcrumbs
+	ni/kirmse/unit 104
+	home:address
+	work:address
+Troop 1031
+	emails
+	tels
+	pls
+	notes
+	events
+
+
+Associations
+	sally admin
+
+
+
+troop 1031
+	unit 104 / kirmse unit / kirmse dept / ni company
+	sally admin
+
+sally
+	pars:
+		admin / troop 1031 / unit 104 / kirmse unit / kirmse dept / ni company
+
+

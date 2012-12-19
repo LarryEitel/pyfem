@@ -1,0 +1,74 @@
+# http://yaml-online-parser.appspot.com
+# Attribute Types
+try:
+  lnk_Usr.lwe_Cmp.ni_admin:
+    # add a new email to emails
+    subject:
+      _cls      : Usr
+      slug      : lwe
+    target:
+      _cls      : Cmp
+      slug      : ni
+      role      : client_consultant
+expect:
+  lnk_Usr.lwe_Cmp.ni_admin:
+    lwe:
+      _cls: Usr
+      slug  : lwe
+      pars:
+        - par: {pk: 'ni^111', cls: Cmp, slug: ni, role: client_consultant}
+      apths:
+        - apth: {pk: 'ni^111', cls: Cmp, uris: [Cmp.ni]}
+sampDat:
+  initload:            
+    plbelencr:
+      _cls: Pl
+      slug  : plbelencr
+      city  : Belen
+    platlantaga:
+      _cls: Pl
+      slug  : platlantaga
+      city  : Atlanta
+    lwe:
+      _cls: Usr
+      slug  : lwe
+      uNam  : larryeitel
+      fNam  : Larry
+      lNam  : Eitel
+    sallysmith:
+      _cls: Usr
+      slug  : sallysmith
+      uNam  : sallysmith
+      fNam  : Sally
+      lNam  : Smith
+    suziebell:
+      _cls: Usr
+      slug  : suziebell
+      uNam  : suziebell
+      fNam  : Suzie
+      lNam  : Bell
+    ni:
+      _cls: Cmp
+      typ: company
+      slug: ni
+      cNam: GSNI
+    prggrp:
+      _cls: Cmp
+      typ: department
+      slug: prggrp
+      cNam: Program Group
+    kirmse:
+      _cls: Cmp
+      typ: department
+      slug: kirmse
+      cNam: Kirmse
+    unit104:
+      _cls: Cmp
+      typ: unit
+      slug: unit104
+      cNam: "104"    
+    troop1031:
+      _cls: Cmp
+      typ: troop
+      slug: troop1031
+      cNam: "1031"    

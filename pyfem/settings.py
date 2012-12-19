@@ -11,7 +11,6 @@ class Config(object):
     MONGO_DBNAME        = 'pyfem'
     MONGO_TEST_DBNAME   = 'pyfem-test'
 
-    MONGO_TEST_DBNAME   = 'ex-test'
 
     ES_HOST             = 'localhost'
     ES_PORT             = 9200

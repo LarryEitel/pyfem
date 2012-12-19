@@ -12,7 +12,5 @@ def pyObj(yamlFilePath):
     "Returns python object from yaml file."
     if not os.path.exists(yamlFilePath):
         raise Exception('File does not exist: %s' % yamlFilePath)
-    try:
-        return load(open(yamlFilePath, 'r'), Loader=Loader)
-    except:
-        return None
+
+    return load(open(yamlFilePath, 'r'), Loader=Loader)

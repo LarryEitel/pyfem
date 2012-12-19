@@ -2,28 +2,24 @@ import datetime
 
 from app import app
 import models
-from models import Mixin, MyDoc
+from models import Mixin, Email, Note, MyDoc
 from models.myfields import MyStringField
 import helpers
 
 import utils.name
 
-class LnkRel(MyDoc, Mixin):
-    '''Link Relationships'''
-    fam      = app.db.BooleanField(help_text='Is Family Link/Relationship?')
-    chld_clss = MyStringField(help_text='Child Document class "_cls".')
-    chldGen  = MyStringField(help_text='Child Gender')
-    chldNam  = MyStringField(help_text='Child Name/Title')
-    chldNamS = MyStringField(help_text='Child Name/Title Short')
-    par_clss  = MyStringField(help_text='Parent Document class "_cls".')
-    parGen   = MyStringField(help_text='Parent Gender')
-    parNam   = MyStringField(help_text='Parent Name/Title')
-    parNamS  = MyStringField(help_text='Parent Name/Title Short')
-    mask     = MyStringField(help_text='Sharing Mask')
-    '''1, 11, 111, etc used in sh(aring) docs'''
+class Pl(MyDoc, Mixin):
+    code = app.db.StringField()
+    city = MyStringField(required=True)
 
     _meta = {
-        'collection': 'lnkrels'
+        'collection': 'pls',
+        'allow_inheritance': True,
+        'indexes': [{'fields':['slug'], 'unique': True},
+                    {'fields':['sId'], 'unique': True},
+                    {'fields':['city']},
+                    {'fields':['-mOn']}
+                    ]
         }
 
     def save(self, *args, **kwargs):
@@ -36,7 +32,7 @@ class LnkRel(MyDoc, Mixin):
 
         errors = helpers.recurseValidateAndVOnUpSert(self)
 
-        self._meta['collection'] = 'lnkrels'
+        self._meta['collection'] = 'pls'
         if type(errors) == list:
             self._data['myErrors'] = errors
         else:
@@ -46,12 +42,20 @@ class LnkRel(MyDoc, Mixin):
             slugDefault = self.slug or self.dNamS or self.dNam
             self.slug = self.generate_slug(slugDefault)
 
-
             # turning off validation cause we do that in recurseValidateAndVOnUpSert
             kwargs['validate'] = False
 
             # this will return error if duplicate entries are attempted
             try:
-                super(LnkRel, self).save(*args, **kwargs)
+                super(Pl, self).save(*args, **kwargs)
             except Exception, e:
                 self._data['myErrors'] = e
+
+
+    @staticmethod
+    def vOnUpSert(d):
+        errors = []
+        d['dNam'] = d['city']
+        if not 'dNamS' in d or not d['dNamS']:
+            d['dNamS'] = d['dNam'].lower().replace(' ', '_')
+        return {'doc_dict': d, 'errors': errors}

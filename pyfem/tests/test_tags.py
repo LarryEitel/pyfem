@@ -18,7 +18,7 @@ class TagsTests(BaseMongoTestCase):
         sampDat = self.sampDat
         doc     = sampDat['TagCat']
 
-        post    = controllers.generic_post.GenericPost(self.g).post
+        post    = controllers.post.Post(self.g).post
 
         # try one doc
         resp    = post(**{'docs': [doc]})
@@ -33,7 +33,7 @@ class TagsTests(BaseMongoTestCase):
         sampDat = self.sampDat
         doc     = sampDat['TagGrpPet']
 
-        post    = controllers.generic_post.GenericPost(self.g).post
+        post    = controllers.post.Post(self.g).post
 
         # try one doc
         resp    = post(**{'docs': [doc]})

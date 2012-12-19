@@ -1,0 +1,70 @@
+Bill
+	Home Located at 123 S State, Gary, IN 12334, USA
+	Office Located at 123 S State, Gary, IN 12334, USA
+	Employeed by ACME, Subsidiary of Tomot
+	Son of William, Son of Thomas
+	Husband of Kim
+	Father of Sue
+	Employer of Tom
+
+ni
+	prggrp chld.rel.dept 
+	kirmse chld.rel.area
+		104
+			1031
+				suzie
+
+ni
+	prggrp dept 
+	kirmse area 
+
+
+ni
+	dept prggrp
+		admin marybell
+		dept of ni
+	area kirmse
+		area of ni
+		admin sally
+
+prggrp dept
+	ni, dept of
+	marybell, admin 
+
+
+kirmse area
+	ni, area of 
+	sally, admin 
+
+unit 104
+	unit of kirmse | dept of kirmse | company of ni
+	kirmse unit / kirmse dept / ni company
+	sally admin
+
+
+Breadcrumbs
+	ni/kirmse/unit 104
+	home:address
+	work:address
+Troop 1031
+	emails
+	tels
+	pls
+	notes
+	events
+
+
+Associations
+	sally admin
+
+
+
+troop 1031
+	unit 104 / kirmse unit / kirmse dept / ni company
+	sally admin
+
+sally
+	pars:
+		admin / troop 1031 / unit 104 / kirmse unit / kirmse dept / ni company
+
+

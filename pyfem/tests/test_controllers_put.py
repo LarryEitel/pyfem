@@ -8,19 +8,19 @@ from core import BaseMongoTestCase
 from utils import myyaml
 import controllers
 
-class ControllersGenericPutTests(BaseMongoTestCase):
+class ControllersPutTests(BaseMongoTestCase):
 
     def setUp(self):
-        super(ControllersGenericPutTests, self).setUp()
-        self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'controllers_generic_put')
+        super(ControllersPutTests, self).setUp()
+        self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'controllers_put')
 
     def test_tryToAddDupTypEmail(self):
         sampDat = self.sampDat
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = controllers.generic_post.GenericPost(self.g).post
-        put          = controllers.generic_put.GenericPut(self.g).put
+        post         = controllers.post.Post(self.g).post
+        put          = controllers.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -39,8 +39,8 @@ class ControllersGenericPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = controllers.generic_post.GenericPost(self.g).post
-        put          = controllers.generic_put.GenericPut(self.g).put
+        post         = controllers.post.Post(self.g).post
+        put          = controllers.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -59,8 +59,8 @@ class ControllersGenericPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStoogeEmptyEmails']
 
-        post         = controllers.generic_post.GenericPost(self.g).post
-        put          = controllers.generic_put.GenericPut(self.g).put
+        post         = controllers.post.Post(self.g).post
+        put          = controllers.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -83,8 +83,8 @@ class ControllersGenericPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStoogeEmptyEmails']
 
-        post         = controllers.generic_post.GenericPost(self.g).post
-        put          = controllers.generic_put.GenericPut(self.g).put
+        post         = controllers.post.Post(self.g).post
+        put          = controllers.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -110,8 +110,8 @@ class ControllersGenericPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = controllers.generic_post.GenericPost(self.g).post
-        put          = controllers.generic_put.GenericPut(self.g).put
+        post         = controllers.post.Post(self.g).post
+        put          = controllers.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -136,8 +136,8 @@ class ControllersGenericPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = controllers.generic_post.GenericPost(self.g).post
-        put          = controllers.generic_put.GenericPut(self.g).put
+        post         = controllers.post.Post(self.g).post
+        put          = controllers.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -161,8 +161,8 @@ class ControllersGenericPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = controllers.generic_post.GenericPost(self.g).post
-        put          = controllers.generic_put.GenericPut(self.g).put
+        post         = controllers.post.Post(self.g).post
+        put          = controllers.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -204,8 +204,8 @@ class ControllersGenericPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsDeepNestOfTels']
 
-        post         = controllers.generic_post.GenericPost(self.g).post
-        put          = controllers.generic_put.GenericPut(self.g).put
+        post         = controllers.post.Post(self.g).post
+        put          = controllers.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})

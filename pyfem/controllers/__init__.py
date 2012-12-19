@@ -1,2 +1,3 @@
-from generic_post import *
-from generic_put import *
+from post import *
+from put import *
+from lnk import *

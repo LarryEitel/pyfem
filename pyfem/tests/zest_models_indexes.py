@@ -17,7 +17,7 @@ class ModelsIndexesTests(BaseMongoTestCase):
     def zest_tryToAddDupSlug(self):
         sampDat = self.sampDat
 
-        post         = controllers.generic_post.GenericPost(self.g).post
+        post         = controllers.post.Post(self.g).post
         doc     = sampDat['PrsLarryStooge']
 
         # Load one doc

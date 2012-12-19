@@ -1,9 +1,13 @@
-HOME_PATH    = 'C:/Users/Larry/__prjs/__py/pyfem/pyfem/'
-MONGODB_DB   = 'pyfem'
+HOME_PATH         = 'C:/Users/Larry/__prjs/__py/pyfem/pyfem/'
+MONGODB_DB        = 'pyfem'
 
-MONGODB_PORT = 27017
+MONGO_HOST        = 'localhost'
+MONGO_DBNAME      = 'pyfem'
+MONGO_TEST_DBNAME = 'pyfem-test'
 
-SECRET_KEY   = 'yougonnawannachangethis'
+MONGODB_PORT      = 27017
 
-LOG_FILE     = 'C:/Users/Larry/__prjs/__py/pyfem/pyfem/logs/pyfem.log'
-LOG_LEVEL    = 'debug'
+SECRET_KEY        = 'yougonnawannachangethis'
+
+LOG_FILE          = 'C:/Users/Larry/__prjs/__py/pyfem/pyfem/logs/pyfem.log'
+LOG_LEVEL         = 'debug'

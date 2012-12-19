@@ -55,14 +55,15 @@ class EmbedMixin(object):
 
 
 class Lnk(MyEmbedDoc, EmbedMixin):
-    doc_cls         = MyStringField(help_text='Document class "_cls".')
+    doc_cls     = MyStringField(help_text='Document class "_cls".')
+    slug        = MyStringField(help_text='Document slug".')
     lnkTypDNam  = app.db.IntField(help_text='Link Type Display Name')
     lnkTypDNamS = app.db.IntField(help_text='Link Type Display Name Short')
     dDNam       = app.db.IntField(help_text='Document Display Name')
-    sDNamS      = app.db.IntField(help_text='Document Display Name Short')
+    dDNamS      = app.db.IntField(help_text='Document Display Name Short')
 
 class Pth(MyEmbedDoc, EmbedMixin):
-    doc_cls      = MyStringField(help_text='Target document class "_cls".')
+    doc_cls  = MyStringField(help_text='Target document class "_cls".')
     lnkTypId = app.db.IntField(help_text='Link Type Id.')
     lnkTitle = MyStringField(help_text='Link Title.')
     lnkNote  = MyStringField(help_text='Link Note.')
@@ -132,6 +133,8 @@ class Email(MyEmbedDoc, EmbedMixin):
 
 class Mixin(object):
     _eIds  = app.db.DictField()
+    pars   = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
+    chlds  = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
     emails = app.db.ListField(app.db.EmbeddedDocumentField(Email))
     notes  = app.db.ListField(app.db.EmbeddedDocumentField(Note))
     dNam   = app.db.StringField()

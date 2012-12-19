@@ -5,18 +5,16 @@ except ImportError:
     import unittest  # NOQA
 
 from core import BaseMongoTestCase
+from utils.myyaml import loadMongoCollection
+from utils import myyaml
+import controllers
 
-class GenericModelsTests(BaseMongoTestCase):
+class UtilsMyYamlTest(BaseMongoTestCase):
     def setUp(self):
-        super(GenericModelsTests, self).setUp()
+        super(UtilsMyYamlTest, self).setUp()
 
-    def test_prs(self):
-        uc = self.usecase
-        from models import Email, Prs
-
+    def test_loadMongoCollection(self):
         uc.load('usecases')
-        cmds = uc.run_all('one')
-        assert len(cmds) == 2
 
 
 if __name__ == "__main__":

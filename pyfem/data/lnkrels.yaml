@@ -1,0 +1,159 @@
+# http://yaml-online-parser.appspot.com
+
+consultant_to_client:
+  _cls: LnkRel
+  slug: consultant_to_client
+  par_clss  : [Cmp,Prs,Usr]
+  parNam : Client
+  parNamS: client
+  chld_clss  : [Cmp,Prs,Usr]
+  chldNam : Consultant
+  chldNamS: consultant
+area_of_company:
+  _cls: LnkRel
+  slug: area_of_company
+  par_clss  : [Cmp]
+  parNam : Company
+  parNamS: company
+  chld_clss  : [Cmp]
+  chldNam : Area
+  chldNamS: area
+unit_of_area:
+  _cls: LnkRel
+  slug: unit_of_area
+  par_clss  : [Cmp]
+  parNam : Area
+  parNamS: area
+  chld_clss  : [Cmp]
+  chldNam : Unit
+  chldNamS: unit  
+troop_of_unit:
+  _cls: LnkRel
+  slug: troop_of_unit
+  par_clss  : [Cmp]
+  parNam : Unit
+  parNamS: unit
+  chld_clss  : [Cmp]
+  chldNam : Troop
+  chldNamS: troop 
+executive_of_company:
+  _cls: LnkRel
+  slug: executive_of_company
+  par_clss  : [Cmp]
+  parNam : Company
+  parNamS: company
+  chld_clss  : [Prs,Usr]
+  chldNam : Executive
+  chldNamS: executive 
+  mask  : '1'
+  w     : 1 
+admin_of_company:
+  _cls: LnkRel
+  slug: admin_of_company
+  par_clss  : [Cmp]
+  parNam : Company
+  parNamS: company
+  chld_clss  : [Prs,Usr]
+  chldNam : Administrator
+  chldNamS: admin 
+  mask  : '11'
+  w     : 2 
+admin_of_dept:
+  _cls: LnkRel
+  slug: admin_of_dept
+  par_clss  : [Cmp]
+  parNam : Department
+  parNamS: dept
+  chld_clss  : [Prs,Usr]
+  chldNam : Administrator
+  chldNamS: admin 
+  mask  : '11'
+  w     : 2 
+leader_of_troop:
+  _cls: LnkRel
+  slug: leader_of_troop
+  par_clss  : [Cmp]
+  parNam : Troop
+  parNamS: troop
+  chld_clss  : [Prs,Usr]
+  chldNam : Leader
+  chldNamS: leader 
+  mask  : '111'
+  w     : 3
+parent_of_troop:
+  _cls: LnkRel
+  slug: parent_of_troop
+  par_clss  : [Cmp]
+  parNam : Troop
+  parNamS: troop
+  chld_clss  : [Prs,Usr]
+  chldNam : Parent
+  chldNamS: parent 
+  mask  : '1111'
+  w     : 4
+ambass_of_troop:
+  _cls: LnkRel
+  slug: ambass_of_troop
+  par_clss  : [Cmp]
+  parNam : Troop
+  parNamS: troop
+  chld_clss  : [Prs,Usr]
+  chldNam : Ambassador
+  chldNamS: ambass 
+  mask  : '11111'
+  w     : 5
+senior_of_troop:
+  _cls: LnkRel
+  slug: senior_of_troop
+  par_clss  : [Cmp]
+  parNam : Troop
+  parNamS: troop
+  chld_clss  : [Prs,Usr]
+  chldNam : Senior
+  chldNamS: senior 
+  mask  : '111111'
+  w     : 6
+cadette_of_troop:
+  _cls: LnkRel
+  slug: cadette_of_troop
+  par_clss  : [Cmp]
+  parNam : Troop
+  parNamS: troop
+  chld_clss  : [Prs,Usr]
+  chldNam : Cadette
+  chldNamS: cadette 
+  mask  : '1111111'
+  w     : 7
+junior_of_troop:
+  _cls: LnkRel
+  slug: junior_of_troop
+  par_clss  : [Cmp]
+  parNam : Troop
+  parNamS: troop
+  chld_clss  : [Prs,Usr]
+  chldNam : Junior
+  chldNamS: junior 
+  mask  : '11111111'
+  w     : 8
+brownie_of_troop:
+  _cls: LnkRel
+  slug: brownie_of_troop
+  par_clss  : [Cmp]
+  parNam : Troop
+  parNamS: troop
+  chld_clss  : [Prs,Usr]
+  chldNam : Brownie
+  chldNamS: brownie 
+  mask  : '111111111'
+  w     : 9
+daisy_of_troop:
+  _cls: LnkRel
+  slug: daisy_of_troop
+  par_clss  : [Cmp]
+  parNam : Troop
+  parNamS: troop
+  chld_clss  : [Prs,Usr]
+  chldNam : Daisy
+  chldNamS: daisy 
+  mask  : '1111111111'
+  w     : 10

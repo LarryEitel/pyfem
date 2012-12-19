@@ -1,0 +1,155 @@
+pllwe:
+  _cls: Pl
+  slug  : pllwe
+  city  : San Diego
+
+plni:
+  _cls: Pl
+  slug  : plni
+  city  : Atlanta
+
+ni:
+  _cls: Cmp
+  _types: [Cmp]
+  typ: company
+  slug: ni
+  cNam: GSNI
+  pars
+    Pl.plni {office}
+  apths
+    Pl.plni,Cmp.ni
+
+lwe:
+  _cls: Usr
+  slug  : lwe
+  uNam  : larryeitel
+  fNam  : Larry
+  lNam  : Eitel
+  pars:
+    Cmp.ni {consultant}
+    Pl.pllwe {home}
+  apths:
+    Cmp.ni,Usr.lwe,
+    Pl.pllwe,Usr.lwe,
+    office Pl.plni,Cmp.ni,Usr.lwe,
+
+sallysmith:
+  _cls: Usr
+  slug  : sallysmith
+  uNam  : sallysmith
+  fNam  : Sally
+  lNam  : Smith
+  pars:
+    - {cls: Cmp, slug: kirmse, role: admin, pk: 'ni.kirmse^111'}
+    - {cls: Cmp, slug: troop1031, role: troop_leader, pk: 'ni.kirmse.unit104.troop1031^1111'}
+  apths:
+    - {cls: Cmp, uris: [Cmp.ni,Cmp.kirmse,Usr.sallysmith], pk: ni.kirmse.sallysmith}
+    - {cls: Cmp, uris: [Cmp.ni,Cmp.kirmse,Cmp.unit104,Cmp.troop1031,Usr.sallysmith], pk: ni.kirmse.unit104.troop1031.sallysmith}
+    - {cls: Pl, uris: [Pl.plni,Cmp.ni,Cmp.kirmse,Usr.sallysmith], pk: plni.ni.kirmse.sallysmith} # no pth because not referenced in any pars
+
+
+suziebell:
+  _cls: Usr
+  slug  : suziebell
+  uNam  : suziebell
+  fNam  : Suzie
+  lNam  : Bell
+  pars
+    Cmp.troop1031
+  apths
+    Cmp.ni,Cmp.kirmse,Cmp.unit104,Cmp.troop1031,Usr.suziebell,
+    Pl.plni,Cmp.ni,Cmp.kirmse,Cmp.unit104,Cmp.troop1031,Usr.suziebell,
+
+prggrp:
+  _cls: Cmp
+  _types: [Cmp]
+  typ: department
+  slug: prggrp
+  cNam: Program Group
+  pars
+    Cmp.ni
+  apths
+    Cmp.ni,Cmp.prggrp,
+    Pl.plni,Cmp.ni,Cmp.prggrp,
+
+kirmse:
+  _cls: Cmp
+  _types: [Cmp]
+  typ: department
+  slug: kirmse
+  cNam: Kirmse
+  pars
+    Cmp.ni
+  apths
+    Cmp.ni,Cmp.kirmse,
+    Pl.plni,Cmp.ni,Cmp.kirmse,
+
+unit104:
+  _cls: Cmp
+  _types: [Cmp]
+  typ: unit
+  slug: unit104
+  cNam: "104" 
+  pars
+    Cmp.kirmse
+  apths
+    Cmp.ni,Cmp.kirmse,Cmp.unit104,
+    Pl.plni,Cmp.ni,Cmp.kirmse,Cmp.unit104,
+
+troop1031:
+  _cls: Cmp
+  _types: [Cmp]
+  typ: troop
+  slug: troop1031
+  cNam: "1031"    
+  pars
+    Cmp.unit104
+  apths
+    Cmp.ni,Cmp.kirmse,Cmp.unit104,Cmp.troop1031,
+    Pl.plni,Cmp.ni,Cmp.kirmse,Cmp.unit104,Cmp.troop1031,
+
+
+
+
+company_ni.area_kirmse.unit_104.troop_1031
+ni.kirmse.104.1030
+
+Add ni
+
+Add kirmse
+
+Relate kirmse_area to ni as an area of
+  find ni
+  describe relationship
+
+  Kirmse is connected with:
+  Associated with: <Add parent relationship/association for kirmse>
+    ni, area of
+    dept of ni
+
+  Kirmse has references/associations from:
+    Associated to: <Add a child-sub relationship/association to kirmse>
+    Sally, admin
+    Unit 104, 
+    Unit 105,
+
+Add Sally
+  Associate with kirmse as an admin of
+  find kirmse
+  associate as admin
+
+  Associated with:
+    kirmse - admin, ni
+
+Add Unit 104
+  Associate with kirmse as a unit of
+  find kirmse
+  assocate as unit of
+
+  Associated with:
+    kirmse, unit of
+
+
+suzie
+  pars
+    <role:brownie>, aPathS:ni.kirmse.104.1031#111

@@ -1,0 +1,152 @@
+# http://yaml-online-parser.appspot.com
+lwe:
+	_cls: Usr
+	_types: [Usr]
+	slug: lwe
+	fNam: Larry 
+	lNam: Eitel
+	pars:
+		- _cls: Pth 
+			types: [Pth]
+			target_cls: Cmp
+			dNam: 
+				lnkRelPar_dNam: Consultant
+				lnks:
+					- _cls: Lnk
+					  types: [Lnk]
+					  doc_cls: Cmp
+					  doc_slug: ni
+					  doc_dNam: GSNI
+			dNamS: ni#11111
+
+ni:
+	_cls: Cmp
+	_types: [Cmp]
+	slug: ni
+	cNam: GSNI
+	pars:
+	chlds:
+		- _cls: Pth 
+			types: [Pth]
+			target_cls: Usr
+			lnkRelSlug: admin_admin
+			lnkSlug: lwe
+			dNam: Administrator, <lnk.lnk.lnk>
+			dNamS: ni
+			lnks:
+				- _cls: Lnk
+				  types: [Lnk]
+				  doc_cls: Usr
+				  doc_slug: lwe
+				  doc_dNam: Eitel, Larry
+				- _cls: Lnk
+				  types: [Lnk]
+				  doc_cls: Cmp
+				  doc_slug: prggrp
+				  doc_dNam: Program Group
+				- _cls: Lnk
+				  types: [Lnk]
+				  doc_cls: Cmp
+				  doc_slug: kirmse
+				  doc_dNam: Kirmse
+
+prggrp:
+	_cls: Cmp
+	_types: [Cmp]
+	slug: prggrp
+	cNam: Program Group
+	pars:
+		- _cls: Pth 
+			types: [Pth]
+			target_cls: Cmp
+			lnkSlug: ni
+			dNam: Department of GSNI
+			dNamS: ni.prggrp
+			lnks:
+				- _cls: Lnk
+				  types: [Lnk]
+				  doc_cls: Cmp
+				  doc_slug: ni
+				  doc_dNam: GSNI
+
+dept_kirmse:
+	_cls: Cmp
+	_types: [Cmp]
+	slug: dept_kirmse
+	cNam: Kirmse
+	pars:
+		- _cls: Pth 
+			types: [Pth]
+			target_cls: Cmp
+			lnkSlug: ni
+			dNam: Area of GSNI
+			dNamS: ni.dept_kirmse
+			lnks:
+				- _cls: Lnk
+				  types: [Lnk]
+				  doc_cls: Cmp
+				  doc_slug: ni
+				  doc_dNam: GSNI
+	chlds:
+		- _cls: Pth 
+			types: [Pth]
+			target_cls: Cmp
+			lnkSlug: 104
+			dNam: Administrator
+			dNamS: ni.dept_kirmse.unit_104
+			lnks:
+				  types: [Lnk]
+				  doc_cls: Cmp
+				  doc_slug: 104
+				  doc_dNam: Unit 104
+
+unit_104:
+	_cls: Cmp
+	_types: [Cmp]
+	slug: unit_104
+	cNam: Unit 104
+	pars:
+		- _cls: Pth 
+			types: [Pth]
+			target_cls: Cmp
+			lnkSlug: kirmse
+			dNam: Unit of Kirmse
+			dNamS: ni.kirmse
+			lnks:
+				- _cls: Lnk
+				  types: [Lnk]
+				  doc_cls: Cmp
+				  doc_slug: kirmse
+				  doc_dNam: Kirmse
+	chlds:
+		- _cls: Pth 
+			types: [Pth]
+			target_cls: Cmp
+			lnkSlug: 104
+			dNam: Administrator
+			dNamS: ni.dept_kirmse.unit_104.troop_1031
+			lnks:
+				  types: [Lnk]
+				  doc_cls: Cmp
+				  doc_slug: troop_1031
+				  doc_dNam: Troop 1031
+
+troop_1031:
+	_cls: Cmp
+	_types: [Cmp]
+	slug: troop_1031
+	cNam: Troop 1031
+	pars:
+		- _cls: Pth 
+			types: [Pth]
+			target_cls: Cmp
+			lnkSlug: kirmse
+			dNam: Troop of Unit 104
+			dNamS: ni.dept_kirmse.unit_104
+			lnks:
+				- _cls: Lnk
+				  types: [Lnk]
+				  doc_cls: Cmp
+				  doc_slug: unit_104
+				  doc_dNam: Unit 104
+				  

@@ -1,0 +1,165 @@
+# http://yaml-online-parser.appspot.com
+
+
+- add 
+
+
+ni.GSNI Company
+	Associations:
+		Area of Kirmse
+		Company over PrgGrp
+
+prggrp.PrgGrp Department
+	Associations:
+		Department of GSNI
+
+kirmse.Kirmse Area
+	Associations:
+		Area of GSNI
+		Area over Unit 104
+
+104.Unit 104
+	Associations:
+		Unit of Kirmse
+
+
+	Related to:
+		Unit of Kirmse, GSNI Company
+	Associated With:
+		Troop 1031
+
+1031Troop 1031
+	Related to:
+		Unit 104, Kirmse Area, GSNI Company
+	Associations:
+
+		Brownie Suzie
+
+
+suzie
+	Associations:
+		Brownie of Troop 1031, Unit 104, Area Kirmse, Company GSNI
+ni:
+  _cls: Cmp
+  _types: [Cmp]
+  slug  : ni
+  cNam  : GSNI
+
+  Associated with:
+  	Kirmse (Area of)
+
+  chlds:
+  	- lnkPth
+  		_cls  : LnkPth 
+  		_types: [LnkPth]
+
+  	- _cls : Lnk
+  		_types: [Cmp]
+  		slug: apple
+  	  lnkRel: 
+  	  	slug: founder
+
+
+
+kirmse:
+  _cls: Cmp
+  _types: [Cmp]
+  slug  : kirmse
+  cNam  : Kirmse
+
+	Related to
+
+
+
+
+larry:
+  _cls: Usr
+  slug  : larry
+  fNam  : Larry
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: larry@apple.com
+  pls:
+  	- pl home 3723 Christine Street, San Diego, CA 92117
+  	- pl work #8 La Jolla, Belen, Heredia, CR
+
+  pars:
+  	- lnkPth
+  		_cls  : LnkPth 
+  		_types: [LnkPth]
+  		dNam  : 
+  		w
+  		- lnk 
+
+  			-lnkRel
+
+
+
+apple:
+  _cls: Cmp
+  slug  : apple
+  cNam  : Apple
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: steve@apple.com
+
+
+
+  chlds:
+  	Cmp Division of Apple UK
+
+
+appleUk:
+  _cls: Cmp
+  slug  : appleuk
+  cNam  : Apple UK
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: steve@apple.com
+
+  pars:
+  	Cmp Division of Apple
+  	Pl Office location
+
+
+  pars:
+  	Cmp Founder of Apple
+  	Pl Office location
+  	Pl Home location
+  chlds:
+  	Prs Married to Sue
+  	Prs Father of Tammy
+
+
+  pars:
+		- path:
+			- 
+			- lnk:
+		- cls : Lnk
+			slug  : steve
+			lnkRel: 
+			slug  : founder
+
+
+steve:
+  _cls: Prs
+  slug  : stevejobs
+  fNam  : Steve
+  lNam  : Jobs
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: steve@apple.com
+
+  chlds:
+  	- _cls : Lnk
+  		slug: apple
+  	  lnkRel: 
+  	  	slug: founder

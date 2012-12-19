@@ -49,6 +49,25 @@ class Cnt(MyDoc, Mixin):
 
 class Cmp(Cnt):
     symbol = app.db.StringField()
+    cNam   = MyStringField(required=True)
+
+    meta = {
+        'allow_inheritance': True,
+        'fldsThatUpdt_dNam': ['cNam'],
+        'indexes': [{'fields':['slug'], 'unique': True},
+                    {'fields':['sId'], 'unique': True},
+                    {'fields':['cNam'], 'sparse': True},
+                    {'fields':['-mOn']}
+                    ]
+        }
+
+    @staticmethod
+    def vOnUpSert(d):
+        errors = []
+        d['dNam'] = d['cNam']
+        if not 'dNamS' in d or not d['dNamS']:
+            d['dNamS'] = d['dNam'].lower().replace(' ', '_')
+        return {'doc_dict': d, 'errors': errors}
 
 
 class Prs(Cnt):
@@ -75,6 +94,7 @@ class Prs(Cnt):
         'allow_inheritance': True,
         'fldsThatUpdt_dNam': ['prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix'],
         'indexes': [{'fields':['slug'], 'unique': True},
+                    {'fields':['dNam'], 'sparse': True},
                     {'fields':['sId'], 'unique': True},
                     {'fields':['-mOn']}
                     ]
@@ -95,6 +115,9 @@ class Prs(Cnt):
     def __unicode__(self):
         return self.dNam
 
+    def __str__(self):
+        return self.dNam
+
     @staticmethod
     def vOnUpSert(d):
         errors = []
@@ -112,5 +135,36 @@ class Prs(Cnt):
         # self._meta['collection'] = 'prss'
         try:
             super(Prs, self).save(*args, **kwargs)
+        except Exception, e:
+            self._data['myErrors'] = e
+
+
+class Usr(Prs):
+    # namePrefix
+    uNam    = app.db.StringField(required=True)
+
+    meta = {
+        'allow_inheritance': True,
+        'fldsThatUpdt_dNam': ['prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix'],
+        'indexes': [{'fields':['slug'], 'unique': True},
+                    {'fields':['dNam'], 'sparse': True},
+                    {'fields':['sId'], 'unique': True},
+                    {'fields':['uNam'], 'unique': True, 'sparse': True},
+                    {'fields':['-mOn']}
+                    ]
+        }
+
+    def get_absolute_url(self):
+        return url_for('Usr', kwargs={"slug": self.slug})
+
+    def __unicode__(self):
+        return self.dNam
+
+
+    def save(self, *args, **kwargs):
+        # this will return error if duplicate entries are attempted
+        # self._meta['collection'] = 'prss'
+        try:
+            super(Usr, self).save(*args, **kwargs)
         except Exception, e:
             self._data['myErrors'] = e

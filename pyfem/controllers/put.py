@@ -8,7 +8,7 @@ import globals
 import models
 from models import *
 
-class GenericPut(object):
+class Put(object):
 
     def __init__(self, g):
         #: Doc comment for instance attribute db
@@ -35,7 +35,7 @@ class GenericPut(object):
         status     = 200
 
         # fields to get from baseDoc find
-        baseFldNams = ['_id', '_eIds', 'eId', 'oBy', 'oOn', 'oAt']
+        baseFldNams = ['_id', '_eIds', 'eId', 'oBy', 'oOn', 'oAt', 'dNam', 'dNamS']
 
         # get fldNams targeted for patchDat
         fldNams = []
@@ -157,6 +157,26 @@ class GenericPut(object):
                     proxyFld[i]['eId'] = next_eId
                     next_eId += 1
                 proxyTargetDoc['_eIds'][fld] = next_eId
+
+
+                # does this put/patch involve a link to another doc?
+                if fld == 'pars':
+                    # add a pth/path to pars means enough details were provided in patchDat to get details regarding the doc to be linked to
+                    # while on Prs.sue, if user wants to add a parent link to Prs.bill as father
+                    # this will require locking and updating two docs
+
+                    srcLnk      = proxyTargetDoc[fld][0]['lnk']
+                    target_cls  = srcLnk['doc_cls']
+                    targetClass = getattr(models, target_cls)
+                    targetSlug  = srcLnk['slug']
+                    target      = coll.find_one(query = {'slug': targetSlug})
+
+                    lnkRelSlug = srcLnk['lnkRelSlug']
+
+                    pass
+                if fld == 'chlds':
+                    pass
+
 
                 doc_errors = []
 
