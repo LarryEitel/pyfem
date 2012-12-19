@@ -1,11 +1,11 @@
-pllwe:
+plsandiego:
   _cls: Pl
-  slug  : pllwe
+  slug  : plsandiego
   city  : San Diego
 
-plni:
+platlanta:
   _cls: Pl
-  slug  : plni
+  slug  : platlanta
   city  : Atlanta
 
 ni:
@@ -15,9 +15,9 @@ ni:
   slug: ni
   cNam: GSNI
   pars
-    Pl.plni {office}
+    Pl.platlanta {office}
   apths
-    Pl.plni,Cmp.ni
+    Pl.platlanta,Cmp.ni
 
 lwe:
   _cls: Usr
@@ -27,11 +27,11 @@ lwe:
   lNam  : Eitel
   pars:
     Cmp.ni {consultant}
-    Pl.pllwe {home}
+    Pl.plsandiego {home}
   apths:
     Cmp.ni,Usr.lwe,
-    Pl.pllwe,Usr.lwe,
-    office Pl.plni,Cmp.ni,Usr.lwe,
+    Pl.plsandiego,Usr.lwe,
+    office Pl.platlanta,Cmp.ni,Usr.lwe,
 
 sallysmith:
   _cls: Usr
@@ -45,7 +45,7 @@ sallysmith:
   apths:
     - {cls: Cmp, uris: [Cmp.ni,Cmp.kirmse,Usr.sallysmith], pk: ni.kirmse.sallysmith}
     - {cls: Cmp, uris: [Cmp.ni,Cmp.kirmse,Cmp.unit104,Cmp.troop1031,Usr.sallysmith], pk: ni.kirmse.unit104.troop1031.sallysmith}
-    - {cls: Pl, uris: [Pl.plni,Cmp.ni,Cmp.kirmse,Usr.sallysmith], pk: plni.ni.kirmse.sallysmith} # no pth because not referenced in any pars
+    - {cls: Pl, uris: [Pl.platlanta,Cmp.ni,Cmp.kirmse,Usr.sallysmith], pk: platlanta.ni.kirmse.sallysmith} # no pth because not referenced in any pars
 
 
 suziebell:

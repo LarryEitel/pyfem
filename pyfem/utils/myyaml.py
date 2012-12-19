@@ -7,6 +7,10 @@ except ImportError:
 
 # http://pyyaml.org/wiki/PyYAMLDocumentation
 
+def loadMongoCollection(yamlFilePath):
+	pass
+
+
 def pyObj(yamlFilePath):
     yamlFilePath += '.yaml' if '.yaml' not in yamlFilePath else ''
     "Returns python object from yaml file."
