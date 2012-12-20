@@ -2,19 +2,19 @@ import datetime
 
 from app import app
 import models
-from models import Mixin, Email, Note, MyDoc
+from models import Mixin, Email, Note, D
 from models.myfields import MyStringField
 import helpers
 
 import utils.name
 
-class Pl(MyDoc, Mixin):
+class Pl(D, Mixin):
     code = app.db.StringField()
     city = MyStringField(required=True)
 
     _meta = {
         'collection': 'pls',
-        'allow_inheritance': True,
+        'allow_inheritance': False,
         'indexes': [{'fields':['slug'], 'unique': True},
                     {'fields':['sId'], 'unique': True},
                     {'fields':['city']},

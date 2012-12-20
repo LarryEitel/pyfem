@@ -1,10 +1,10 @@
 import datetime
 from app import app
-from models import Mixin, MyDoc
+from models import Mixin, D
 from models.myfields import MyStringField
 import helpers
 
-class TagGrp(MyDoc, Mixin):
+class TagGrp(D, Mixin):
     # model classes that this tag type is relavent
     # famTags
     # hobbyTags
@@ -52,7 +52,7 @@ class TagGrp(MyDoc, Mixin):
             except Exception, e:
                 self._data['myErrors'] = e
 
-class Tag(MyDoc, Mixin):
+class Tag(D, Mixin):
     tagGrp = MyStringField()
     tag = MyStringField()
     _meta = {

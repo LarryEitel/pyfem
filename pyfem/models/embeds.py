@@ -2,18 +2,27 @@ import datetime
 
 from app import app
 import models
-from models import MyEmbedDoc
+from models import ED
 from models.myfields import MyStringField, MyEmailField
 from mongoengine_extras.fields import SlugField, AutoSlugField
 
+class Note(ED):
+    #address = app.db.EmailField(required= True)
+    title = MyStringField(required= True)
+    body  = app.db.StringField()
+
+    def __str__(self):
+        s = ('[' + str(self.eId) + '] ') if self.eId else ''
+        s += (self.typ + ': ') if self.typ else ''
+        s += self.title if self.title else ''
+        return s
+
+
 class EmbedMixin(object):
     typ     = MyStringField(required= True)
-    _eIds   = app.db.DictField()
-    dNam    = app.db.StringField()
-    dNamS   = app.db.StringField()
-    eId     = app.db.IntField()
     w       = app.db.FloatField()
     prim    = app.db.BooleanField()
+    note    = app.db.EmbeddedDocumentField(Note)
 
     def validateList(self, theList):
         errors = {}
@@ -54,54 +63,31 @@ class EmbedMixin(object):
         return errors
 
 
-class Lnk(MyEmbedDoc, EmbedMixin):
-    doc_cls     = MyStringField(help_text='Document class "_cls".')
-    slug        = MyStringField(help_text='Document slug".')
-    lnkTypDNam  = app.db.IntField(help_text='Link Type Display Name')
-    lnkTypDNamS = app.db.IntField(help_text='Link Type Display Name Short')
-    dDNam       = app.db.IntField(help_text='Document Display Name')
-    dDNamS      = app.db.IntField(help_text='Document Display Name Short')
+class Lnk(ED, EmbedMixin):
+    uri     = MyStringField()
+    segs     = app.db.ListField(MyStringField())
+    #doc_cls     = MyStringField(help_text='Document class "_cls".')
+    #slug        = MyStringField(help_text='Document slug".')
+    #lnkTypDNam  = app.db.IntField(help_text='Link Type Display Name')
+    #lnkTypDNamS = app.db.IntField(help_text='Link Type Display Name Short')
+    #dDNam       = app.db.IntField(help_text='Document Display Name')
+    #dDNamS      = app.db.IntField(help_text='Document Display Name Short')
 
-class Pth(MyEmbedDoc, EmbedMixin):
-    doc_cls  = MyStringField(help_text='Target document class "_cls".')
-    lnkTypId = app.db.IntField(help_text='Link Type Id.')
-    lnkTitle = MyStringField(help_text='Link Title.')
-    lnkNote  = MyStringField(help_text='Link Note.')
+class Pth(ED, EmbedMixin):
+    pth  = MyStringField()
+    #doc_cls  = MyStringField(help_text='Target document class "_cls".')
+    #lnkTypId = app.db.IntField(help_text='Link Type Id.')
+    #lnkTitle = MyStringField(help_text='Link Title.')
+    #lnkNote  = MyStringField(help_text='Link Note.')
     lnks     = app.db.ListField(app.db.EmbeddedDocumentField(Lnk))
-    ids      = app.db.ListField(app.db.IntField())
+    #ids      = app.db.ListField(app.db.IntField())
 
 
-class Tel(MyEmbedDoc, EmbedMixin):
+class Tel(ED, EmbedMixin):
     text = MyStringField(required= True)
 
-class Note(MyEmbedDoc, EmbedMixin):
-    #address = app.db.EmailField(required= True)
-    title = MyStringField(required= True)
-    body  = app.db.StringField()
-    tels  = app.db.ListField(app.db.EmbeddedDocumentField(Tel))
-
-    def __str__(self):
-        s = ('[' + str(self.eId) + '] ') if self.eId else ''
-        s += (self.typ + ': ') if self.typ else ''
-        s += self.title if self.title else ''
-        return s
-
-    _meta = {'fldsThatUpdt_dNam': ['typ', 'title']}
-
-    @staticmethod
-    def vOnUpSert(d):
-        errors = []
-        dNam = (d['typ'] + ': ') if 'typ' in d and d['typ'] else ''
-        dNam += d['title'] if 'title' in d and d['title'] else ''
-        d['dNam'] = dNam
-        dNamS = (d['typ'] + '__') if 'typ' in d and d['typ'] else ''
-        dNamS += d['title'].lower().replace(' ', '_')
-        d['dNamS'] = dNamS
-        return {'doc_dict': d, 'errors': errors}
-
-class Email(MyEmbedDoc, EmbedMixin):
+class Email(ED, EmbedMixin):
     address = MyEmailField(required= True)
-    notes   = app.db.ListField(app.db.EmbeddedDocumentField(Note))
 
     def __repr__(self):
         s = ('[' + str(self.eId) + '] ') if self.eId else ''
@@ -109,36 +95,31 @@ class Email(MyEmbedDoc, EmbedMixin):
         s += self.address if self.address else ''
         return s
 
+    _meta = {'unique_with': ['address']}
 
-
-    _meta = {'fldsThatUpdt_dNam': ['typ', 'address'],
-             'unique_with': ['typ', 'address']}
-
-    @staticmethod
-    def vOnUpSert(d):
-        errors = []
-        dNam = (d['typ'] + ': ') if 'typ' in d and d['typ'] else ''
-        dNam += d['address'].lower() if 'address' in d and d['address'] else ''
-        dNam += ' (Primary)' if 'prim' in d and d['prim'] else ''
-        d['dNam'] = dNam
-        dNamS = (d['typ'] + '__') if 'typ' in d and d['typ'] else ''
-        dNamS += d['address'].lower()
-        dNamS += '__prim' if 'prim' in d and d['prim'] else ''
-        d['dNamS'] = dNamS
-        return {'doc_dict': d, 'errors': errors}
+    # @staticmethod
+    # def vOnUpSert(d):
+    #     errors = []
+    #     dNam = (d['typ'] + ': ') if 'typ' in d and d['typ'] else ''
+    #     dNam += d['address'].lower() if 'address' in d and d['address'] else ''
+    #     dNam += ' (Primary)' if 'prim' in d and d['prim'] else ''
+    #     d['dNam'] = dNam
+    #     dNamS = (d['typ'] + '__') if 'typ' in d and d['typ'] else ''
+    #     dNamS += d['address'].lower()
+    #     dNamS += '__prim' if 'prim' in d and d['prim'] else ''
+    #     d['dNamS'] = dNamS
+    #     return {'doc_dict': d, 'errors': errors}
 
     def save(self, *args, **kwargs):
         super(Email, self).save(*args, **kwargs)
 
 
 class Mixin(object):
-    _eIds  = app.db.DictField()
     pars   = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
-    chlds  = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
+    pths   = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
+    # chlds  = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
     emails = app.db.ListField(app.db.EmbeddedDocumentField(Email))
     notes  = app.db.ListField(app.db.EmbeddedDocumentField(Note))
-    dNam   = app.db.StringField()
-    dNamS  = app.db.StringField()
     slug   = app.db.StringField()
 
     sId    = app.db.SequenceField()
@@ -146,13 +127,7 @@ class Mixin(object):
     oBy    = app.db.ObjectIdField()
     oOn    = app.db.DateTimeField()
     cBy    = app.db.ObjectIdField()
-    cOn    = app.db.DateTimeField()
     mBy    = app.db.ObjectIdField()
     mOn    = app.db.DateTimeField()
     dOn    = app.db.DateTimeField()
     dBy    = app.db.ObjectIdField()
-
-
-    # not used, hacking
-    def validateList(self, theList):
-        pass

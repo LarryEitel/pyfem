@@ -6,9 +6,8 @@ def logit(usr, baseDocDict, targetDocDict, method=''):
     status = 200
     updtFlds = {}
 
-    if not 'cOn' in targetDocDict or not 'cBy' in baseDocDict:
+    if not 'cBy' in baseDocDict:
         updtFlds['cBy'] = targetDocDict['cBy'] = usr['OID']
-        updtFlds['cOn'] = targetDocDict['cOn'] = now
         if usr['at']:
             updtFlds['cAt'] = targetDocDict['cAt'] = usr['at']
 

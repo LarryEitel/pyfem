@@ -2,18 +2,17 @@ import datetime
 
 from app import app
 import models
-from models import Mixin, Email, Note, MyDoc
+from models import Mixin, Email, Note, D
 from models.myfields import MyStringField
 import helpers
 
 import utils.name
 
-class Cnt(MyDoc, Mixin):
+class Cnt(D, Mixin):
     code = app.db.StringField()
 
     _meta = {
-        'collection': 'cnts',
-        'allow_inheritance': True
+        'collection': 'cnts'
         }
 
     def save(self, *args, **kwargs):
@@ -26,6 +25,7 @@ class Cnt(MyDoc, Mixin):
 
         errors = helpers.recurseValidateAndVOnUpSert(self)
 
+        # needed this otherwise it would use d for collection name
         self._meta['collection'] = 'cnts'
         if type(errors) == list:
             self._data['myErrors'] = errors
@@ -33,7 +33,7 @@ class Cnt(MyDoc, Mixin):
 
             # we want to generate a slug and make sure whatever slug may have been
             # given, if any, will be unique
-            slugDefault = self.slug or self.dNamS or self.dNam
+            slugDefault = self.slug or self.dNam
             self.slug = self.generate_slug(slugDefault)
 
 
@@ -52,23 +52,12 @@ class Cmp(Cnt):
     cNam   = MyStringField(required=True)
 
     meta = {
-        'allow_inheritance': True,
-        'fldsThatUpdt_dNam': ['cNam'],
-        'indexes': [{'fields':['slug'], 'unique': True},
+        'indexes': [{'fields':['cNam'], 'sparse': True},
+                    {'fields':['slug'], 'unique': True},
                     {'fields':['sId'], 'unique': True},
-                    {'fields':['cNam'], 'sparse': True},
                     {'fields':['-mOn']}
                     ]
         }
-
-    @staticmethod
-    def vOnUpSert(d):
-        errors = []
-        d['dNam'] = d['cNam']
-        if not 'dNamS' in d or not d['dNamS']:
-            d['dNamS'] = d['dNam'].lower().replace(' ', '_')
-        return {'doc_dict': d, 'errors': errors}
-
 
 class Prs(Cnt):
     # namePrefix
@@ -89,12 +78,9 @@ class Prs(Cnt):
     gen       = app.db.StringField()
     rBy       = app.db.ObjectIdField()
 
-
     meta = {
-        'allow_inheritance': True,
-        'fldsThatUpdt_dNam': ['prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix'],
-        'indexes': [{'fields':['slug'], 'unique': True},
-                    {'fields':['dNam'], 'sparse': True},
+        'indexes': [{'fields':['prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix']},
+                    {'fields':['slug'], 'unique': True},
                     {'fields':['sId'], 'unique': True},
                     {'fields':['-mOn']}
                     ]
@@ -102,33 +88,64 @@ class Prs(Cnt):
 
         # unsuccessfully tried to use unique index to prevent dup on prim and typ+email, resorted to code hack
         #{'fields':['emails.typ', 'emails.address'], 'unique': True}
+        #{'fields':['emails.address'], 'unique': True},
         #{'fields':['emails.prim'], 'unique': True}
 
         # 'indexes': [{'fields':['slug'], 'unique': True}]
         # 'indexes': [{'fields':['slug'], 'unique': True}, {'fields':['emails.prim'], 'unique': True}]
         # 'indexes': [{'fields':['dNam']}, {'fields':'emails.prim', 'unique': True}]
+    @staticmethod
+    def staticFullName(prefix='', fNam='', fNam2='', lNam='', lNam2='', suffix=''):
+        '''Mr Bill Wayne Smith Sr'''
+        s = ''
+        fNamS = ''
+        fNamS += prefix + ' ' if prefix else ''
+        fNamS += fNam + ' ' if fNam else ''
+        fNamS += fNam2 + ' ' if fNam2 else ''
+        fNamS = fNamS[:-1] if fNamS else ''
 
+        lNamS = ''
+        lNamS += lNam + ' ' if lNam else ''
+        lNamS += lNam2 + ' ' if lNam2 else ''
+        lNamS += suffix + ' ' if suffix else ''
+        lNamS = lNamS[:-1] if lNamS else ''
 
-    def get_absolute_url(self):
-        return url_for('Prs', kwargs={"slug": self.slug})
+        return fNamS + (' ' + lNamS if lNamS else '')
 
-    def __unicode__(self):
-        return self.dNam
-
-    def __str__(self):
-        return self.dNam
+    @property
+    def fullName(self):
+        return self.staticFullName(self.prefix, self.fNam, self.fNam2, self.lNam, self.lNam2, self.suffix)
 
     @staticmethod
-    def vOnUpSert(d):
-        errors = []
-        d['dNam'] = d['fNam'] + ' ' + d['lNam']
-        if not 'dNamS' in d or not d['dNamS']:
-            d['dNamS'] = d['dNam'].lower().replace(' ', '_')
-        # if not 'slug' in d or not d['slug']:
-        #     slug = utils.name.slug(d['dNam'])
-        #     d['slug'] = slug
-        return {'doc_dict': d, 'errors': errors}
+    def staticNam(prefix='', fNam='', fNam2='', lNam='', lNam2='', suffix=''):
+        s = ''
+        fNamS = ''
+        fNamS += prefix + ' ' if prefix else ''
+        fNamS += fNam + ' ' if fNam else ''
+        fNamS += fNam2 + ' ' if fNam2 else ''
+        fNamS = fNamS[:-1] if fNamS else ''
 
+        lNamS = ''
+        lNamS += lNam + ' ' if lNam else ''
+        lNamS += lNam2 + ' ' if lNam2 else ''
+        lNamS += suffix + ' ' if suffix else ''
+        lNamS = lNamS[:-1] if lNamS else ''
+
+        if lNamS:
+            s += lNamS
+            if fNamS:
+                s += ', ' + fNamS
+        elif fNamS:
+            s += fNamS
+        return s
+
+    @property
+    def dNam(self):
+        return self.staticNam(self.prefix, self.fNam, self.fNam2, self.lNam, self.lNam2, self.suffix)
+
+    # TODO: Need to make this work
+    def get_absolute_url(self):
+        return app.url_for('Prs', kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         # this will return error if duplicate entries are attempted
@@ -144,10 +161,7 @@ class Usr(Prs):
     uNam    = app.db.StringField(required=True)
 
     meta = {
-        'allow_inheritance': True,
-        'fldsThatUpdt_dNam': ['prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix'],
         'indexes': [{'fields':['slug'], 'unique': True},
-                    {'fields':['dNam'], 'sparse': True},
                     {'fields':['sId'], 'unique': True},
                     {'fields':['uNam'], 'unique': True, 'sparse': True},
                     {'fields':['-mOn']}
@@ -156,10 +170,6 @@ class Usr(Prs):
 
     def get_absolute_url(self):
         return url_for('Usr', kwargs={"slug": self.slug})
-
-    def __unicode__(self):
-        return self.dNam
-
 
     def save(self, *args, **kwargs):
         # this will return error if duplicate entries are attempted

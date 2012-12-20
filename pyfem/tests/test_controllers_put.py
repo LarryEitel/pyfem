@@ -31,7 +31,7 @@ class ControllersPutTests(BaseMongoTestCase):
         sampItem = sampDat['PrsTryToAddDupTypEmail']
         resp = put(**sampItem)
         assert resp['status'] == 500
-        assert resp['response']['errors'][0]['errors']['typ+address'] == 'typ+address must be unique.'
+        assert resp['response']['errors'][0]['errors']['address'] == 'address must be unique.'
         x=0
 
     def test_tryToAddSecondPrimaryEmail(self):
@@ -74,9 +74,7 @@ class ControllersPutTests(BaseMongoTestCase):
         targetDoc = resp['response']['doc']
         targetElem = targetDoc['emails']
         assert len(targetElem) == 1
-        assert targetElem[0]['dNam'] == 'work: timothy@ms.com'
-        assert targetElem[0]['eId'] == 1
-        assert targetDoc['_eIds']['emails'] == 2
+        assert targetElem[0]['address'] == 'timothy@ms.com'
 
     def test_add_two_to_empty_list(self):
         sampDat = self.sampDat
@@ -99,10 +97,7 @@ class ControllersPutTests(BaseMongoTestCase):
         targetDoc = resp['response']['doc']
         targetElem = targetDoc['emails']
         assert len(targetElem) == 2
-        assert targetElem[1]['dNam'] == 'home: angie@ms.com (Primary)'
-        assert targetElem[1]['eId'] == 2
-        assert targetDoc['_eIds']['emails'] == 3
-        assert targetDoc['_eIds']['notes'] == 2
+        assert targetElem[1]['address'] == 'angie@ms.com'
         x=0
 
     def test_add_one_to_list(self):
@@ -124,11 +119,8 @@ class ControllersPutTests(BaseMongoTestCase):
         assert resp['status'] == 200
         targetDoc = resp['response']['doc']
         targetElem = targetDoc['emails']
-        assert targetElem[2]['dNam'] == 'work: timothy@ms.com'
+        assert targetElem[2]['address'] == 'timothy@ms.com'
         assert len(targetElem) == 3
-        assert targetElem[2]['eId'] == 3
-        assert targetDoc['_eIds']['emails'] == 4
-        assert targetDoc['_eIds']['notes'] == 2
         x=0
 
     def test_add_two_to_list(self):
@@ -150,10 +142,8 @@ class ControllersPutTests(BaseMongoTestCase):
         assert resp['status'] == 200
         targetDoc = resp['response']['doc']
         targetElem = targetDoc['emails']
-        assert targetElem[3]['dNam'] == 'home: sam@ms.com'
+        assert targetElem[3]['address'] == 'sam@ms.com'
         assert len(targetElem) == 4
-        assert targetElem[3]['eId'] == 4
-        assert targetDoc['_eIds']['emails'] == 5
         x=0
 
     def test_update(self):
@@ -175,26 +165,14 @@ class ControllersPutTests(BaseMongoTestCase):
         assert resp['status'] == 200
         targetDoc = resp['response']['doc']
         assert targetDoc['fNam'] == sampItem['update']['actions']['$set']['flds']['fNam']
-        assert targetDoc['dNam'] == 'Mary Smith'
 
-        # put embedded note title
-        sampItem = sampDat['PrsPut_emails_2_notes_1_title']
-        resp = put(**sampItem)
-        assert resp['status'] == 200
-        targetDoc = resp['response']['doc']['emails'][1]['notes'][0]
-        assert targetDoc['title'] == sampItem['update']['actions']['$set']['flds']['title']
-        assert 'mBy' in targetDoc
-        assert targetDoc['dNam'] == 'work: New Title'
-
-        # update emails[0] fields and add a notes list with a new note missing eId
+        # update existing email address
         sampItem = sampDat['PrsPut_emails_1']
         resp = put(**sampItem)
         assert resp['status'] == 200
         targetDoc = resp['response']['doc']
         targetElem = targetDoc['emails'][0]
-        assert targetElem['dNamS'] ==  "work__freddy@ms.com__prim"
-        assert targetElem['notes'][0]['eId'] ==  1
-        assert targetElem['_eIds']['notes'] ==  2
+        assert targetElem['address'] ==  "freddy@ms.com"
 
         x=0
 
@@ -202,7 +180,7 @@ class ControllersPutTests(BaseMongoTestCase):
     def test_tryToSetSecondPrimEmail(self):
         sampDat = self.sampDat
 
-        doc = sampDat['PrsDeepNestOfTels']
+        doc = sampDat['PrsLarryStooge']
 
         post         = controllers.post.Post(self.g).post
         put          = controllers.put.Put(self.g).put
@@ -214,7 +192,7 @@ class ControllersPutTests(BaseMongoTestCase):
         assert status == 200
         assert len(resp['response']['docs']) == 1
 
-        sampItem = sampDat['PrsTryToSetSecondPrimTel']
+        sampItem = sampDat['PrsTryToAddSecondPrimaryEmail']
         resp = put(**sampItem)
         status = resp['status']
         errors = resp['response']['errors'][0]['errors'] if not status == 200 else None

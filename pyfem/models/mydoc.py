@@ -64,10 +64,10 @@ class BaseDocMixin(object):
 
 
 # inspired by http://stackoverflow.com/questions/6102103/using-mongoengine-document-class-methods-for-custom-validation-and-pre-save-hook
-class MyDoc(app.db.Document, BaseDocMixin):
+class D(app.db.Document, BaseDocMixin):
 
     _meta = {
-        'allow_inheritance': True
+        'allow_inheritance': False
         }
 
     def validate(self):
@@ -119,10 +119,7 @@ class MyDoc(app.db.Document, BaseDocMixin):
             return u'%s-%s' % (slugVal, next)
 
 
-
-
-
-class MyEmbedDoc(app.db.EmbeddedDocument, BaseDocMixin):
+class ED(app.db.EmbeddedDocument, BaseDocMixin):
     def validDocData(self):
         return validDocData(self)
 

@@ -1,17 +1,33 @@
 # http://yaml-online-parser.appspot.com
 # Attribute Types
 # http://stackoverflow.com/questions/10805474/updating-specific-record-in-inner-collection-with-mongodb
-PrsTryToSetSecondPrimTel:
-  # update first title in note.eId=1 in second email.eId=2
+PrsLarryWayne:
   _cls: Prs
-  query: 
-    slug: larrystooge
-  update:
-    target_eIdPath: emails.2.notes.1.tels.3 # numbers refer to eId's, NOT element offsets
-    actions:
-      $set:
-        flds:
-          prim: true
+  _types : [Prs]
+  slug  : larrywayne
+  fNam  : Larry
+  lNam  : Wayne
+  pths :
+    - _cls: Pth
+      _types : [Pth]
+      lnks:
+        - _cls: Lnk
+          _types : [Lnk]
+          uri: Prs.lwe
+        - _cls: Lnk
+          _types : [Lnk]
+          uri: Cmp.ni
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      typ    : home
+      address: bill@ms.com
+      prim   : true
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: steve@apple.com
+
 PrsTryToAddDupTypEmail:
   # add a new email to emails
   _cls: Prs
@@ -34,13 +50,12 @@ PrsTryToAddSecondPrimaryEmail:
   query: 
     slug: larrystooge
   update:
-    target_eIdPath: 
     actions:
       $push: # uses pushAll if more than one item
         flds:
           emails:
-            - _cls   : Email # maybe not necessary if I know _cls of target ListField
-              _types : [Email] # necessary?
+            - _cls   : Email
+              _types : [Email]
               typ    : work
               prim   : True
               address: timothy@ms.com
@@ -118,91 +133,23 @@ PrsPut_emails_1:
   _cls: Prs
   query: 
     slug: larrystooge
+    emails.address: bill@ms.com
   update:
-    target_eIdPath: emails.1
     actions:
       $set:
         flds:
-          typ    : work
-          address: freddy@ms.com
-          prim   : true
-          notes:
-            - _cls   : Note
-              _types : [Note]
-              typ    : work
-              title  : this is a
-              body   : Now is the time
+          emails.$.address: freddy@ms.com
 PrsPut_fNam:
   # update first title in note.eId=1 in second email.eId=2
   _cls: Prs
   query: 
     slug: larrystooge
   update:
-    target_eIdPath: 
     actions:
       $set:
         flds:
           fNam: Mary
           lNam: Smith   
-PrsPut_emails_2_notes_1_title:
-  # update first title in note.eId=1 in second email.eId=2
-  _cls: Prs
-  query: 
-    slug: larrystooge
-  update:
-    target_eIdPath: emails.2.notes.1 # numbers refer to eId's, NOT element offsets
-    actions:
-      $set:
-        flds:
-          title: New Title
-PrsDeepNestOfTels:
-  _cls: Prs
-  slug  : larrystooge
-  fNam  : Larry
-  lNam  : Stooge
-  oBy  : 50c502b7936aa20e20edd211
-  emails:
-    - _cls   : Email
-      _types : [Email]
-      eId    : 1
-      typ    : work
-      address: bill@ms.com
-      prim   : true
-    - _cls   : Email
-      _types : [Email]
-      eId    : 2
-      typ    : work
-      address: steve@apple.com
-      notes:
-        - _cls   : Note
-          _types : [Note]
-          eId    : 1
-          typ    : work
-          title  : this is a
-          body   : Now is the time
-          tels:
-            - _cls   : Tel
-              _types : [Tel]
-              eId    : 1
-              typ    : work
-              text  : 123 456 7890
-            - _cls   : Tel
-              _types : [Tel]
-              eId    : 2
-              typ    : home
-              text  : 123 456 7890
-              prim   : true
-            - _cls   : Tel
-              _types : [Tel]
-              eId    : 3
-              typ    : other
-              text  : 123 456 7890
-  notes:
-    - _cls   : Note
-      _types : [Note]
-      typ    : work
-      title  : base note
-      body   : this is a base note
 PrsLarryStooge:
   _cls: Prs
   slug  : larrystooge
@@ -212,28 +159,13 @@ PrsLarryStooge:
   emails:
     - _cls   : Email
       _types : [Email]
-      eId    : 1
       typ    : work
       address: bill@ms.com
       prim   : true
     - _cls   : Email
       _types : [Email]
-      eId    : 2
       typ    : work
       address: steve@apple.com
-      notes:
-        - _cls   : Note
-          _types : [Note]
-          eId    : 1
-          typ    : work
-          title  : this is a
-          body   : Now is the time
-  notes:
-    - _cls   : Note
-      _types : [Note]
-      typ    : work
-      title  : base note
-      body   : this is a base note
 PrsLarryStoogeEmptyEmails:
   _cls: Prs
   slug  : prslarrystoogeemptyemails
@@ -245,4 +177,4 @@ PrsLarryStoogeEmptyEmails:
       _types : [Note]
       typ    : work
       title  : base note
-      body   : this is a base note             
+      body   : this is a base note      

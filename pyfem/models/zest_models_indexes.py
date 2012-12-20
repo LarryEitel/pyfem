@@ -29,7 +29,7 @@ class ModelsIndexesTests(BaseMongoTestCase):
         resp = post(**{'docs': [doc]})
         assert resp['status'] == 500
 
-        assert resp['response']['errors'][0]['errors'].message == 'Tried to save duplicate unique keys (E11000 duplicate key error index: pyfem.cnts.$_types_1_slug_1  dup key: { : "MyDoc", : "LarryStooge" })'
+        assert resp['response']['errors'][0]['errors'].message == 'Tried to save duplicate unique keys (E11000 duplicate key error index: pyfem.cnts.$_types_1_slug_1  dup key: { : "D", : "LarryStooge" })'
 
         assert len(resp['response']['errors']) == 1
 

@@ -17,11 +17,25 @@ class ControllersPostTests(BaseMongoTestCase):
         self.ucs     = ucs
         self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'controllers_post')
 
+    def test_newWithApths(self):
+        ucs     = self.ucs
+        sampDat = self.sampDat
+        doc     = sampDat['PrsLarryWayne']
+
+        post    = controllers.post.Post(self.g).post
+
+        # try one doc
+        resp    = post(**{'docs': [doc]})
+        status = resp['status']
+        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
+        assert resp['status'] == 200
+        assert len(resp['response']['docs']) == 1
+        #  cnts.update({"pths.pth" : "Prs.lwe,Cmp.ni"},{$set: {"pths.$.pth":"Prs.new"}})
 
     #TODOs
     # although testing is done in put to prevent multiple primary items in a list along with ability to prevent dup values like typ+address, THIS IS NOT TEST FOR POSTING new records. GOTTA RESOLVE and TEST
 
-    def test_post_new_one(self):
+    def test_new(self):
         ucs     = self.ucs
         sampDat = self.sampDat
         doc     = sampDat['PrsMoeStooge']
@@ -35,7 +49,21 @@ class ControllersPostTests(BaseMongoTestCase):
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == 1
 
-    def test_slug_generator(self):
+    def test_newUsr(self):
+        ucs     = self.ucs
+        sampDat = self.sampDat
+        doc     = sampDat['UsrMoeStooge']
+
+        post    = controllers.post.Post(self.g).post
+
+        # try one doc
+        resp    = post(**{'docs': [doc]})
+        status = resp['status']
+        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
+        assert resp['status'] == 200
+        assert len(resp['response']['docs']) == 1
+
+    def test_slug(self):
         ucs     = self.ucs
         sampDat = self.sampDat
 
@@ -54,9 +82,9 @@ class ControllersPostTests(BaseMongoTestCase):
         if errors: print errors
         assert resp['status'] == 200
         doc = resp['response']['docs'][resp['response']['docs'].keys()[0]]
-        assert doc['slug'] == 'moestooge-1'
+        assert doc['slug'] == 'stooge-moe-1'
 
-    def test_tryDupSlug(self):
+    def test_trySlugDup(self):
         ucs     = self.ucs
         sampDat = self.sampDat
 
@@ -72,13 +100,12 @@ class ControllersPostTests(BaseMongoTestCase):
         resp    = post(**{'docs': [doc]})
         status = resp['status']
         errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
-        if errors: print errors
         assert resp['status'] == 200
         doc = resp['response']['docs'][resp['response']['docs'].keys()[0]]
-        assert doc['slug'] == 'moestooge-1'
+        assert doc['slug'] == 'stooge-moe-1'
 
 
-    def test_tryToPostPrsWithDupEmailTryAddress(self):
+    def test_tryNewPrsWithDupEmailTypAddress(self):
         ucs     = self.ucs
         sampDat = self.sampDat
         doc     = sampDat['PrsInvalidWithDupEmailTryAddress']
@@ -87,11 +114,12 @@ class ControllersPostTests(BaseMongoTestCase):
 
         # try one doc
         resp    = post(**{'docs': [doc]})
-        assert resp['status'] == 500
-        assert resp['response']['errors'][0]['errors'][0]['errors']['typ+address'] == 'typ+address must be unique.'
-        x = 0
+        status = resp['status']
+        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
+        assert status == 500
+        assert errors[0]['errors']['address'] == 'address must be unique.'
 
-    def test_tryToPostPrsWithDupPrimListItem(self):
+    def test_tryNewPrsWithDupPrimListItem(self):
         ucs     = self.ucs
         sampDat = self.sampDat
         doc     = sampDat['PrsInvalidWithDupPrimListItem']
@@ -104,7 +132,7 @@ class ControllersPostTests(BaseMongoTestCase):
         assert resp['response']['errors'][0]['errors'][0]['errors']['prim'] == 'Only one permited primary item.'
         x = 0
 
-    def test_post_new_several(self):
+    def test_newSeveral(self):
         ucs     = self.ucs
         sampDat = self.sampDat
 

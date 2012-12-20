@@ -2,13 +2,13 @@ import datetime
 
 from app import app
 import models
-from models import Mixin, MyDoc
+from models import Mixin, D
 from models.myfields import MyStringField
 import helpers
 
 import utils.name
 
-class LnkRel(MyDoc, Mixin):
+class LnkRel(D, Mixin):
     '''Link Relationships'''
     fam      = app.db.BooleanField(help_text='Is Family Link/Relationship?')
     chld_clss = app.db.ListField(MyStringField(help_text='Child Document class "_cls".'))

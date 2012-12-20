@@ -1,6 +1,85 @@
 # http://yaml-online-parser.appspot.com
 # Attribute Types
-
+PrsTryWithNoSlug:
+  _cls: Prs
+  _types : [Prs]
+  slug  : 
+  fNam  : Moe
+  lNam  : Stooge
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: bill@ms.com
+      prim   : true
+UsrMoeStooge:
+  _cls: Usr
+  _types : [Prs]
+  slug  : moestooge
+  uNam  : moestooge
+  fNam  : Moe
+  lNam  : Stooge
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: bill@ms.com
+      prim   : true
+PrsMoeStooge:
+  _cls: Prs
+  _types : [Prs]
+  slug  : 
+  fNam  : Moe
+  lNam  : Stooge
+  emails:
+    - _cls   : Email
+      _types : [Email]
+      typ    : work
+      address: bill@ms.com
+      prim   : true
+PrsLarryWayneJr:
+  _cls: Prs
+  _types : [Prs]
+  slug  : larrywaynejr
+  fNam  : Larry
+  lNam  : Wayne
+  suffix  : Jr
+  pths :
+    - _cls: Pth
+      _types : [Pth]
+      pth: Prs.lwe,Cmp.ni
+    - _cls: Pth
+      _types : [Pth]
+      pth: Pl.sd,Cmp.ni
+PrsLarryWayne:
+  _cls: Prs
+  _types : [Prs]
+  slug  : larrywayne
+  fNam  : Larry
+  lNam  : Wayne
+  pths :
+    - _cls: Pth
+      _types : [Pth]
+      pth: pathOne
+      lnks:
+        - _cls: Lnk
+          _types : [Lnk]
+          uri: Prs.lwe
+          segs: [one, two, three]
+        - _cls: Lnk
+          _types : [Lnk]
+          uri: Cmp.ni
+    - _cls: Pth
+      _types : [Pth]
+      pth: pathTwo
+      lnks:
+        - _cls: Lnk
+          _types : [Lnk]
+          uri: Pl.sd
+          segs: [three, four]
+        - _cls: Lnk
+          _types : [Lnk]
+          uri: Pl.atlanta
 PrsLarryStooge:
   _cls: Prs
   slug  : larrystooge

@@ -1,0 +1,29 @@
+Questions:
+
+find and modif apths
+
+100 docs returned that have lnk
+for doc in cnts.find({"pths.lnks.uri":"Cmp.ni"})
+	doc.pth = asdfasdfasdf
+	asdfasdfasdf
+	update
+
+100 docs returned that have lnk
+for doc in cnts.find({"pths.lnks.uri":"Cmp.ni"})
+	doc.lock the doc
+
+loop through and make all changes
+
+loop thr and unlock
+
+cnts.ensureIndex({"pths.lnks.segs":1})
+
+
+cnts.update({"pths.pth" : "Prs.lwe,Cmp.ni"},{$set: {"pths.$.pth":"Prs.new"}})
+cnts.update({"pths.lnks.segs":"three"},{$set: {"pths.$.lnks.$.segs.$":"four"}})
+
+cnts.find({"pths.lnks.segs.three":"four"})
+
+cnts.update({"pths.lnks.segs":"four"}, {$set: {"pths.lnks.$":"five"}})
+
+cnts.findAndModify({query:{'slug': 'larrystooge', 'emails.address': 'bill@ms.com'}, update:{'$set': {'emails.$.address': 'freddy@ms.com'}, '$unset': {'locked': true}}})
