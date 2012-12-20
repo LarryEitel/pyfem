@@ -162,6 +162,7 @@ Windows
 		ConEmu
 			Add task to start elastic
 				http://superuser.com/questions/454380/git-bash-here-in-conemu
+		testing ipad client
 
 Windows Service
 	http://stackoverflow.com/questions/8760696/running-elastic-search-as-a-windows-service
