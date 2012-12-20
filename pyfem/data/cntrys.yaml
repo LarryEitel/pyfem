@@ -1,5 +1,7 @@
 # http://yaml-online-parser.appspot.com
 # http://dev.umpirsky.com/list-of-all-countries-in-all-languages-and-all-data-formats/
+# https://github.com/symfony/Locale/blob/master/Locale.php#L103
+# https://github.com/umpirsky/country-list/tree/master/src/Umpirsky/Country/Importer/Source
 meta:
   collection_name: cntrys
 
