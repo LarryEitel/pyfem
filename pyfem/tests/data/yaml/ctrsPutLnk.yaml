@@ -138,10 +138,10 @@ sampDat:
       typ: dept
       slug: kirmse
       cNam: Kirmse
-      pars
+      pars:
         - {cls: Cmp, slug: ni, role: dept}
         # Here view will always be from parent looking at list of children. So parent wants to see role as child.
-      pths
+      pths:
         - {cls: Cmp, slug: ni, role: company, uris: [Cmp.ni]}
         # role as company ref'd here because view will be from kirse looking at parent relations. So kirmse see ni as company.
 

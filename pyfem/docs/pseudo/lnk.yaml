@@ -1,4 +1,4 @@
-ctrs.put(_cls, query, update, parcls=None, parslug=None, lnkrole=None):
+ctrs.put(_cls, query, update, par_cls=None, par_slug=None, chld_par_role=None):
   pseudo:
     # need global object cause it has collection names for each class.
     # mongoengine doesn't let me override collection(name) in subclasses!!
@@ -11,12 +11,12 @@ ctrs.put(_cls, query, update, parcls=None, parslug=None, lnkrole=None):
       }
     _clss = g['_clss']
     # get par class that we will create a lnk/path
-    parCls     = getattr(mdls, parcls)
-    parCollNam = _clss[parcls]['collNam']
+    parCls     = getattr(mdls, par_cls)
+    parCollNam = _clss[par_cls]['collNam']
     parColl    = db[parCollNam]
     
     # get par doc
-    parDat    = parColl.find_one(query = {'slug': parslug})
+    parDat    = parColl.find_one(query = {'slug': par_slug})
     par       = parCls(**parDat)
 
 
@@ -42,7 +42,7 @@ ctrs.put(_cls, query, update, parcls=None, parslug=None, lnkrole=None):
     lnkRoleCollNam = _clss['LnkRole']['collNam']
     lnkRoleColl    = db[chldCollNam]
 
-    lnkRoleDat = lnkRoleColl.find_one(query = {'slug': lnkrole})
+    lnkRoleDat = lnkRoleColl.find_one(query = {'slug': chld_par_role})
     lnkRole    = lnkRoleCls(**lnkRoleDat)
 
 
