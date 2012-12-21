@@ -1,9 +1,9 @@
 import datetime
 
 from app import app
-import models
-from models import Mixin, Email, Note, D
-from models.myfields import MyStringField
+import mdls
+from mdls import Mixin, Email, Note, D
+from mdls.myfields import MyStringField
 import helpers
 
 import utils.name

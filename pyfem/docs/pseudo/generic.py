@@ -5,7 +5,7 @@ Create/Post new document.
         Processes:
             Init Edit Form
                 Initial form from static data, ie, 
-                    static.models.<Model>.newForm
+                    static.mdls.<Model>.newForm
                 HTTP POST: /<Model>
                     data: 
     API:
@@ -18,12 +18,12 @@ Create/Post new document.
                     TODO: Pseudo code this process. Handle invalid embedded docs.
                     # Pseudo code for processing list of embedded email docs
                     # extract list emails embedded doc
-                    # FUNCTION: controllers.app.extract_email
+                    # FUNCTION: ctrs.app.extract_email
                     # iterate over emails list and validate
             Generate a new _id
-                PROBLEM: Getting a new _id by creating a stub doc will be problematic in view of the fact that in some models there may be fields that have required values.
+                PROBLEM: Getting a new _id by creating a stub doc will be problematic in view of the fact that in some mdls there may be fields that have required values.
                     Solution? Maintain a set of _id's in a mongo.collection. Create a blank doc and grab the new OID. Use it to persist a new doc.
-                FUNCTION: controllers.app.next_id
+                FUNCTION: ctrs.app.next_id
                 NOTE: Use of _id. variableOID variable_id, variableId
                     _id is the name of the primary key field used by mongo. It represents the mongo document ObjectID.
                     If a field references an _id in another model, use field_id/attribute_id since it refers to an ObjectID value in another collection.
@@ -59,7 +59,7 @@ Create/Post new document.
                     https://gist.github.com/1428479#looks decent
                     http://pypi.python.org/pypi/django-autoslug#useless for us
 
-                FUNCTION: controllers.generic.slugify
+                FUNCTION: ctrs.generic.slugify
                     data:
                         _c  : Prs # model class # ie (Person)
                         dNam: John Adams # ie, last Max value

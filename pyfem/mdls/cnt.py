@@ -1,9 +1,9 @@
 import datetime
 
 from app import app
-import models
-from models import Mixin, Email, Note, D
-from models.myfields import MyStringField
+import mdls
+from mdls import Mixin, Email, Note, D
+from mdls.myfields import MyStringField
 import helpers
 
 import utils.name
@@ -11,9 +11,8 @@ import utils.name
 class Cnt(D, Mixin):
     code = app.db.StringField()
 
-    _meta = {
-        'collection': 'cnts'
-        }
+    # need this. 
+    meta = {'allow_inheritance': True}
 
     def save(self, *args, **kwargs):
         now = datetime.datetime.now()

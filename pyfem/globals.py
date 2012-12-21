@@ -1,4 +1,4 @@
-import models
+import mdls
 from utils import myyaml
 
 # let's get the model class for each
@@ -11,7 +11,7 @@ def load():
     #for i in range(0, len(_cs)):
         #key = _cs_keys[i]
         #try:
-            #_cs[key]['modelClass'] = getattr(models, key)
+            #_cs[key]['modelClass'] = getattr(mdls, key)
         #except:
             #pass
     #g['_cs'] = _cs

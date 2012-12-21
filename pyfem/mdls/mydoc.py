@@ -44,7 +44,7 @@ def validate(doc):
 def test_hook(m):
     return True
 
-class BaseDocMixin(object):
+class DMix(object):
     def validDocData(self):
         return validDocData(self)
 
@@ -64,11 +64,9 @@ class BaseDocMixin(object):
 
 
 # inspired by http://stackoverflow.com/questions/6102103/using-mongoengine-document-class-methods-for-custom-validation-and-pre-save-hook
-class D(app.db.Document, BaseDocMixin):
+class D(app.db.Document, DMix):
 
-    _meta = {
-        'allow_inheritance': False
-        }
+    meta = {'allow_inheritance': True}
 
     def validate(self):
         return validate(self)
@@ -119,7 +117,7 @@ class D(app.db.Document, BaseDocMixin):
             return u'%s-%s' % (slugVal, next)
 
 
-class ED(app.db.EmbeddedDocument, BaseDocMixin):
+class ED(app.db.EmbeddedDocument, DMix):
     def validDocData(self):
         return validDocData(self)
 

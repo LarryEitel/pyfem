@@ -1,5 +1,5 @@
 # http://yaml-online-parser.appspot.com
-# Attribute Types
+
 try:
   putCmp.kirmse_Cmp.ni_dept-company:
     _cls: Cmp
@@ -121,16 +121,52 @@ expect:
         address: steve@apple.com
 
 
-
 sampDat:
+  examples:
+    Cmp.ni:
+      _cls  : Cmp
+      _types: [Cmp]
+      slug  : ni
+      cNam  : GSNI
+      pars  :
+        - {cls: Pl, slug: atlanta, role: office}
+      pths  :
+        - {cls: Pl, slug: atlanta, role: office, uris: [Pl.atlanta]}
+    Cmp.kirmse:
+      _cls: Cmp
+      _types: [Cmp]
+      typ: dept
+      slug: kirmse
+      cNam: Kirmse
+      pars
+        - {cls: Cmp, slug: ni, role: dept}
+        # Here view will always be from parent looking at list of children. So parent wants to see role as child.
+      pths
+        - {cls: Cmp, slug: ni, role: company, uris: [Cmp.ni]}
+        # role as company ref'd here because view will be from kirse looking at parent relations. So kirmse see ni as company.
+
+    Usr.lwe:
+      _cls  : Usr
+      _types: [Usr]
+      slug  : lwe
+      fNam  : Larry
+      lNam  : Wayne
+      uNam  : lwe
+      pars  :
+        - {cls: Cmp, slug: ni, role: consultant, mask: 11}
+        - {cls: Pl, slug: sandiego, role: home}
+      pths  :
+        - {cls: Cmp, slug: ni, role: client, uris: [Cmp.ni]}
+        - {cls: Pl, slug: sandiego, role: home, uris: [Pl.sandiego]}
+        - {cls: Pl, slug: atlanta, role: office, uris: [Pl.atlanta, Cmp.ni]}
   initload:            
-    plbelencr:
+    belencr:
       _cls: Pl
-      slug  : plbelencr
+      slug  : belencr
       city  : Belen
-    platlantaga:
+    atlantaga:
       _cls: Pl
-      slug  : platlantaga
+      slug  : atlantaga
       city  : Atlanta
     lwe:
       _cls: Usr

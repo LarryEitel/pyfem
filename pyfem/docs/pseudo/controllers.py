@@ -1,11 +1,11 @@
-Pseudo controllers Operations
+Pseudo ctrs Operations
 
 NOTES:
 TODOs:
 QUESTIONS:
 
 
-# controllers.py
+# ctrs.py
 class Generic
     def __init__(self, db, es = None):
         #: Doc comment for instance attribute db
@@ -15,7 +15,7 @@ class Generic
         session    = kwargs['session'] if 'session' in kwargs else {}
         db         = self.db
         _c         = kwargs['_c']
-        model      = getattr(models, _c)
+        model      = getattr(mdls, _c)
         collNam    = model.meta['collection']
         collNamTmp = model.meta['collNam'] + '_tmp'
         coll       = db[collNam]
@@ -41,6 +41,6 @@ class Generic
         elif not 'OID' in kwargs:
             pass
 
-controllers.generic.get 
-controllers.generic.put
-controllers.generic.nextId
+ctrs.generic.get 
+ctrs.generic.put
+ctrs.generic.nextId

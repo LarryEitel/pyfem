@@ -3,10 +3,10 @@ import os
 import re
 import datetime
 from bson import ObjectId
-import models
+import mdls
 import globals
-import models
-from models import *
+import mdls
+from mdls import *
 
 class Put(object):
 
@@ -17,17 +17,11 @@ class Put(object):
         self.db  = g['db']
         #self.es  = g['es']
 
-    def put(self, **kwargs):
-        """patch a doc"""
-
+    def put(self, _cls, query, update, **kwargs):
         debug    = self.g['logger'].debug
         db       = self.db
 
-        _cls     = kwargs['_cls']
-        qryDat   = kwargs['query']
-        patchDat = kwargs['update']
-
-        mCls       = getattr(models, _cls)
+        mCls       = getattr(mdls, _cls)
         collNam    = mCls._collection.name
         coll       = mCls._collection
 
@@ -37,9 +31,9 @@ class Put(object):
         # fields to get from baseDoc find
         baseFldNams = [['_id'], ['oBy'], ['oOn'], ['oAt']]
 
-        # get fldNams targeted for patchDat
+        # get fldNams targeted for update
         fldNams = []
-        for action, flds in patchDat['actions'].iteritems():
+        for action, flds in update['actions'].iteritems():
             for fld in flds['flds']:
                 fldNams.append(fld.split('.'))
 
@@ -47,9 +41,9 @@ class Put(object):
 
         # Note that we are limiting updates to ONE doc at this time
         # default targetDoc to baseDoc, may end up being an embedded doc
-        targetDoc = baseDoc = coll.find_one(query = qryDat, fields = [fld[0] for fld in baseFldNams])
+        targetDoc = baseDoc = coll.find_one(query = query, fields = [fld[0] for fld in baseFldNams])
 
-        targetDocCls = getattr(models, _cls)
+        targetDocCls = getattr(mdls, _cls)
 
         # check if targetDoc is already locked. What to do?
         # if locked, retry for x secs
@@ -57,7 +51,7 @@ class Put(object):
 
         # lock target doc
         doc = coll.find_and_modify(
-            query = qryDat,
+            query = query,
             update = {'$set': {'locked': True}},
             new = True
         )
@@ -74,8 +68,8 @@ class Put(object):
         errors = {}
         patchActions = {}
         fldCls = None
-        for a, action in enumerate(patchDat['actions']):
-            flds = patchDat['actions'][action]['flds']
+        for a, action in enumerate(update['actions']):
+            flds = update['actions'][action]['flds']
 
             if action == '$push':
                 # hackage here
@@ -96,13 +90,13 @@ class Put(object):
 
                 # does this put/patch involve a link to another doc?
                 if fld == 'pars':
-                    # add a pth/path to pars means enough details were provided in patchDat to get details regarding the doc to be linked to
+                    # add a pth/path to pars means enough details were provided in update to get details regarding the doc to be linked to
                     # while on Prs.sue, if user wants to add a parent link to Prs.bill as father
                     # this will require locking and updating two docs
 
                     srcLnk      = proxyTargetDoc[fld][0]['lnk']
                     target_cls  = srcLnk['doc_cls']
-                    targetClass = getattr(models, target_cls)
+                    targetClass = getattr(mdls, target_cls)
                     targetSlug  = srcLnk['slug']
                     target      = coll.find_one(query = {'slug': targetSlug})
 
@@ -124,7 +118,7 @@ class Put(object):
                 # run listField.validateList against the existing AND proposed additions
                 if '_cls' in proxyTargetDoc[fld][0]:
                     targetListItem_cls = proxyTargetDoc[fld][0]['_cls']
-                    targetListItem = getattr(models, targetListItem_cls)(**proxyTargetDoc[fld][0])
+                    targetListItem = getattr(mdls, targetListItem_cls)(**proxyTargetDoc[fld][0])
                     errors = targetListItem.validateList(targetDoc[fld] + proxyTargetDoc[fld])
                     if errors:
                         error = {'attrPath': fld, 'fld':fld, 'errors': errors}
@@ -185,7 +179,7 @@ class Put(object):
             patchActions['$unset']['locked'] = True
 
             # need to log change
-            #resp = models.logit(self.usr, baseDoc, targetDoc)
+            #resp = mdls.logit(self.usr, baseDoc, targetDoc)
             #updtFlds = resp['response']['updtFlds']
             #if updtFlds:
                 #if not '$set' in patchActions:
@@ -195,7 +189,7 @@ class Put(object):
 
 
             doc = coll.find_and_modify(
-                query = qryDat,
+                query = query,
                 update = patchActions,
                 new = True
             )

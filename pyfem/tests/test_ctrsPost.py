@@ -5,24 +5,24 @@ except ImportError:
     import unittest  # NOQA
 
 from core import BaseMongoTestCase
-import controllers
+import ctrs
 from utils import myyaml
 
-class ControllersPostTests(BaseMongoTestCase):
+class CtrsPostTests(BaseMongoTestCase):
 
     def setUp(self):
-        super(ControllersPostTests, self).setUp()
+        super(CtrsPostTests, self).setUp()
         ucs          = self.usecase
         ucs.load('usecases')
         self.ucs     = ucs
-        self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'controllers_post')
+        self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'ctrsPost')
 
     def test_newWithApths(self):
         ucs     = self.ucs
         sampDat = self.sampDat
         doc     = sampDat['PrsLarryWayne']
 
-        post    = controllers.post.Post(self.g).post
+        post    = ctrs.post.Post(self.g).post
 
         # try one doc
         resp    = post(**{'docs': [doc]})
@@ -40,7 +40,7 @@ class ControllersPostTests(BaseMongoTestCase):
         sampDat = self.sampDat
         doc     = sampDat['PrsMoeStooge']
 
-        post    = controllers.post.Post(self.g).post
+        post    = ctrs.post.Post(self.g).post
 
         # try one doc
         resp    = post(**{'docs': [doc]})
@@ -54,7 +54,7 @@ class ControllersPostTests(BaseMongoTestCase):
         sampDat = self.sampDat
         doc     = sampDat['UsrMoeStooge']
 
-        post    = controllers.post.Post(self.g).post
+        post    = ctrs.post.Post(self.g).post
 
         # try one doc
         resp    = post(**{'docs': [doc]})
@@ -67,7 +67,7 @@ class ControllersPostTests(BaseMongoTestCase):
         ucs     = self.ucs
         sampDat = self.sampDat
 
-        post    = controllers.post.Post(self.g).post
+        post    = ctrs.post.Post(self.g).post
 
         doc     = sampDat['PrsTryWithNoSlug']
         resp    = post(**{'docs': [doc]})
@@ -88,7 +88,7 @@ class ControllersPostTests(BaseMongoTestCase):
         ucs     = self.ucs
         sampDat = self.sampDat
 
-        post    = controllers.post.Post(self.g).post
+        post    = ctrs.post.Post(self.g).post
 
         doc     = sampDat['PrsMoeStooge']
         resp    = post(**{'docs': [doc]})
@@ -110,7 +110,7 @@ class ControllersPostTests(BaseMongoTestCase):
         sampDat = self.sampDat
         doc     = sampDat['PrsInvalidWithDupEmailTryAddress']
 
-        post    = controllers.post.Post(self.g).post
+        post    = ctrs.post.Post(self.g).post
 
         # try one doc
         resp    = post(**{'docs': [doc]})
@@ -124,7 +124,7 @@ class ControllersPostTests(BaseMongoTestCase):
         sampDat = self.sampDat
         doc     = sampDat['PrsInvalidWithDupPrimListItem']
 
-        post    = controllers.post.Post(self.g).post
+        post    = ctrs.post.Post(self.g).post
 
         # try one doc
         resp    = post(**{'docs': [doc]})
@@ -136,7 +136,7 @@ class ControllersPostTests(BaseMongoTestCase):
         ucs     = self.ucs
         sampDat = self.sampDat
 
-        post    = controllers.post.Post(self.g).post
+        post    = ctrs.post.Post(self.g).post
 
         # try several docs, EXCEPT items with Invalid in the key
         docs    = [sampDat[d] for d in sampDat if not 'Invalid' in d]

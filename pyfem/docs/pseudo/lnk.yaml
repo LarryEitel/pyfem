@@ -1,0 +1,103 @@
+ctrs.put(_cls, query, update, parcls=None, parslug=None, lnkrole=None):
+  pseudo:
+    # need global object cause it has collection names for each class.
+    # mongoengine doesn't let me override collection(name) in subclasses!!
+    g = {}
+    g['_clss'] = {
+        'Cmp'    : {'collNam': 'cnts'},
+        'Prs'    : {'collNam': 'cnts'},
+        'Usr'    : {'collNam': 'cnts'},
+        'LnkRole': {'collNam': 'lnkroles'},
+      }
+    _clss = g['_clss']
+    # get par class that we will create a lnk/path
+    parCls     = getattr(mdls, parcls)
+    parCollNam = _clss[parcls]['collNam']
+    parColl    = db[parCollNam]
+    
+    # get par doc
+    parDat    = parColl.find_one(query = {'slug': parslug})
+    par       = parCls(**parDat)
+
+
+    # get par class that we will create a lnk/path
+    chldCls     = getattr(mdls, chldcls)
+    chldCollNam = _clss[chldcls]['collNam']
+    chldColl    = db[chldCollNam]
+
+
+    # find and lock the target (child) doc that will be updated
+    # query should find doc with pars/pths we will be $push(ing) data to
+    targetDoc  = chldColl.find_and_modify(
+          query = query,
+          update = {'$set': {'locked': True}},
+          new = True
+      ) 
+    target = chldCls(**targetDoc)
+
+
+    # get role details
+    # get par class that we will create a lnk/path
+    lnkRoleCls     = getattr(mdls, 'LnkRole')
+    lnkRoleCollNam = _clss['LnkRole']['collNam']
+    lnkRoleColl    = db[chldCollNam]
+
+    lnkRoleDat = lnkRoleColl.find_one(query = {'slug': lnkrole})
+    lnkRole    = lnkRoleCls(**lnkRoleDat)
+
+
+    # init $push actions for pars and pths
+    flds = {}
+
+    # init Par to be pushed to pars
+    par      = mdls.Par()
+    par.cls  = par._cls
+    par.slug = par.slug
+    par.role = lnkRole.chld # role is from the perspective of target/parent
+    par.mask = lnkRole.mask
+
+    flds['pars'] = par._data
+
+    # init Pth to be pushed to pths
+    pth      = mdls.Pth()
+    pth.cls  = par._cls
+    pth.slug = par.slug
+    pth.role = lnkRole.par # role is from the perspective of subject/child
+    pth.uris = [par._cls + '.' + par.slug]
+
+    # gather par pths
+    # filter to avoid dups!
+    pth.uris += [uri for uri in par.pths.uris.iterItems()] if par.pths else []
+
+    flds['pths'] = pth._data
+
+    update   = {'$push': {'fldUpdates': flds}}
+
+
+    examples:
+      put(_cls='Cmp', 
+          query={'slug': 'kirmse', 
+          update={'$push': {}} to ni as department-company
+
+      # get role details
+      lnkRole = lnkroles.find(get lnkRole
+
+
+
+
+      lnkRole = lnkroles.find_one(query = {'slug': }, fields = [fld[0] for fld in baseFldNams])
+
+      # get parent details
+      parDoc  = find and lock doc 
+      parCls  = parDoc._cls
+      parSlug = parDoc.slug
+      parRole = lnkRole['par']
+      parMask = lnkRole['mask']
+      parPths = parDoc.pars
+
+
+      ctrs.put(
+          _cls = Cmp
+          query = {'slug': 'ni'}
+          update = {}
+        )

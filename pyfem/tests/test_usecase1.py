@@ -10,8 +10,8 @@ from core import BaseTestCase, BaseMongoTestCase
 from bson import ObjectId
 from utils import myyaml
 from utils.myyaml import postToMongo
-import controllers
-import models
+import ctrs
+import mdls
 
 
 class UseCase1Tests(BaseMongoTestCase):
@@ -62,13 +62,13 @@ class UseCase1Tests(BaseMongoTestCase):
 
     def setUp(self):
         super(UseCase1Tests, self).setUp()
-        self.post = post = controllers.post.Post(self.g).post
-        self.put  = put  = controllers.put.Put(self.g).put
+        self.post = post = ctrs.post.Post(self.g).post
+        self.put  = put  = ctrs.put.Put(self.g).put
         self.usecase = usecase = myyaml.pyObj(self.tests_data_yaml_dir + 'usecase1')
         self.sampDat = sampDat = usecase['sampDat']
 
-        # load lnkrels
-        resp = postToMongo(post, self.data_dir + 'lnkrels')
+        # load lnkroles
+        resp = postToMongo(post, self.data_dir + 'lnkroles')
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == len(resp['response']['yamlData']['data'])
 

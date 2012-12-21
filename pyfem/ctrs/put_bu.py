@@ -3,10 +3,10 @@ import os
 import re
 import datetime
 from bson import ObjectId
-import models
+import mdls
 import globals
-import models
-from models import *
+import mdls
+from mdls import *
 
 class Put(object):
 
@@ -27,7 +27,7 @@ class Put(object):
         qryDat   = kwargs['query']
         patchDat = kwargs['update']
 
-        mCls       = getattr(models, _cls)
+        mCls       = getattr(mdls, _cls)
         collNam    = mCls._collection.name
         coll       = mCls._collection
 
@@ -98,9 +98,9 @@ class Put(object):
                     target_offsetPath.append(str(targetOffset))
 
             # init the class for targetDoc
-            targetDocCls = getattr(models, targetDoc['_cls'])
+            targetDocCls = getattr(mdls, targetDoc['_cls'])
         else:
-            targetDocCls = getattr(models, _cls)
+            targetDocCls = getattr(mdls, _cls)
 
         # check if targetDoc is already locked. What to do?
         # if locked, retry for x secs
@@ -167,7 +167,7 @@ class Put(object):
 
                     srcLnk      = proxyTargetDoc[fld][0]['lnk']
                     target_cls  = srcLnk['doc_cls']
-                    targetClass = getattr(models, target_cls)
+                    targetClass = getattr(mdls, target_cls)
                     targetSlug  = srcLnk['slug']
                     target      = coll.find_one(query = {'slug': targetSlug})
 
@@ -195,7 +195,7 @@ class Put(object):
                 # run listField.validateList against the existing AND proposed additions
                 if '_cls' in proxyTargetDoc[fld][0]:
                     targetListItem_cls = proxyTargetDoc[fld][0]['_cls']
-                    targetListItem = getattr(models, targetListItem_cls)(**proxyTargetDoc[fld][0])
+                    targetListItem = getattr(mdls, targetListItem_cls)(**proxyTargetDoc[fld][0])
                     errors = targetListItem.validateList(targetDoc[fld] + proxyTargetDoc[fld])
                     if errors:
                         error = {'attrPath': '.'.join(target_offsetPath + [fld]), 'fld':fld, 'errors': errors}
@@ -258,7 +258,7 @@ class Put(object):
                 # run listField.validateList against the existing AND proposed additions
                 if target_eIdPath and '_cls' in targetList[0]:
                     targetListItem_cls = targetList[0]['_cls']
-                    targetListItem = getattr(models, targetListItem_cls)(**targetList[0])
+                    targetListItem = getattr(mdls, targetListItem_cls)(**targetList[0])
                     errors = targetListItem.validateList(targetList)
                     if errors:
                         error = {'attrPath': '.'.join(target_offsetPath + [fld]), 'fld':fld, 'errors': errors}
@@ -280,7 +280,7 @@ class Put(object):
             patchActions['$unset']['.'.join(target_offsetPath + ['locked'])] = True
 
             # need to log change
-            resp = models.logit(self.usr, baseDoc, targetDoc)
+            resp = mdls.logit(self.usr, baseDoc, targetDoc)
             updtFlds = resp['response']['updtFlds']
             if updtFlds:
                 if not '$set' in patchActions:

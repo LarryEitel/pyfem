@@ -3,7 +3,7 @@ import os
 import re
 import datetime
 from bson import ObjectId
-import models
+import mdls
 import globals
 from app import app
 
@@ -30,12 +30,12 @@ class Lnk(object):
 
         # init src & dst objects
         src_cls  = src.split('.')[0]
-        srcClass = getattr(models, src_cls)
+        srcClass = getattr(mdls, src_cls)
         srcSlug  = src.split('.')[1]
         srcObj   = srcClass.objects.get(slug=srcSlug)
 
         dst_cls  = dst.split('.')[0]
-        dstClass = getattr(models, dst_cls)
+        dstClass = getattr(mdls, dst_cls)
         dstSlug  = dst.split('.')[1]
         dstObj   = dstClass.objects.get(slug=dstSlug)
 
@@ -44,11 +44,11 @@ class Lnk(object):
 
         # src/source is always the FROM link
         # ie, if link from daughter to father, src=daughter doc, pth will be inserted in daughter's pars attribute
-        srcLnkClass = getattr(models, 'Lnk')
+        srcLnkClass = getattr(mdls, 'Lnk')
         srcLnk = srcLnkClass(**{'doc_cls': dst_cls, 'slug': dstSlug, 'lnkTypDNamS': dstLnkRel, 'dDNam': dstObj.dNam})
 
 
-        srcPthClass = getattr(models, 'Pth')
+        srcPthClass = getattr(mdls, 'Pth')
         srcPth      = srcPthClass()
         srcPth.lnks = [srcLnk.to_mongo()]
 
@@ -56,9 +56,9 @@ class Lnk(object):
 
 
         # dst/source is always the from in the link
-        dstLnkClass = getattr(models, 'Lnk')
+        dstLnkClass = getattr(mdls, 'Lnk')
         dstLnk      = dstLnkClass(**{'doc_cls': src_cls, 'slug': srcSlug, 'lnkTypDNamS': srcLnkRel, 'dDNam': srcObj.dNam})
-        dstPthClass = getattr(models, 'Pth')
+        dstPthClass = getattr(mdls, 'Pth')
         dstPth      = dstPthClass()
         dstPth.lnks = [dstLnk.to_mongo()]
 

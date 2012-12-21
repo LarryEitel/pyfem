@@ -1,24 +1,23 @@
-plsandiego:
+Questions:
+  why need trailing link to doc in pths.uris?
+
+Pl.sandiego:
   _cls: Pl
-  slug  : plsandiego
+  slug  : sandiego
   city  : San Diego
-
-platlanta:
+Pl.atlanta:
   _cls: Pl
-  slug  : platlanta
+  slug  : atlanta
   city  : Atlanta
-
 ni:
   _cls: Cmp
   _types: [Cmp]
   typ: company
   slug: ni
-  cNam: GSNI
-  pars
-    Pl.platlanta {office}
-  apths
-    Pl.platlanta,Cmp.ni
-
+  pars:
+    - {cls: Pl slug: atlanta, role: office}
+  pths:
+    - {cls: Pl slug: atlanta, role: office, uris: [Pl.atlanta, Cmp.ni]}
 lwe:
   _cls: Usr
   slug  : lwe
@@ -26,13 +25,12 @@ lwe:
   fNam  : Larry
   lNam  : Eitel
   pars:
-    Cmp.ni {consultant}
-    Pl.plsandiego {home}
-  apths:
-    Cmp.ni,Usr.lwe,
-    Pl.plsandiego,Usr.lwe,
-    office Pl.platlanta,Cmp.ni,Usr.lwe,
-
+    - {lnk: Cmp.ni.admin.11}
+    - {lnk: Pl.sandiego.home}
+  pths:
+    - {lnk: Cmp.ni.admin.11, uris: [Cmp.ni, Usr.lwe]}
+    - {lnk: Pl.sandiego.home, uris: [Pl.sandiego, Usr.lwe]}
+    - {lnk: Pl.atlanta.office, uris: [Pl.atlanta, Cmp.ni, Usr.lwe]}
 sallysmith:
   _cls: Usr
   slug  : sallysmith
@@ -40,14 +38,12 @@ sallysmith:
   fNam  : Sally
   lNam  : Smith
   pars:
-    - {cls: Cmp, slug: kirmse, role: admin, pk: 'ni.kirmse^111'}
-    - {cls: Cmp, slug: troop1031, role: troop_leader, pk: 'ni.kirmse.unit104.troop1031^1111'}
+    - {lnk: Cmp.kirmse.admin.11}
+    - {lnk: Cmp.troop1031.troop_leader.111}
   apths:
-    - {cls: Cmp, uris: [Cmp.ni,Cmp.kirmse,Usr.sallysmith], pk: ni.kirmse.sallysmith}
-    - {cls: Cmp, uris: [Cmp.ni,Cmp.kirmse,Cmp.unit104,Cmp.troop1031,Usr.sallysmith], pk: ni.kirmse.unit104.troop1031.sallysmith}
-    - {cls: Pl, uris: [Pl.platlanta,Cmp.ni,Cmp.kirmse,Usr.sallysmith], pk: platlanta.ni.kirmse.sallysmith} # no pth because not referenced in any pars
-
-
+    - {lnk: Cmp.kirmse.11, uris: [Cmp.ni, Cmp.kirmse, Usr.sallysmith]}
+    - {lnk: Cmp.troop1031.troop_leader.111, uris: [Cmp.ni, Cmp.kirmse, Cmp.unit104, Cmp.troop1031, Usr.sallysmith]}
+    - {lnk: Pl.atlanta.office, uris: [Pl.atlanta, Cmp.ni, Cmp.kirmse, Usr.sallysmith]}
 suziebell:
   _cls: Usr
   slug  : suziebell
@@ -59,7 +55,6 @@ suziebell:
   apths
     Cmp.ni,Cmp.kirmse,Cmp.unit104,Cmp.troop1031,Usr.suziebell,
     Pl.plni,Cmp.ni,Cmp.kirmse,Cmp.unit104,Cmp.troop1031,Usr.suziebell,
-
 prggrp:
   _cls: Cmp
   _types: [Cmp]
@@ -71,7 +66,6 @@ prggrp:
   apths
     Cmp.ni,Cmp.prggrp,
     Pl.plni,Cmp.ni,Cmp.prggrp,
-
 kirmse:
   _cls: Cmp
   _types: [Cmp]
@@ -79,10 +73,11 @@ kirmse:
   slug: kirmse
   cNam: Kirmse
   pars
-    Cmp.ni
-  apths
-    Cmp.ni,Cmp.kirmse,
-    Pl.plni,Cmp.ni,Cmp.kirmse,
+    - {lnk: Cmp.ni.department} # department is role of child TO parent?
+    # Here view will always be from parent looking at list of children. So parent wants to see role of child.
+  pths
+    - {lnk: Cmp.ni.company, uris: [Cmp.ni, Cmp.kirmse]}
+    # company ref'd here cause view will be from kirse looking at parent relations. So current doc wants 
 
 unit104:
   _cls: Cmp

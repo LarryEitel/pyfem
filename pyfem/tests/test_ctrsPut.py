@@ -6,21 +6,21 @@ except ImportError:
 
 from core import BaseMongoTestCase
 from utils import myyaml
-import controllers
+import ctrs
 
-class ControllersPutTests(BaseMongoTestCase):
+class CtrsPutTests(BaseMongoTestCase):
 
     def setUp(self):
-        super(ControllersPutTests, self).setUp()
-        self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'controllers_put')
+        super(CtrsPutTests, self).setUp()
+        self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'ctrsPut')
 
     def test_tryToAddDupTypEmail(self):
         sampDat = self.sampDat
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = controllers.post.Post(self.g).post
-        put          = controllers.put.Put(self.g).put
+        post         = ctrs.post.Post(self.g).post
+        put          = ctrs.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -39,8 +39,8 @@ class ControllersPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = controllers.post.Post(self.g).post
-        put          = controllers.put.Put(self.g).put
+        post         = ctrs.post.Post(self.g).post
+        put          = ctrs.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -59,8 +59,8 @@ class ControllersPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStoogeEmptyEmails']
 
-        post         = controllers.post.Post(self.g).post
-        put          = controllers.put.Put(self.g).put
+        post         = ctrs.post.Post(self.g).post
+        put          = ctrs.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -81,8 +81,8 @@ class ControllersPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStoogeEmptyEmails']
 
-        post         = controllers.post.Post(self.g).post
-        put          = controllers.put.Put(self.g).put
+        post         = ctrs.post.Post(self.g).post
+        put          = ctrs.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -105,8 +105,8 @@ class ControllersPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = controllers.post.Post(self.g).post
-        put          = controllers.put.Put(self.g).put
+        post         = ctrs.post.Post(self.g).post
+        put          = ctrs.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -128,8 +128,8 @@ class ControllersPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = controllers.post.Post(self.g).post
-        put          = controllers.put.Put(self.g).put
+        post         = ctrs.post.Post(self.g).post
+        put          = ctrs.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -151,8 +151,8 @@ class ControllersPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = controllers.post.Post(self.g).post
-        put          = controllers.put.Put(self.g).put
+        post         = ctrs.post.Post(self.g).post
+        put          = ctrs.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -182,8 +182,8 @@ class ControllersPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = controllers.post.Post(self.g).post
-        put          = controllers.put.Put(self.g).put
+        post         = ctrs.post.Post(self.g).post
+        put          = ctrs.put.Put(self.g).put
 
         # Load one doc
         resp = post(**{'docs': [doc]})

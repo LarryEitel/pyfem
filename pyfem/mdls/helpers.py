@@ -1,5 +1,5 @@
 import datetime
-import models
+import mdls
 
 def recurseValidate(doc, doc_class, key, val, attrPath, doc_errors):
     '''this will be called by recursiveDoc function and be executed on each doc/embedded doc'''
@@ -16,7 +16,7 @@ def recurseDoc(doc, key, val, recurseFn, attrPath, doc_errors):
     '''Recursively traverse model class fields executing recurseFn function on any docs/embedded docs'''
     keyvals = {}
     if type(val) == dict:
-        doc_class = getattr(models, val['_cls']) if '_cls' in val else None
+        doc_class = getattr(mdls, val['_cls']) if '_cls' in val else None
         if doc_class:
             # this enables using same recursive funct to execute something on any docs/embedded docs
             recurseFn(val, doc_class, key, val, attrPath, doc_errors)
@@ -32,7 +32,7 @@ def recurseDoc(doc, key, val, recurseFn, attrPath, doc_errors):
 
         theList = doc[key]
         if len(theList) and '_cls' in theList[0]:
-            listItem_cls = getattr(models, theList[0]['_cls'])
+            listItem_cls = getattr(mdls, theList[0]['_cls'])
             if hasattr(listItem_cls, 'validateList'):
                 listItem = listItem_cls(**theList[0])
                 errors = listItem.validateList(theList)

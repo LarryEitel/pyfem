@@ -21,7 +21,7 @@ TODOs:
             attribNam: slug
             slugBase   : john_doe
             slugNo   : 2
-    Need a controllers.generic.clone
+    Need a ctrs.generic.clone
         args:
             _c: <doc model class name>
             doc: <source doc to clone>
@@ -56,7 +56,7 @@ New Doc Initialize Form
                 _c: <model class name>
                 # if no OID exists, this is a new doc
             data: None
-            RUN: controllers.generic.post
+            RUN: ctrs.generic.post
                 args:
                     _c: <model class name>
                     # if no OID exists, this is a new doc. Will need to generate a temporary doc to work with.
@@ -85,14 +85,14 @@ Update Doc Initialize Form
                 _c: <model class name>
                 OID: 
             data: None
-            RUN: controllers.generic.post
+            RUN: ctrs.generic.post
                 args:
                     _c: <model class name>
                     OID: 
                     doc: <data>
                     # if doc arg does not exist AND OID exists, this is an EXISTING doc. Generate a clone copy of this doc in the <coll>_tmp collection to work with.
                 DO THIS:
-                    Is this doc unlocked: controllers.generic.get 
+                    Is this doc unlocked: ctrs.generic.get 
                         data:
                             _c:
                             OID:
@@ -136,7 +136,7 @@ Update Form Element
             data: 
                 attrVal : <new attr value>
 
-            RUN: controllers.generic.put
+            RUN: ctrs.generic.put
                 args:
                     _c      : <model class name>
                     OID     : <OID of doc in _tmp collection>
@@ -186,7 +186,7 @@ Add to a ListType Form Element
                             search chars 
 
                     New Parent/Child to what type of item: <dropdown of model classes>
-                        TODO: Client has access to static list of all models, ie, Prs:Person, etc.
+                        TODO: Client has access to static list of all mdls, ie, Prs:Person, etc.
                           Prompt user to describe the relationship. TODO: UI either access static list of DxRel (relationship titles)? Another AJAX call required?
                             Since the UI knows the typ (type) of document, it can list relevent rel(ationship) titles. If UI is adding a new parent/to relationship, list would include titles such as Son of, Employed by, etc.
                                 NOTE: it might be appropriate for UI to prompt for the type/class of parent to create, ie, Person, Company, etc. This would/could enable further filtering of available/appropriate titles from the list.
@@ -216,7 +216,7 @@ Add to a ListType Form Element
             data: 
                 attrVal : <new attr value>
 
-            RUN: controllers.generic.post
+            RUN: ctrs.generic.post
                 args:
                     _c           : <model class name>
                     OID          : <OID of doc in _tmp collection>
@@ -229,7 +229,7 @@ Add to a ListType Form Element
                     Find and append/add attrVal to attrName of doc at OID in _tmp collection.
                     If the attrName is in ['tos', 'frs']:
                         FUNCTION?
-                            controllers.pth.mk # mk/generate to/fr pth
+                            ctrs.pth.mk # mk/generate to/fr pth
                             RETURN:
                                 pths:
                                     target:
@@ -366,7 +366,7 @@ Add to a ListType Attribute
             Create a snapshot of doc 
                 FUNCTION: views.generic.tmp
                     Processes:
-                        FUNCTION: controllers.generic.tmp 
+                        FUNCTION: ctrs.generic.tmp 
                             data:
                                 OID: 
                             Processes:
@@ -561,7 +561,7 @@ Doc Edit
                 Create a snapshot of doc 
                     FUNCTION: views.generic.tmp
                         Processes:
-                            FUNCTION: controllers.generic.tmp 
+                            FUNCTION: ctrs.generic.tmp 
                                 data:
                                     OID: 
                                 Processes:
@@ -662,7 +662,7 @@ Create Relation
             Client calls view function
                 FUNCTION: views.dx.create
             Call controller function for creating Dx and DxRel and also pass data.
-                FUNCTION: controllers.dx.Create
+                FUNCTION: ctrs.dx.Create
                     Check OIDs for presence in database. 
                     Pull docs. 
                     If Docs do not exist respond with a status code. With a possible message of session hijacking.
@@ -692,7 +692,7 @@ Create Dx Relation
             Client calls view function
                 FUNCTION: views.dx.create
             Call controller function for creating Dx and DxRel and also pass data.
-                FUNCTION: controllers.dx.Create
+                FUNCTION: ctrs.dx.Create
                     Check OIDs for presence in database. 
                     Pull docs. 
                     If Docs do not exist respond with a status code. With a possible message of session hijacking.
@@ -719,7 +719,7 @@ Delete Dx relation
                 
                 Call controller function to delete Dx and DxRel record.
                 
-            FUNCTION: controllers.dx.delete
+            FUNCTION: ctrs.dx.delete
                 data:
                     OID:
                     
@@ -752,7 +752,7 @@ Delete Dx relation
                     OID:
             
             
-            FUNCTION: controllers.dx.update
+            FUNCTION: ctrs.dx.update
                 data:
                     OID:
                     
@@ -764,7 +764,7 @@ Delete Dx relation
                     Check if these attrs have changed. If yes immediate parent's tos will be updated.
                     And like deleteChild call update child with OID.
                 
-            FUNCTION: controllers.dx.updateChild
+            FUNCTION: ctrs.dx.updateChild
                 data:
                     OID:
                     
@@ -803,73 +803,73 @@ Move an object for new relation
     dRelDesc
 views.dx.Create
 views.dx.Create
-controllers.dx.Create
-controllers.dx.Delete
-controllers.dx.Update
-controllers.dx.Move
+ctrs.dx.Create
+ctrs.dx.Delete
+ctrs.dx.Update
+ctrs.dx.Move
 
 
 Mary Bell associates herself with Program Group
     # Id = 23
-    controllers.dx.Relate(toOID = pggrp, frOID = "13445")
-    controllers.Cnt.Associate(to_oid = pggrp, from_oid = MaryBell)
+    ctrs.dx.Relate(toOID = pggrp, frOID = "13445")
+    ctrs.Cnt.Associate(to_oid = pggrp, from_oid = MaryBell)
         UI must select the two oids and a set of pre-existing relations will be populated in a drop down list.
         One of the values from this drop down must be picked.
         
-        controllers.Dx.CreateDx(to_oid = pggrp, from_oid = MaryBell)
+        ctrs.Dx.CreateDx(to_oid = pggrp, from_oid = MaryBell)
             This function will create a Dx object between these two oid.
-        controllers.Dx.CreateDxRel(to_oid = pggrp, from_oid = MaryBell)
+        ctrs.Dx.CreateDxRel(to_oid = pggrp, from_oid = MaryBell)
             This function will create a new Dx object between these two depending on the relation.
         
         Now Associate will populate tos and froms of both the objects.
         Now update tos of children of Mary Bell. In this case there are none.
 
 Create company GSNI
-    controllers.Cnt.CreateCmp(ni)
+    ctrs.Cnt.CreateCmp(ni)
 
 Mary Bell associates Program Group with GSNI
-    controllers.Cnt.Associate(to_oid = ni, from_oid = pggrp)
+    ctrs.Cnt.Associate(to_oid = ni, from_oid = pggrp)
         UI must select the two oids and a set of pre-existing relations will be populated in a drop down list.
         One of the values from this drop down must be picked.
         
-        controllers.Dx.CreateDx(to_oid = ni, from_oid = pggrp)
+        ctrs.Dx.CreateDx(to_oid = ni, from_oid = pggrp)
             This function will create a Dx object between these two oid.
-        controllers.Dx.CreateDxRel(to_oid = ni, from_oid = pggrp)
+        ctrs.Dx.CreateDxRel(to_oid = ni, from_oid = pggrp)
             This function will create a new Dx object between these two depending on the relation.
         
         Now Associate will populate tos and froms of both the objects.
         Now update tos of children of Program Group. In this case there is one child Mary Bell so its tos must be updated.
 
 Create user Sally
-    controllers.Cnt.CreateUsr(Sally)
+    ctrs.Cnt.CreateUsr(Sally)
 
 Create company Kirmse
-    controllers.Cnt.CreateCmp(Krmse)
+    ctrs.Cnt.CreateCmp(Krmse)
 
 Sally associates Kirmse with GSNI
-    controllers.Cnt.Associate(to_oid = ni, from_oid = kirmse)
+    ctrs.Cnt.Associate(to_oid = ni, from_oid = kirmse)
         UI must select the two oids and a set of pre-existing relations will be populated in a drop down list.
         One of the values from this drop down must be picked.
         
-        controllers.Dx.CreateDx(to_oid = ni, from_oid = kirmse)
+        ctrs.Dx.CreateDx(to_oid = ni, from_oid = kirmse)
             This function will create a Dx object between these two oid.
-        controllers.Dx.CreateDxRel(to_oid = ni, from_oid = kirmse)
+        ctrs.Dx.CreateDxRel(to_oid = ni, from_oid = kirmse)
             This function will create a new Dx object between these two depending on the relation.
         
         Now Associate will populate tos and froms of both the objects.
         Now update tos of children of Kirmse. However, Kirmse do not have any children.
 
 Sally creates area 104
-    controllers.Cnt.CreateCmp(104)
+    ctrs.Cnt.CreateCmp(104)
     
 Sally associates 104 with Kirmse 
-    controllers.Cnt.Associate(to_oid = ni, from_oid = kirmse)
+    ctrs.Cnt.Associate(to_oid = ni, from_oid = kirmse)
         UI must select the two oids and a set of pre-existing relations will be populated in a drop down list.
         One of the values from this drop down must be picked.
         
-        controllers.Dx.CreateDx(to_oid = ni, from_oid = kirmse)
+        ctrs.Dx.CreateDx(to_oid = ni, from_oid = kirmse)
             This function will create a Dx object between these two oid.
-        controllers.Dx.CreateDxRel(to_oid = ni, from_oid = kirmse)
+        ctrs.Dx.CreateDxRel(to_oid = ni, from_oid = kirmse)
             This function will create a new Dx object between these two depending on the relation.
         
         Now Associate will populate tos and froms of both the objects.
@@ -878,15 +878,15 @@ Sally associates 104 with Kirmse
 Now let us say the entire lucid chard diagram is created this way.
 
 Delete troop 1031
-    controllers.Cnt.DeleteCmp(1031)
+    ctrs.Cnt.DeleteCmp(1031)
         UI must select the oid of the object to be deleted.
         Delete all children recursively and their Dx and DxRel objects.
         
-        controllers.Dx.DeleteDx(oid = 1031)
-            controllers.Dx.DeleteChild(1031)
+        ctrs.Dx.DeleteDx(oid = 1031)
+            ctrs.Dx.DeleteChild(1031)
             Update tos.
         
-        controllers.Dx.DeleteChild(oid)
+        ctrs.Dx.DeleteChild(oid)
             If it has no child delete its Dx and DxRel and then the object.
             
 
@@ -902,7 +902,7 @@ Delete troop 1031
 
 
 Create company kirmse
-    controllers.Cnt.CreateCmpKirmse
+    ctrs.Cnt.CreateCmpKirmse
 
 Relate kirmse to ni via Dx doc
     Create a relation between parent ni and child kirmse using a Dx doc.
@@ -915,7 +915,7 @@ Relate kirmse to ni via Dx doc
                     DepartmentOf
                     BranchOf
 
-    controllers.Dx.RelateKirmseToNi
+    ctrs.Dx.RelateKirmseToNi
         Pass in:
             toId: OID for ni
             frId: OID for kirmse

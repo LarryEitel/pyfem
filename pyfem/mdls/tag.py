@@ -1,7 +1,7 @@
 import datetime
 from app import app
-from models import Mixin, D
-from models.myfields import MyStringField
+from mdls import Mixin, D
+from mdls.myfields import MyStringField
 import helpers
 
 class TagGrp(D, Mixin):

@@ -6,13 +6,13 @@ except ImportError:
 
 from core import BaseMongoTestCase
 
-class ModelsHelpers(BaseMongoTestCase):
+class MdlsTests(BaseMongoTestCase):
     def setUp(self):
-        super(ModelsHelpers, self).setUp()
+        super(MdlsTests, self).setUp()
 
     def test_prs(self):
         uc = self.usecase
-        from models import Email, Prs
+        from mdls import Email, Prs
 
         uc.load('usecases')
         cmds = uc.run_all('one')

@@ -12,7 +12,7 @@ from flask import (
 from app import app
 
 import datetime
-from pyfem import controllers
+from pyfem import ctrs
 from util import (
     slugify,
     make_start_date,
@@ -26,7 +26,7 @@ from util import (
 def index():
     # name = "Larry"
     # person = Person.objects.get(name=name)
-    person = controllers.person.getPerson()
+    person = ctrs.person.getPerson()
     date = datetime.datetime.now()
     date = make_end_date(date=date)
 

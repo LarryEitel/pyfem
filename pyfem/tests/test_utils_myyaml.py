@@ -7,15 +7,15 @@ except ImportError:
 from core import BaseMongoTestCase
 from utils.myyaml import postToMongo
 from utils import myyaml
-import controllers
+import ctrs
 
 class UtilsMyYamlTest(BaseMongoTestCase):
     def setUp(self):
         super(UtilsMyYamlTest, self).setUp()
 
     def test_postToMongo(self):
-        post = controllers.post.Post(self.g).post
-        resp = postToMongo(post, self.data_dir + 'lnkrels')
+        post = ctrs.post.Post(self.g).post
+        resp = postToMongo(post, self.data_dir + 'lnkroles')
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == len(resp['response']['yamlData']['data'])
 

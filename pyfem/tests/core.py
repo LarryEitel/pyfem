@@ -97,11 +97,11 @@ class BaseMongoTestCase(unittest.TestCase):
         return self._get_target_class()(*args, **kwargs)
 
     def _get_card_class(self):
-        from models import Kard
+        from mdls import Kard
         return Kard
 
     def _get_record_class(self):
-        from models import DailyRecord
+        from mdls import DailyRecord
         return DailyRecord
 
     def _make_unique_key(self):

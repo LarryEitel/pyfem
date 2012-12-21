@@ -18,7 +18,7 @@ from flask import (
 )
 
 from app import app
-from models import Q, Person
+from mdls import Q, Person
 import util
 from util import (
     slugify,

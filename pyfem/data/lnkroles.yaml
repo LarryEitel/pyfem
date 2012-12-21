@@ -1,0 +1,153 @@
+# http://yaml-online-parser.appspot.com
+meta:
+  collection_name: lnkroles
+
+data:
+  home-home:
+    _cls     : LnkRole
+    slug     : home-home
+    parClss : [Cmp,Prs,Usr]
+    par      : home
+    chldClss: [Cmp,Prs,Usr]
+    chld     : home
+  office-office:
+    _cls     : LnkRole
+    slug     : office-office
+    parClss : [Cmp,Prs,Usr]
+    par      : office
+    chldClss: [Cmp,Prs,Usr]
+    chld     : office
+  consultant-client:
+    _cls     : LnkRole
+    slug     : consultant-client
+    parClss : [Cmp,Prs,Usr]
+    par      : client
+    chldClss: [Cmp,Prs,Usr]
+    chld     : consultant
+  dept-company:
+    _cls     : LnkRole
+    slug     : dept-company
+    parClss : [Cmp]
+    par      : company
+    chldClss: [Cmp]
+    chld     : dept
+  area-company:
+    _cls     : LnkRole
+    slug     : area-company
+    parClss : [Cmp]
+    par      : company
+    chldClss: [Cmp]
+    chld     : area
+  unit-area:
+    _cls     : LnkRole
+    slug     : unit-area
+    parClss : [Cmp]
+    par      : area
+    chldClss: [Cmp]
+    chld     : unit  
+  troop-unit:
+    _cls     : LnkRole
+    slug     : troop-unit
+    parClss : [Cmp]
+    par      : unit
+    chldClss: [Cmp]
+    chld     : troop 
+  executive-company:
+    _cls     : LnkRole
+    slug     : executive-company
+    parClss : [Cmp]
+    par      : company
+    chldClss: [Prs,Usr]
+    chld     : executive 
+    mask     : '1'
+    w        : 1 
+  admin-company:
+    _cls     : LnkRole
+    slug     : admin-company
+    parClss : [Cmp]
+    par      : company
+    chldClss: [Prs,Usr]
+    chld     : admin 
+    mask     : '11'
+    w        : 2 
+  admin-dept:
+    _cls     : LnkRole
+    slug     : admin-dept
+    parClss : [Cmp]
+    par      : dept
+    chldClss: [Prs,Usr]
+    chld     : admin 
+    mask     : '11'
+    w        : 2 
+  leader-troop:
+    _cls     : LnkRole
+    slug     : leader-troop
+    parClss : [Cmp]
+    par      : troop
+    chldClss: [Prs,Usr]
+    chld     : leader 
+    mask     : '111'
+    w        : 3
+  parent-troop:
+    _cls     : LnkRole
+    slug     : parent-troop
+    parClss : [Cmp]
+    par      : troop
+    chldClss: [Prs,Usr]
+    chld     : parent 
+    mask     : '1111'
+    w        : 4
+  ambass-troop:
+    _cls     : LnkRole
+    slug     : ambass-troop
+    parClss : [Cmp]
+    par      : troop
+    chldClss: [Prs,Usr]
+    chld     : ambass 
+    mask     : '11111'
+    w        : 5
+  senior-troop:
+    _cls     : LnkRole
+    slug     : senior-troop
+    parClss : [Cmp]
+    par      : troop
+    chldClss: [Prs,Usr]
+    chld     : senior 
+    mask     : '111111'
+    w        : 6
+  cadette-troop:
+    _cls     : LnkRole
+    slug     : cadette-troop
+    parClss : [Cmp]
+    par      : troop
+    chldClss: [Prs,Usr]
+    chld     : cadette 
+    mask     : '1111111'
+    w        : 7
+  junior-troop:
+    _cls     : LnkRole
+    slug     : junior-troop
+    parClss : [Cmp]
+    par      : troop
+    chldClss: [Prs,Usr]
+    chld     : junior 
+    mask     : '11111111'
+    w        : 8
+  brownie-troop:
+    _cls     : LnkRole
+    slug     : brownie-troop
+    parClss : [Cmp]
+    par      : troop
+    chldClss: [Prs,Usr]
+    chld     : brownie 
+    mask     : '111111111'
+    w        : 9
+  daisy-troop:
+    _cls     : LnkRole
+    slug     : daisy-troop
+    parClss : [Cmp]
+    par      : troop
+    chldClss: [Prs,Usr]
+    chld     : daisy 
+    mask     : '1111111111'
+    w        : 10

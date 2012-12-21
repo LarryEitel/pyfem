@@ -1,10 +1,14 @@
-Pseudo Dx Features/Functions
+Pseudo Lnk Features/Functions
+
+put Usr.lwe.pars, $push, Cmp.ni, admin
+
+
 
 Create user Mary Bell
-    controllers.cnt.CreateUsr(MaryBell)
+    ctrs.cnt.CreateUsr(MaryBell)
     
 Create company Program Group
-    controllers.Cnt.CreateCmp(pgrp)
+    ctrs.Cnt.CreateCmp(pgrp)
     
 Create Relationship between two docs
     NOTES:
@@ -156,7 +160,7 @@ Create Relationship between two docs
 
 
                                 Submit:
-                                    HTTP: POST: /Dx
+                                    HTTP: POST: /Lnk
                                         data:
                                             toOID    : acme (placeholder)
                                             frOID    : john_adams (placeholder)
@@ -243,7 +247,7 @@ Doc Create/Update
                 Create a snapshot of doc 
                     FUNCTION: views.generic.tmp
                         Processes:
-                            FUNCTION: controllers.generic.tmp 
+                            FUNCTION: ctrs.generic.tmp 
                                 data:
                                     OID: 
                                 Processes:
@@ -438,7 +442,7 @@ Doc Edit
                 Create a snapshot of doc 
                     FUNCTION: views.generic.tmp
                         Processes:
-                            FUNCTION: controllers.generic.tmp 
+                            FUNCTION: ctrs.generic.tmp 
                                 data:
                                     OID: 
                                 Processes:
@@ -526,11 +530,11 @@ Create Relation
             Subject (currently focused doc) of the form, ie, a Prs (person) is given option to create a relation/link to a parent/to or child/fr.
                 The new dx doc will associate the currently focussed subject doc with dx.fr_c, dx.fr_id, At this point UI knows the fr_c (subject/currently focused doc/item), frOID, frNam, frNamS.
                 UI needs to provide a lookup form to gather the following details:
-                    Prompt user to describe the relationship. TODO: UI either access static list of DxRel (relationship titles)? Another AJAX call required?
+                    Prompt user to describe the relationship. TODO: UI either access static list of LnkRole (relationship titles)? Another AJAX call required?
                     Since the UI knows the typ (type) of document, it can list relevent rel(ationship) titles. If UI is adding a new parent/to relationship, list would include titles such as Son of, Employed by, etc.
                         NOTE: it might be appropriate for UI to prompt for the type/class of parent to create, ie, Person, Company, etc. This would/could enable further filtering of available/appropriate titles from the list.
                 Client ultimately needs to provide the target parent/to or child/fr: OID, _c, and dxRelOID.
-            HTTP POST: /Dx
+            HTTP POST: /Lnk
 
     API:
         Processes:
@@ -538,29 +542,29 @@ Create Relation
             If login is not valid redirect to login page. If OAuth is not valid send the response status code indicating OAuth access token needds to be renewed. 
             Client calls view function
                 FUNCTION: views.dx.create
-            Call controller function for creating Dx and DxRel and also pass data.
-                FUNCTION: controllers.dx.Create
+            Call controller function for creating Lnk and LnkRole and also pass data.
+                FUNCTION: ctrs.dx.Create
                     Check OIDs for presence in database. 
                     Pull docs. 
                     If Docs do not exist respond with a status code. With a possible message of session hijacking.
-                    Create Dx and DxRel objects and generate OID and other ids.
+                    Create Lnk and LnkRole objects and generate OID and other ids.
                     Updating tos and frs of objects.
                         While updating any of these objects if document is found to be locked retry after half seconds.
                         If maximum no. of retries are over send status code to retry in some time.
                     If everything is good send status code to caller.
   
-Create Dx Relation
+Create Lnk Relation
     Client:
         Processes:
             Present a form to gather details related to the relation to be made between two docs.
             Subject (currently focused doc) of the form, ie, a Prs (person) is given option to create a relation/link to a parent/to or child/fr.
                 The new dx doc will associate the currently focussed subject doc with dx.fr_c, dx.fr_id, At this point UI knows the fr_c (subject/currently focused doc/item), frOID, frNam, frNamS.
                 UI needs to provide a lookup form to gather the following details:
-                    Prompt user to describe the relationship. TODO: UI either access static list of DxRel (relationship titles)? Another AJAX call required?
+                    Prompt user to describe the relationship. TODO: UI either access static list of LnkRole (relationship titles)? Another AJAX call required?
                     Since the UI knows the typ (type) of document, it can list relevent rel(ationship) titles. If UI is adding a new parent/to relationship, list would include titles such as Son of, Employed by, etc.
                         NOTE: it might be appropriate for UI to prompt for the type/class of parent to create, ie, Person, Company, etc. This would/could enable further filtering of available/appropriate titles from the list.
                 Client ultimately needs to provide the target parent/to or child/fr: OID, _c, and dxRelOID.
-            HTTP POST: /Dx
+            HTTP POST: /Lnk
 
     API:
         Processes:
@@ -568,21 +572,21 @@ Create Dx Relation
             If login is not valid redirect to login page. If OAuth is not valid send the response status code indicating OAuth access token needds to be renewed. 
             Client calls view function
                 FUNCTION: views.dx.create
-            Call controller function for creating Dx and DxRel and also pass data.
-                FUNCTION: controllers.dx.Create
+            Call controller function for creating Lnk and LnkRole and also pass data.
+                FUNCTION: ctrs.dx.Create
                     Check OIDs for presence in database. 
                     Pull docs. 
                     If Docs do not exist respond with a status code. With a possible message of session hijacking.
-                    Create Dx and DxRel objects and generate OID and other ids.
+                    Create Lnk and LnkRole objects and generate OID and other ids.
                     Updating tos and frs of objects.
                         While updating any of these objects if document is found to be locked retry after half seconds.
                         If maximum no. of retries are over send status code to retry in some time.
                     If everything is good send status code to caller.
                     
-Delete Dx relation
+Delete Lnk relation
     Client:
         Processes:
-            HTTP POST: /Dx/Delete
+            HTTP POST: /Lnk/Delete
                 data:
                     OID:
     API:
@@ -594,9 +598,9 @@ Delete Dx relation
                 data:
                     OID:
                 
-                Call controller function to delete Dx and DxRel record.
+                Call controller function to delete Lnk and LnkRole record.
                 
-            FUNCTION: controllers.dx.delete
+            FUNCTION: ctrs.dx.delete
                 data:
                     OID:
                     
@@ -606,16 +610,16 @@ Delete Dx relation
             FUNCTION: contoller.dx.delete
                     This function checks for children recursively. If they have multiple tos then the tos of this node and
                     its childre is updated and child and its chilredn are not deleted.
-                    If any child has only one tos path leading to parent in consideration then that child and its Dx and DxRel objects are deleted.
+                    If any child has only one tos path leading to parent in consideration then that child and its Lnk and LnkRole objects are deleted.
                         While deleting any of these objects if document is found to be locked retry after half seonds.
                         If maximum no. of retries are over send status code to retry in some time.
-                    After deleting all Dx and DxRel record update parents' froms. 
+                    After deleting all Lnk and LnkRole record update parents' froms. 
                     If everything is good send status code to caller.
 
-Delete Dx relation
+Delete Lnk relation
     Client:
         Processes:
-            HTTP POST: /Dx/Update
+            HTTP POST: /Lnk/Update
                 data:
                     OID:
 
@@ -629,19 +633,19 @@ Delete Dx relation
                     OID:
             
             
-            FUNCTION: controllers.dx.update
+            FUNCTION: ctrs.dx.update
                 data:
                     OID:
                     
                     Check OID for presence in database. If Doc doe not exist respond with a status code. With a possible message of session hijacking.
                     Client will send request with type and value because any of the attributes can be updated. Any of the following can trigger a
-                    change in Dx and DxRel.
+                    change in Lnk and LnkRole.
                     fr_c, frNam, frNamS, frGen, to_c, toNam, toNamS, toGen, fam, mask, w.
                     Changes in dNam and dNamS of objects will also trigger these changes. Gender change will also effect and class changes too.
                     Check if these attributes have changed. If yes immediate parent's tos will be updated.
                     And like deleteChild call update child with OID.
                 
-            FUNCTION: controllers.dx.updateChild
+            FUNCTION: ctrs.dx.updateChild
                 data:
                     OID:
                     
@@ -654,7 +658,7 @@ Delete Dx relation
 Move an object for new relation
     Client:
         Processes:
-            HTTP POST: /Dx/Move
+            HTTP POST: /Lnk/Move
                 data:
                     old_toOID  :
                     old_to_c   :
@@ -680,74 +684,74 @@ Move an object for new relation
     dRelDesc
 views.dx.Create
 views.dx.Create
-controllers.dx.Create
-controllers.dx.Delete
-controllers.dx.Update
-controllers.dx.Move
+ctrs.dx.Create
+ctrs.dx.Delete
+ctrs.dx.Update
+ctrs.dx.Move
 
 
 Mary Bell associates herself with Program Group
     # Id = 23
-    controllers.dx.Relate(toOID = pggrp, frOID = "13445")
-    controllers.Cnt.Associate(to_oid = pggrp, from_oid = MaryBell)
+    ctrs.dx.Relate(toOID = pggrp, frOID = "13445")
+    ctrs.Cnt.Associate(to_oid = pggrp, from_oid = MaryBell)
         UI must select the two oids and a set of pre-existing relations will be populated in a drop down list.
         One of the values from this drop down must be picked.
         
-        controllers.Dx.CreateDx(to_oid = pggrp, from_oid = MaryBell)
-            This function will create a Dx object between these two oid.
-        controllers.Dx.CreateDxRel(to_oid = pggrp, from_oid = MaryBell)
-            This function will create a new Dx object between these two depending on the relation.
+        ctrs.Lnk.CreateLnk(to_oid = pggrp, from_oid = MaryBell)
+            This function will create a Lnk object between these two oid.
+        ctrs.Lnk.CreateLnkRel(to_oid = pggrp, from_oid = MaryBell)
+            This function will create a new Lnk object between these two depending on the relation.
         
         Now Associate will populate tos and froms of both the objects.
         Now update tos of children of Mary Bell. In this case there are none.
 
 Create company GSNI
-    controllers.Cnt.CreateCmp(ni)
+    ctrs.Cnt.CreateCmp(ni)
 
 Mary Bell associates Program Group with GSNI
-    controllers.Cnt.Associate(to_oid = ni, from_oid = pggrp)
+    ctrs.Cnt.Associate(to_oid = ni, from_oid = pggrp)
         UI must select the two oids and a set of pre-existing relations will be populated in a drop down list.
         One of the values from this drop down must be picked.
         
-        controllers.Dx.CreateDx(to_oid = ni, from_oid = pggrp)
-            This function will create a Dx object between these two oid.
-        controllers.Dx.CreateDxRel(to_oid = ni, from_oid = pggrp)
-            This function will create a new Dx object between these two depending on the relation.
+        ctrs.Lnk.CreateLnk(to_oid = ni, from_oid = pggrp)
+            This function will create a Lnk object between these two oid.
+        ctrs.Lnk.CreateLnkRel(to_oid = ni, from_oid = pggrp)
+            This function will create a new Lnk object between these two depending on the relation.
         
         Now Associate will populate tos and froms of both the objects.
         Now update tos of children of Program Group. In this case there is one child Mary Bell so its tos must be updated.
 
 Create user Sally
-    controllers.Cnt.CreateUsr(Sally)
+    ctrs.Cnt.CreateUsr(Sally)
 
 Create company Kirmse
-    controllers.Cnt.CreateCmp(Krmse)
+    ctrs.Cnt.CreateCmp(Krmse)
 
 Sally associates Kirmse with GSNI
-    controllers.Cnt.Associate(to_oid = ni, from_oid = kirmse)
+    ctrs.Cnt.Associate(to_oid = ni, from_oid = kirmse)
         UI must select the two oids and a set of pre-existing relations will be populated in a drop down list.
         One of the values from this drop down must be picked.
         
-        controllers.Dx.CreateDx(to_oid = ni, from_oid = kirmse)
-            This function will create a Dx object between these two oid.
-        controllers.Dx.CreateDxRel(to_oid = ni, from_oid = kirmse)
-            This function will create a new Dx object between these two depending on the relation.
+        ctrs.Lnk.CreateLnk(to_oid = ni, from_oid = kirmse)
+            This function will create a Lnk object between these two oid.
+        ctrs.Lnk.CreateLnkRel(to_oid = ni, from_oid = kirmse)
+            This function will create a new Lnk object between these two depending on the relation.
         
         Now Associate will populate tos and froms of both the objects.
         Now update tos of children of Kirmse. However, Kirmse do not have any children.
 
 Sally creates area 104
-    controllers.Cnt.CreateCmp(104)
+    ctrs.Cnt.CreateCmp(104)
     
 Sally associates 104 with Kirmse 
-    controllers.Cnt.Associate(to_oid = ni, from_oid = kirmse)
+    ctrs.Cnt.Associate(to_oid = ni, from_oid = kirmse)
         UI must select the two oids and a set of pre-existing relations will be populated in a drop down list.
         One of the values from this drop down must be picked.
         
-        controllers.Dx.CreateDx(to_oid = ni, from_oid = kirmse)
-            This function will create a Dx object between these two oid.
-        controllers.Dx.CreateDxRel(to_oid = ni, from_oid = kirmse)
-            This function will create a new Dx object between these two depending on the relation.
+        ctrs.Lnk.CreateLnk(to_oid = ni, from_oid = kirmse)
+            This function will create a Lnk object between these two oid.
+        ctrs.Lnk.CreateLnkRel(to_oid = ni, from_oid = kirmse)
+            This function will create a new Lnk object between these two depending on the relation.
         
         Now Associate will populate tos and froms of both the objects.
         Now update tos of children of Kirmse. However, Kirmse do not have any children.
@@ -755,16 +759,16 @@ Sally associates 104 with Kirmse
 Now let us say the entire lucid chard diagram is created this way.
 
 Delete troop 1031
-    controllers.Cnt.DeleteCmp(1031)
+    ctrs.Cnt.DeleteCmp(1031)
         UI must select the oid of the object to be deleted.
-        Delete all children recursively and their Dx and DxRel objects.
+        Delete all children recursively and their Lnk and LnkRole objects.
         
-        controllers.Dx.DeleteDx(oid = 1031)
-            controllers.Dx.DeleteChild(1031)
+        ctrs.Lnk.DeleteLnk(oid = 1031)
+            ctrs.Lnk.DeleteChild(1031)
             Update tos.
         
-        controllers.Dx.DeleteChild(oid)
-            If it has no child delete its Dx and DxRel and then the object.
+        ctrs.Lnk.DeleteChild(oid)
+            If it has no child delete its Lnk and LnkRole and then the object.
             
 
 
@@ -779,20 +783,20 @@ Delete troop 1031
 
 
 Create company kirmse
-    controllers.Cnt.CreateCmpKirmse
+    ctrs.Cnt.CreateCmpKirmse
 
-Relate kirmse to ni via Dx doc
-    Create a relation between parent ni and child kirmse using a Dx doc.
+Relate kirmse to ni via Lnk doc
+    Create a relation between parent ni and child kirmse using a Lnk doc.
         UI needs to provide selected OID for ni and kirmse.
         Assuming UI is focused on doc kirmse, user can choose to relate this doc to another doc OR add a child relationship.
-            UI needs to provide the type relationship this is using a DxRel doc.
-            Since kirmse is a Cmp class doc, UI presents a list of available DxRel titles/roles/association.
+            UI needs to provide the type relationship this is using a LnkRole doc.
+            Since kirmse is a Cmp class doc, UI presents a list of available LnkRole titles/roles/association.
                 For example: 
                     CompanyOf
                     DepartmentOf
                     BranchOf
 
-    controllers.Dx.RelateKirmseToNi
+    ctrs.Lnk.RelateKirmseToNi
         Pass in:
             toId: OID for ni
             frId: OID for kirmse

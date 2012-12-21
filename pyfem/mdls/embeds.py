@@ -1,9 +1,9 @@
 import datetime
 
 from app import app
-import models
-from models import ED
-from models.myfields import MyStringField, MyEmailField
+import mdls
+from mdls import ED
+from mdls.myfields import MyStringField, MyEmailField
 from mongoengine_extras.fields import SlugField, AutoSlugField
 
 class Note(ED):
@@ -16,9 +16,7 @@ class Note(ED):
         s += (self.typ + ': ') if self.typ else ''
         s += self.title if self.title else ''
         return s
-
-
-class EmbedMixin(object):
+class EDMix(object):
     typ     = MyStringField(required= True)
     w       = app.db.FloatField()
     prim    = app.db.BooleanField()
@@ -62,31 +60,33 @@ class EmbedMixin(object):
 
         return errors
 
+class Par(ED, EDMix):
+    cls  = MyStringField(help_text='Parent _cls')
+    slug = MyStringField(help_text='Parent slug')
+    role = MyStringField(help_text='Child role')
+    mask = MyStringField(help_text='Child role mask')
 
-class Lnk(ED, EmbedMixin):
-    uri     = MyStringField()
-    segs     = app.db.ListField(MyStringField())
-    #doc_cls     = MyStringField(help_text='Document class "_cls".')
-    #slug        = MyStringField(help_text='Document slug".')
-    #lnkTypDNam  = app.db.IntField(help_text='Link Type Display Name')
-    #lnkTypDNamS = app.db.IntField(help_text='Link Type Display Name Short')
-    #dDNam       = app.db.IntField(help_text='Document Display Name')
-    #dDNamS      = app.db.IntField(help_text='Document Display Name Short')
+    # when to add?
+    shr  = MyStringField(help_text='share mask, 11')
+    
+    _meta  = {'unique_with': ['cls', 'slug', 'role']}
 
-class Pth(ED, EmbedMixin):
-    pth  = MyStringField()
-    #doc_cls  = MyStringField(help_text='Target document class "_cls".')
-    #lnkTypId = app.db.IntField(help_text='Link Type Id.')
-    #lnkTitle = MyStringField(help_text='Link Title.')
-    #lnkNote  = MyStringField(help_text='Link Note.')
-    lnks     = app.db.ListField(app.db.EmbeddedDocumentField(Lnk))
-    #ids      = app.db.ListField(app.db.IntField())
+class Pth(ED, EDMix):
+    cls  = MyStringField(help_text='Parent _cls')
+    slug = MyStringField(help_text='Parent slug')
+    role = MyStringField(help_text='Child role')
+    
+    
+    pth  = MyStringField(help_text='Cmp.ni.admin.11')
+    uris = app.db.ListField(app.db.StringField())
+
+    _meta  = {'unique_with': ['cls', 'slug', 'role']}
 
 
-class Tel(ED, EmbedMixin):
+class Tel(ED, EDMix):
     text = MyStringField(required= True)
 
-class Email(ED, EmbedMixin):
+class Email(ED, EDMix):
     address = MyEmailField(required= True)
 
     def __repr__(self):
@@ -115,7 +115,7 @@ class Email(ED, EmbedMixin):
 
 
 class Mixin(object):
-    pars   = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
+    pars   = app.db.ListField(app.db.EmbeddedDocumentField(Par))
     pths   = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
     # chlds  = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
     emails = app.db.ListField(app.db.EmbeddedDocumentField(Email))

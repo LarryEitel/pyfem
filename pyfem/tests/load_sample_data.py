@@ -3,7 +3,7 @@ from bson import ObjectId
 from utils import myyaml
 
 def go():
-    from models import Email, Prs
+    from mdls import Email, Prs
 
     cnts = myyaml.pyObj(self.tests_data_yaml_dir + 'cnts.yaml')
 

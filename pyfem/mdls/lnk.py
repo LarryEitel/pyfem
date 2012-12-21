@@ -1,21 +1,21 @@
 import datetime
 
 from app import app
-import models
-from models import Mixin, D
-from models.myfields import MyStringField
+import mdls
+from mdls import Mixin, D
+from mdls.myfields import MyStringField
 import helpers
 
 import utils.name
 
-class LnkRel(D, Mixin):
+class LnkRole(D, Mixin):
     '''Link Relationships'''
     fam      = app.db.BooleanField(help_text='Is Family Link/Relationship?')
-    chld_clss = app.db.ListField(MyStringField(help_text='Child Document class "_cls".'))
+    chldClss = app.db.ListField(MyStringField(help_text='Child Document class "_cls".'))
     chldGen  = MyStringField(help_text='Child Gender')
     chldNam  = MyStringField(help_text='Child Name/Title')
     chldNamS = MyStringField(help_text='Child Name/Title Short')
-    par_clss  = app.db.ListField(MyStringField(help_text='Parent Document class "_cls".'))
+    parClss  = app.db.ListField(MyStringField(help_text='Parent Document class "_cls".'))
     parGen   = MyStringField(help_text='Parent Gender')
     parNam   = MyStringField(help_text='Parent Name/Title')
     parNamS  = MyStringField(help_text='Parent Name/Title Short')
@@ -23,7 +23,7 @@ class LnkRel(D, Mixin):
     w        = app.db.FloatField(help_text='Sort Weight')
 
     _meta = {
-        'collection': 'lnkrels'
+        'collection': 'lnkroles'
         }
 
     def save(self, *args, **kwargs):
@@ -36,7 +36,7 @@ class LnkRel(D, Mixin):
 
         errors = helpers.recurseValidateAndVOnUpSert(self)
 
-        self._meta['collection'] = 'lnkrels'
+        self._meta['collection'] = 'lnkroles'
         if type(errors) == list:
             self._data['myErrors'] = errors
         else:
@@ -52,6 +52,6 @@ class LnkRel(D, Mixin):
 
             # this will return error if duplicate entries are attempted
             try:
-                super(LnkRel, self).save(*args, **kwargs)
+                super(LnkRole, self).save(*args, **kwargs)
             except Exception, e:
                 self._data['myErrors'] = e

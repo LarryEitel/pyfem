@@ -3,7 +3,7 @@ import os
 import re
 import datetime
 from bson import ObjectId
-import models
+import mdls
 import globals
 from app import app
 
@@ -33,7 +33,7 @@ class Post(object):
             errors      = {}
             doc_info    = {}
 
-            modelClass = getattr(models, docData['_cls'])
+            modelClass = getattr(mdls, docData['_cls'])
 
             doc = modelClass(**docData)
             resp = doc.save()
@@ -41,7 +41,7 @@ class Post(object):
                 error = {'docData': docData, 'errors': doc._data['myErrors']}
                 post_errors.append(error)
             else:
-                docs_handled[doc.id]   = models.helpers.docCleanData(doc._data)
+                docs_handled[doc.id]   = mdls.helpers.docCleanData(doc._data)
 
         response['total_inserted'] = len(docs_handled.keys())
 

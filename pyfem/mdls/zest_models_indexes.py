@@ -5,19 +5,19 @@ except ImportError:
     import unittest  # NOQA
 
 from utils import myyaml
-import controllers
+import ctrs
 from core import BaseMongoTestCase
 
 class ModelsIndexesTests(BaseMongoTestCase):
     def setUp(self):
         super(ModelsIndexesTests, self).setUp()
-        self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'models_indexes.yaml')
+        self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'mdlsIndexes.yaml')
 
     # could not get consistent results on this
     def zest_tryToAddDupSlug(self):
         sampDat = self.sampDat
 
-        post         = controllers.post.Post(self.g).post
+        post         = ctrs.post.Post(self.g).post
         doc     = sampDat['PrsLarryStooge']
 
         # Load one doc

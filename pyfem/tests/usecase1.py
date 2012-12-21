@@ -1,5 +1,5 @@
 from utils import myyaml
-import models
+import mdls
 
 class UseCase1():
     '''Convenient tools for automatically loading sample data from yaml files'''
@@ -28,7 +28,7 @@ class UseCase1():
 
 
     def run(self, _cls, params):
-        model_class = getattr(models, _cls)
+        model_class = getattr(mdls, _cls)
         slug = params['slug']
 
         # get data for this item
