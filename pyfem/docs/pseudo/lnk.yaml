@@ -1,4 +1,4 @@
-ctrs.put(_cls, query, update, par_cls=None, par_slug=None, chld_par_role=None):
+ctrs.put(_cls, query, update, lnkTo=None):
   pseudo:
     # need global object cause it has collection names for each class.
     # mongoengine doesn't let me override collection(name) in subclasses!!
@@ -11,12 +11,12 @@ ctrs.put(_cls, query, update, par_cls=None, par_slug=None, chld_par_role=None):
       }
     _clss = g['_clss']
     # get par class that we will create a lnk/path
-    parCls     = getattr(mdls, par_cls)
-    parCollNam = _clss[par_cls]['collNam']
+    parCls     = getattr(mdls, lnkTo['_cls'])
+    parCollNam = _clss[lnkTo['_cls']]['collNam']
     parColl    = db[parCollNam]
     
     # get par doc
-    parDat    = parColl.find_one(query = {'slug': par_slug})
+    parDat    = parColl.find_one(query = {'slug': lnkTo['slug']})
     par       = parCls(**parDat)
 
 
@@ -42,7 +42,7 @@ ctrs.put(_cls, query, update, par_cls=None, par_slug=None, chld_par_role=None):
     lnkRoleCollNam = _clss['LnkRole']['collNam']
     lnkRoleColl    = db[chldCollNam]
 
-    lnkRoleDat = lnkRoleColl.find_one(query = {'slug': chld_par_role})
+    lnkRoleDat = lnkRoleColl.find_one(query = {'slug': lnkTo['role']})
     lnkRole    = lnkRoleCls(**lnkRoleDat)
 
 
@@ -72,32 +72,3 @@ ctrs.put(_cls, query, update, par_cls=None, par_slug=None, chld_par_role=None):
     flds['pths'] = pth._data
 
     update   = {'$push': {'fldUpdates': flds}}
-
-
-    examples:
-      put(_cls='Cmp', 
-          query={'slug': 'kirmse', 
-          update={'$push': {}} to ni as department-company
-
-      # get role details
-      lnkRole = lnkroles.find(get lnkRole
-
-
-
-
-      lnkRole = lnkroles.find_one(query = {'slug': }, fields = [fld[0] for fld in baseFldNams])
-
-      # get parent details
-      parDoc  = find and lock doc 
-      parCls  = parDoc._cls
-      parSlug = parDoc.slug
-      parRole = lnkRole['par']
-      parMask = lnkRole['mask']
-      parPths = parDoc.pars
-
-
-      ctrs.put(
-          _cls = Cmp
-          query = {'slug': 'ni'}
-          update = {}
-        )

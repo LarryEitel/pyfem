@@ -1,7 +1,7 @@
 # http://yaml-online-parser.appspot.com
 
-try:
-  putCmp.kirmse_Cmp.ni_dept-company:
+dos:
+  put__Cmp.kirmse_Cmp.ni_dept-company:
     _cls: Cmp
     query: {slug: kirmse}
     lnkTo: {_cls: Cmp, slug: ni, role: dept-company}
@@ -11,30 +11,6 @@ try:
           flds:
             pars:
               - {_cl: Par, _type: [Par], cls: Cmp, slug: ni, lnkRole: dept-company}
-  putCmp.kirmse_Cmp.ni_dept-company:
-    _cls: Cmp
-    query: 
-      slug: kirmse
-    update:
-      actions:
-        $push:
-          flds:
-            pars:
-              - _cls  : Par
-                _types: [Par]
-                cls   : Cmp
-                slug  : ni
-                role  : department
-                mask  : 
-            pths:
-              - cls: Pth
-                _types: [Pth]
-                cls   : Cmp
-                slug  : ni
-                role  : company
-                uris  :
-                  - Cmp.ni
-                  - Cmp.kirmse
   lnkUsr.lwe_Cmp.ni_admin:
     _cls: Usr
     query: 

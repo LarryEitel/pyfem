@@ -48,7 +48,7 @@ class BaseMongoTestCase(unittest.TestCase):
         from util import now
 
         app.config.from_object('default_settings')
-        app.config['MONGODB_DB'] = 'pyfem_unittest'
+        app.config['MONGODB_DB'] = 'pyfem-test'
         app.config['DEBUG']      = True
         app.config['TESTING']    = True
 
@@ -56,22 +56,27 @@ class BaseMongoTestCase(unittest.TestCase):
         self.data_dir            = app.config['HOME_PATH'] + 'data/'
         self.usecase             = usecase.UseCase(self.tests_data_yaml_dir)
         self.usecase1            = usecase.UseCase(self.tests_data_yaml_dir)
-        app.db                   = MongoEngine(app)
-
-        self._flush_db()
 
         self.config = app.config
-        self.app = app.test_client()
+
+        # self.app = app.test_client()
+        #app.db                   = MongoEngine(app)
+
+
+        db = MongoEngine()
+        db.init_app(app)
+
+        self._flush_db()
         # self.flask_app = app
 
         self.g           = globals.load()
         self.g['usr']    = {"OID": "50468de92558713d84b03fd7", "at": (-84.163063, 9.980516)}
         self.g['db']     = app.db
-        
-        
+
+
         self.g['logger'] = app.logger
-        
-        
+
+
         self.used_keys   = []
 
 
