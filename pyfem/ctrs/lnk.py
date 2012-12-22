@@ -18,22 +18,19 @@ class Lnk(object):
         mgodb        = db.connection[db.app.config['MONGODB_DB']]
         _clss        = self.g['_clss']
         response     = {}
-        docs         = {}
         status       = 200
+        doc_errors = []
 
         usrOID       = self.usr['OID']
 
-        op_errors    = []
-        total_errors = 0
-
         # get par class that we will create a lnk/path to
-        parCls     = getattr(mdls, lnkTo['_cls'])
-        parCollNam = _clss[lnkTo['_cls']]['collNam']
-        parColl    = mgodb[parCollNam]
+        lnkTo['Cls']     = getattr(mdls, lnkTo['_cls'])
+        lnkTo['collNam'] = _clss[lnkTo['_cls']]['collNam']
+        lnkTo['coll']    = mgodb[lnkTo['collNam']]
 
         # get par doc
-        parDat    = parColl.find_one(query = {'slug': lnkTo['slug']})
-        par       = parCls(**parDat)
+        lnkTo['data']    = lnkTo['coll'].find_one(query = {'slug': lnkTo['slug']})
+        lnkTo['doc']     = lnkTo['Cls'](**lnkTo['data'])
 
         # get par class that we will create a lnk/path
         chldCls     = getattr(mdls, _cls)
@@ -55,23 +52,62 @@ class Lnk(object):
         lnkRoleCollNam = _clss['LnkRole']['collNam']
         lnkRoleColl    = mgodb[lnkRoleCollNam]
 
-        lnkRoleDat = lnkRoleColl.find_one(query = {'slug': lnkTo['role']})
+        lnkRoleDat = lnkRoleColl.find_one({'slug': lnkTo['role']})
         lnkRole    = lnkRoleCls(**lnkRoleDat)
 
 
+        # init $push actions for pars and pths
+        flds = {}
+
+        # init Par to be pushed to pars
+        par      = mdls.Par()
+        par.cls  = lnkTo['_cls']
+        par.slug = lnkTo['slug']
+        par.role = lnkRole.par # role is from the perspective of target/parent
+        par.mask = lnkRole.mask
+
+        flds['pars'] = par.cleanData()
+
+        # init Pth to be pushed to pths
+        pth      = mdls.Pth()
+        pth.cls  = lnkTo['_cls']
+        pth.slug = lnkTo['slug']
+        pth.role = lnkRole.chld # role is from the perspective of subject/child
+        pth.uris = [lnkTo['_cls'] + '.' + lnkTo['slug']]
+
+        # gather par pths
+        # filter to avoid dups!
+        pth.uris += [uri._data for uri in lnkTo['doc'].pths.uris.iterItems()] if lnkTo['doc'].pths else []
+
+        # flds['pths'] = pth._data
+        flds['pths'] = pth.cleanData()
+        flds['pths']['uris'] = list(flds['pths']['uris'])
+
+        update   = {'$push': {'fldUpdates': flds}}
+
         errors      = {}
         doc_info    = {}
+        patchActions = {}
+        patchActions['$push'] = flds
 
-
-        response['total_inserted'] = len(docs.keys())
-
-        if op_errors:
-            response['total_invalid'] = len(op_errors)
-            response['errors']        = op_errors
+        if doc_errors:
+            response['errors']        = doc_errors
             status                    = 500
         else:
-            response['total_invalid'] = 0
+            # need to include fldUpdate to unlock targetDoc
+            if not '$unset' in patchActions:
+                patchActions['$unset'] = {}
 
-        response['docs'] = docs
+            patchActions['$unset']['locked'] = True
+
+            doc = chldColl.find_and_modify(
+                query = query,
+                update = patchActions,
+                new = True
+            )
+
+            response['_id'] = doc['_id']
+            response['OID'] = doc['_id'].__str__()
+            response['doc'] = doc
 
         return {'response': response, 'status': status}

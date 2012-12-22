@@ -13,12 +13,10 @@ class LnkRole(D, Mixin):
     fam      = app.db.BooleanField(help_text='Is Family Link/Relationship?')
     chldClss = app.db.ListField(MyStringField(help_text='Child Document class "_cls".'))
     chldGen  = MyStringField(help_text='Child Gender')
-    chldNam  = MyStringField(help_text='Child Name/Title')
-    chldNamS = MyStringField(help_text='Child Name/Title Short')
+    chld     = MyStringField(help_text='Child Name/Title')
     parClss  = app.db.ListField(MyStringField(help_text='Parent Document class "_cls".'))
     parGen   = MyStringField(help_text='Parent Gender')
-    parNam   = MyStringField(help_text='Parent Name/Title')
-    parNamS  = MyStringField(help_text='Parent Name/Title Short')
+    par      = MyStringField(help_text='Parent Name/Title')
     mask     = MyStringField(help_text='Sharing Mask')
     w        = app.db.FloatField(help_text='Sort Weight')
 
@@ -43,7 +41,7 @@ class LnkRole(D, Mixin):
 
             # we want to generate a slug and make sure whatever slug may have been
             # given, if any, will be unique
-            slugDefault = self.slug or self.dNamS or self.dNam
+            slugDefault = self.slug or self.dNam
             self.slug = self.generate_slug(slugDefault)
 
 

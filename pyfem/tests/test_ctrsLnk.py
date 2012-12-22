@@ -21,11 +21,15 @@ class CtrsLnkTests(BaseMongoTestCase):
         do = dos['put__Cmp.kirmse_Cmp.ni_dept-company']
 
         # Load one doc
-        resp = lnkPut(**do)
-        assert resp['status'] == 200
-        assert len(resp['response']['docs']) == 1
-
-        x=0
+        resp = lnkPut(**do['test'])
+        status = resp['status']
+        assert status == 200
+        doc = resp['response']['doc']
+        assert '_id' in doc
+        for fld, val in do['expect']['flds'].iteritems():
+            assert doc[fld] == val
+        for expr, val in do['expect']['evals'].iteritems():
+            assert eval(expr) == val
 
     def setUp(self):
         super(CtrsLnkTests, self).setUp()

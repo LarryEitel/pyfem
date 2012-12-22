@@ -137,6 +137,14 @@ class ED(app.db.EmbeddedDocument, DMix):
             hook(self)
         super(MyDoc, self).save(*args, **kwargs)
 
+    def cleanData(self):
+        '''Models contains some fields with keys and/or vals == None. Return dict with only value keys that also have value'''
+        ks = {}
+        for k, v in self._fields.iteritems():
+            if v and getattr(self, k):
+                ks[k] = getattr(self, k)
+
+        return ks
     # http://stackoverflow.com/questions/6102103/using-mongoengine-document-class-methods-for-custom-validation-and-pre-save-hook
     #def save(self, *args, **kwargs):
         #super(MyEmbedDoc, self).save(*args, **kwargs)

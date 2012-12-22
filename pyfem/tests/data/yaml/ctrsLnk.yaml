@@ -2,15 +2,27 @@
 
 dos:
   put__Cmp.kirmse_Cmp.ni_dept-company:
-    _cls: Cmp
-    query: {slug: kirmse}
-    lnkTo: {_cls: Cmp, slug: ni, role: dept-company}
-    update:
-      actions:
-        $push:
-          flds:
-            pars:
-              - {_cl: Par, _type: [Par], cls: Cmp, slug: ni, lnkRole: dept-company}
+    test:
+      _cls: Cmp
+      query: {slug: kirmse}
+      lnkTo: {_cls: Cmp, slug: ni, role: dept-company}
+      update:
+        actions:
+          $push:
+            flds:
+              pars:
+                - {_cl: Par, _type: [Par], cls: Cmp, slug: ni, lnkRole: dept-company}
+    expect:
+      flds:
+        _cls: D.Cnt.Cmp
+        slug: kirmse
+      evals:
+        doc['pars'][0]['cls']: Cmp
+        doc['pars'][0]['slug']: ni
+        doc['pars'][0]['role']: company
+        doc['pths'][0]['cls']: Cmp
+        doc['pths'][0]['slug']: ni
+        doc['pths'][0]['role']: dept
   lnkUsr.lwe_Cmp.ni_admin:
     _cls: Usr
     query: 
@@ -50,7 +62,7 @@ dos:
                   - Pl.cr
                   - Usr.lwe
 expect:
-  lnkUsr.lwe_Cmp.ni_admin:
+  put__Cmp.kirmse_Cmp.ni_dept-company:
     _cls: Cmp
     slug: ni
     pars:
