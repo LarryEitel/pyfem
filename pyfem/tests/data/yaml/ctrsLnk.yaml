@@ -1,17 +1,17 @@
 # http://yaml-online-parser.appspot.com
 
 dos:
-  put__Cmp.kirmse_Cmp.ni_dept-company:
+  put__Cmp.kirmse_Cmp.ni_area-company:
     test:
       _cls: Cmp
       query: {slug: kirmse}
-      lnkTo: {_cls: Cmp, slug: ni, role: dept-company}
+      lnkTo: {_cls: Cmp, slug: ni, role: area-company}
       update:
         actions:
           $push:
             flds:
               pars:
-                - {_cl: Par, _type: [Par], cls: Cmp, slug: ni, lnkRole: dept-company}
+                - {_cl: Par, _type: [Par], cls: Cmp, slug: ni, lnkRole: area-company}
     expect:
       flds:
         _cls: D.Cnt.Cmp
@@ -22,7 +22,29 @@ dos:
         doc['pars'][0]['role']: company
         doc['pths'][0]['cls']: Cmp
         doc['pths'][0]['slug']: ni
-        doc['pths'][0]['role']: dept
+        doc['pths'][0]['role']: area
+  put__Cmp.unit104_Cmp.kirmse_unit-area:
+    test:
+      _cls: Cmp
+      query: {slug: unit104}
+      lnkTo: {_cls: Cmp, slug: kirmse, role: unit-area}
+      update:
+        actions:
+          $push:
+            flds:
+              pars:
+                - {_cl: Par, _type: [Par], cls: Cmp, slug: kirmse, lnkRole: unit-area}
+    expect:
+      flds:
+        _cls: D.Cnt.Cmp
+        slug: unit104
+      evals:
+        doc['pars'][0]['cls']: Cmp
+        doc['pars'][0]['slug']: kirmse
+        doc['pars'][0]['role']: area
+        doc['pths'][0]['cls']: Cmp
+        doc['pths'][0]['slug']: kirmse
+        doc['pths'][0]['role']: unit
   lnkUsr.lwe_Cmp.ni_admin:
     _cls: Usr
     query: 
@@ -182,7 +204,7 @@ sampDat:
       cNam: Program Group
     kirmse:
       _cls: Cmp
-      typ: department
+      typ: area
       slug: kirmse
       cNam: Kirmse
     unit104:
@@ -195,3 +217,24 @@ sampDat:
       typ: troop
       slug: troop1031
       cNam: "1031"    
+  initload:           
+    ni:
+      _cls: Cmp
+      typ: company
+      slug: ni
+      cNam: GSNI
+    kirmse:
+      _cls: Cmp
+      typ: area
+      slug: kirmse
+      cNam: Kirmse
+    unit104:
+      _cls: Cmp
+      typ: unit
+      slug: unit104
+      cNam: "104"    
+    troop1031:
+      _cls: Cmp
+      typ: troop
+      slug: troop1031
+      cNam: "1031"          

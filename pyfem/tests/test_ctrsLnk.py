@@ -18,9 +18,8 @@ class CtrsLnkTests(BaseMongoTestCase):
         sampDat = self.sampDat
         dos     = self.dos
 
-        do = dos['put__Cmp.kirmse_Cmp.ni_dept-company']
-
-        # Load one doc
+        # Link kirmse to ni
+        do = dos['put__Cmp.kirmse_Cmp.ni_area-company']
         resp = lnkPut(**do['test'])
         status = resp['status']
         assert status == 200
@@ -30,6 +29,20 @@ class CtrsLnkTests(BaseMongoTestCase):
             assert doc[fld] == val
         for expr, val in do['expect']['evals'].iteritems():
             assert eval(expr) == val
+
+        # Link unit104 to kirmse
+        do = dos['put__Cmp.unit104_Cmp.kirmse_unit-area']
+        resp = lnkPut(**do['test'])
+        status = resp['status']
+        assert status == 200
+        doc = resp['response']['doc']
+        assert '_id' in doc
+        for fld, val in do['expect']['flds'].iteritems():
+            assert doc[fld] == val
+        for expr, val in do['expect']['evals'].iteritems():
+            assert eval(expr) == val
+
+        x=0
 
     def setUp(self):
         super(CtrsLnkTests, self).setUp()

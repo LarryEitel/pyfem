@@ -29,7 +29,7 @@ class Lnk(object):
         lnkTo['coll']    = mgodb[lnkTo['collNam']]
 
         # get par doc
-        lnkTo['data']    = lnkTo['coll'].find_one(query = {'slug': lnkTo['slug']})
+        lnkTo['data']    = lnkTo['coll'].find_one({'slug': lnkTo['slug']})
         lnkTo['doc']     = lnkTo['Cls'](**lnkTo['data'])
 
         # get par class that we will create a lnk/path
@@ -67,23 +67,28 @@ class Lnk(object):
         par.mask = lnkRole.mask
 
         flds['pars'] = par.cleanData()
+        pths = []
 
         # init Pth to be pushed to pths
-        pth      = mdls.Pth()
-        pth.cls  = lnkTo['_cls']
-        pth.slug = lnkTo['slug']
-        pth.role = lnkRole.chld # role is from the perspective of subject/child
-        pth.uris = [lnkTo['_cls'] + '.' + lnkTo['slug']]
+        pth      = {}
+        pth['cls']  = lnkTo['_cls']
+        pth['slug'] = lnkTo['slug']
+        pth['role'] = lnkRole.chld # role is from the perspective of subject/child
+        pth['uris'] = [lnkTo['_cls'] + '.' + lnkTo['slug']]
 
+        pths.append(pth)
+
+        if lnkRole.slug == 'unit-area':
+            pass
         # gather par pths
         # filter to avoid dups!
-        pth.uris += [uri._data for uri in lnkTo['doc'].pths.uris.iterItems()] if lnkTo['doc'].pths else []
+        if lnkTo['doc'].pths:
+            for pthItem in lnkTo['doc']['pths']:
+                pthItem['uris'] = list(pthItem['uris'])
+                pthItem['uris'].append(lnkTo['_cls'] + '.' + lnkTo['slug'])
+                pths.append(dict(pthItem))
+            pass
 
-        # flds['pths'] = pth._data
-        flds['pths'] = pth.cleanData()
-        flds['pths']['uris'] = list(flds['pths']['uris'])
-
-        update   = {'$push': {'fldUpdates': flds}}
 
         errors      = {}
         doc_info    = {}
@@ -94,18 +99,37 @@ class Lnk(object):
             response['errors']        = doc_errors
             status                    = 500
         else:
-            # need to include fldUpdate to unlock targetDoc
-            if not '$unset' in patchActions:
-                patchActions['$unset'] = {}
 
-            patchActions['$unset']['locked'] = True
-
+            update   = {'$push': {'fldUpdates': flds}}
+            # $push pars
             doc = chldColl.find_and_modify(
                 query = query,
                 update = patchActions,
                 new = True
             )
 
+            flds = {}
+            flds['pths'] = pths
+            for pth in pths:
+                # $push pths for each pth
+                patchActions['$push'] = {'pths': pth}
+                doc = chldColl.find_and_modify(
+                    query = query,
+                    update = patchActions,
+                    new = True
+                )
+
+            # need to include fldUpdate to unlock targetDoc
+            if not '$unset' in patchActions:
+                patchActions['$unset'] = {}
+
+            doc  = chldColl.find_and_modify(
+                  query = query,
+                  update = {'$set': {'locked': True}},
+                  new = True
+              )
+
+            patchActions['$unset']['locked'] = True
             response['_id'] = doc['_id']
             response['OID'] = doc['_id'].__str__()
             response['doc'] = doc
