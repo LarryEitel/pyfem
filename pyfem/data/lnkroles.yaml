@@ -3,16 +3,16 @@ meta:
   collection_name: lnkroles
 
 data:
-  home-home:
+  home:
     _cls     : LnkRole
-    slug     : home-home
+    slug     : home
     parClss : [Cmp,Prs,Usr]
     par      : home
     chldClss: [Cmp,Prs,Usr]
     chld     : home
-  office-office:
+  office:
     _cls     : LnkRole
-    slug     : office-office
+    slug     : office
     parClss : [Cmp,Prs,Usr]
     par      : office
     chldClss: [Cmp,Prs,Usr]

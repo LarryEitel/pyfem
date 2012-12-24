@@ -11,9 +11,16 @@ import utils.name
 class Cnt(D, Mixin):
     code = app.db.StringField()
 
-    # need this. 
-    meta = {'allow_inheritance': True}
-
+    # need this.
+    meta = {'allow_inheritance': True,
+            'indexes': [
+                {'fields':['slug'], 'unique': True},
+                {'fields':['sId'], 'unique': True},
+                {'fields':['pars.cls', 'pars.slug']},
+                {'fields':['pths.uris']},
+                {'fields':['-mOn']}
+                ]
+            }
     def save(self, *args, **kwargs):
         now = datetime.datetime.now()
 
@@ -51,11 +58,7 @@ class Cmp(Cnt):
     cNam   = MyStringField(required=True)
 
     meta = {
-        'indexes': [{'fields':['cNam'], 'sparse': True},
-                    {'fields':['slug'], 'unique': True},
-                    {'fields':['sId'], 'unique': True},
-                    {'fields':['-mOn']}
-                    ]
+        'indexes': [{'fields':['cNam'], 'sparse': True}]
         }
 
 class Prs(Cnt):
@@ -78,11 +81,7 @@ class Prs(Cnt):
     rBy       = app.db.ObjectIdField()
 
     meta = {
-        'indexes': [{'fields':['prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix']},
-                    {'fields':['slug'], 'unique': True},
-                    {'fields':['sId'], 'unique': True},
-                    {'fields':['-mOn']}
-                    ]
+        'indexes': [{'fields':['prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix']}]
         }
 
         # unsuccessfully tried to use unique index to prevent dup on prim and typ+email, resorted to code hack

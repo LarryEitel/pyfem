@@ -115,6 +115,7 @@ class Email(ED, EDMix):
 
 
 class Mixin(object):
+    pars2   = app.db.ListField(app.db.DictField())
     pars   = app.db.ListField(app.db.EmbeddedDocumentField(Par))
     pths   = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
     # chlds  = app.db.ListField(app.db.EmbeddedDocumentField(Pth))

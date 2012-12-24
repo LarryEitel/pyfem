@@ -1,17 +1,9 @@
 # http://yaml-online-parser.appspot.com
 
 dos:
-  put__Cmp.kirmse_Cmp.ni_area-company:
-    test:
-      _cls: Cmp
-      query: {slug: kirmse}
-      lnkTo: {_cls: Cmp, slug: ni, role: area-company}
-      update:
-        actions:
-          $push:
-            flds:
-              pars:
-                - {_cl: Par, _type: [Par], cls: Cmp, slug: ni, lnkRole: area-company}
+  lnkAdd|Cmp.kirmse|Cmp.ni|area-company:
+    test: #ctrs.lnk.add()
+      {chld_: {_cls: Cmp, slug: kirmse}, par_: {_cls: Cmp, slug: ni}, role_: area-company}
     expect:
       flds:
         _cls: D.Cnt.Cmp
@@ -19,21 +11,13 @@ dos:
       evals:
         doc['pars'][0]['cls']: Cmp
         doc['pars'][0]['slug']: ni
-        doc['pars'][0]['role']: company
+        doc['pars'][0]['role']: area
         doc['pths'][0]['cls']: Cmp
         doc['pths'][0]['slug']: ni
-        doc['pths'][0]['role']: area
-  put__Cmp.unit104_Cmp.kirmse_unit-area:
+        doc['pths'][0]['role']: company
+  lnkAdd|Cmp.unit104|Cmp.kirmse|unit-area:
     test:
-      _cls: Cmp
-      query: {slug: unit104}
-      lnkTo: {_cls: Cmp, slug: kirmse, role: unit-area}
-      update:
-        actions:
-          $push:
-            flds:
-              pars:
-                - {_cl: Par, _type: [Par], cls: Cmp, slug: kirmse, lnkRole: unit-area}
+      {chld_: {_cls: Cmp, slug: unit104}, par_: {_cls: Cmp, slug: kirmse}, role_: unit-area}
     expect:
       flds:
         _cls: D.Cnt.Cmp
@@ -41,10 +25,56 @@ dos:
       evals:
         doc['pars'][0]['cls']: Cmp
         doc['pars'][0]['slug']: kirmse
-        doc['pars'][0]['role']: area
+        doc['pars'][0]['role']: unit
         doc['pths'][0]['cls']: Cmp
         doc['pths'][0]['slug']: kirmse
+        doc['pths'][0]['role']: area
+  lnkAdd|Cmp.troop1031|Cmp.unit104|troop-unit:
+    test:
+      {chld_: {_cls: Cmp, slug: troop1031}, par_: {_cls: Cmp, slug: unit104}, role_: troop-unit}
+    expect:
+      flds:
+        _cls: D.Cnt.Cmp
+        slug: troop1031
+      evals:
+        doc['pars'][0]['cls']: Cmp
+        doc['pars'][0]['slug']: unit104
+        doc['pars'][0]['role']: troop
+        doc['pths'][0]['cls']: Cmp
+        doc['pths'][0]['slug']: unit104
         doc['pths'][0]['role']: unit
+  
+  lnkAdd|Cmp.ni|Pl.atlanta-ga|office:
+    test: #ctrs.lnk.add()
+      {chld_: {_cls: Cmp, slug: ni}, par_: {_cls: Pl, slug: atlanta-ga}, role_: office}
+    expect:
+      flds:
+        _cls: D.Cnt.Cmp
+        slug: ni
+      evals:
+        doc['pars'][0]['cls']: Pl
+        doc['pars'][0]['slug']: atlanta-ga
+        doc['pars'][0]['role']: office
+        doc['pths'][0]['cls']: Pl
+        doc['pths'][0]['slug']: atlanta-ga
+        doc['pths'][0]['role']: office
+
+
+  del|Cmp.kirmse|Cmp.ni|area-company:
+    test:
+      del: {fr: {_cls: Cmp, slug: kirmse}, to: {_cls: Cmp, slug: ni}, role: area-company}
+
+
+
+  updt|Cmp.kirmse|Cmp.ni|area-company:
+    # just use generic put to update role, etc?
+    test:
+      updt: {fr: {_cls: Cmp, slug: kirmse}, to: {_cls: Cmp, slug: ni}, role: area-company}
+
+
+
+
+
   lnkUsr.lwe_Cmp.ni_admin:
     _cls: Usr
     query: 
@@ -170,10 +200,6 @@ sampDat:
       _cls: Pl
       slug  : belencr
       city  : Belen
-    atlantaga:
-      _cls: Pl
-      slug  : atlantaga
-      city  : Atlanta
     lwe:
       _cls: Usr
       slug  : lwe
@@ -217,7 +243,11 @@ sampDat:
       typ: troop
       slug: troop1031
       cNam: "1031"    
-  initload:           
+  initload:  
+    atlanta-ga:
+      _cls: Pl
+      slug  : atlanta-ga
+      city  : Atlanta         
     ni:
       _cls: Cmp
       typ: company

@@ -8,6 +8,7 @@ def load():
         'Prs'    : {'collNam': 'cnts'},
         'Usr'    : {'collNam': 'cnts'},
         'LnkRole': {'collNam': 'lnkroles'},
+        'Pl'     : {'collNam': 'pls'},
       }}
     #g = myyaml.pyObj('globals.yaml')
     #_cs = g['_cs']
