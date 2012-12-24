@@ -131,6 +131,7 @@ class Lnk(object):
 
             response['_id'] = doc['_id']
             response['OID'] = doc['_id'].__str__()
+            response['uri'] = doc['_cls'].split('.')[-1] + '.' + doc['slug']
             response['doc'] = doc
 
         return {'response': response, 'status': status}

@@ -5,7 +5,7 @@ except ImportError:
     import unittest  # NOQA
 
 from core import BaseMongoTestCase
-from utils import myyaml
+from utils import myyaml, mdl
 from utils.myyaml import postToMongo
 import ctrs
 import mdls
@@ -19,6 +19,7 @@ class CtrsLnkTests(BaseMongoTestCase):
         #tree2    = self.tree2
         sampDat = self.sampDat
         dos     = self.dos
+        debug   = self.g['logger'].debug
 
         # Link kirmse to ni
         do = dos['lnkAdd|Cmp.kirmse|Cmp.ni|area-company']
@@ -68,48 +69,17 @@ class CtrsLnkTests(BaseMongoTestCase):
         for expr, val in do['expect']['evals'].iteritems():
             assert eval(expr) == val
 
-        # need to test that the appropriate docs had a pth added to their pths
-
-        #doc = ctrs.d.Cmp()
-        #doc.get(**dict(_cls='Cmp', query=dict(slug='ni')))
-        doc = ctrs.d.Pl()
-        doc.get(**dict(_cls='Pl', query=dict(slug='atlanta-ga')))
-        ol = ctrs.d.Ol()
-        ol.show(doc)
-
-        doc = ctrs.d.Cmp()
-        doc.get(**dict(_cls='Cmp', query=dict(slug='ni')))
-        ol = ctrs.d.Ol()
-        ol.show(doc)
-
-        doc = ctrs.d.Cmp()
-        doc.get(**dict(_cls='Cmp', query=dict(slug='kirmse')))
-        ol = ctrs.d.Ol()
-        ol.show(doc)
-        x=0
-
-        #doc = dict(level = 0, _cls='Cmp', slug='ni')
-        #tree2(**doc)
-        #t = []
-        #t.append(doc)
-        #t += tree(**doc)
-
-        #for l in t:
-            #print '  '*l['level'], '.'.join([str(l[k]) for k,v in l.iteritems()][:-1])
-
-
-        #while True:
-            #docs = tree(**dict(_cls=_cls, slug=slug))
-            #for doc in docs:
-                #tree(**dict(_cls=_cls, slug=slug))
-            #print doc['_cls'], doc['slug']
-
-
+        _in_pths = ctrs.d.referenced_in_pths(doc)
+        # did pths get added correctly?
         x=0
 
 
     def setUp(self):
         super(CtrsLnkTests, self).setUp()
+        g = self.g
+        db = g['db']
+        self.mgodb        = db.connection[db.app.config['MONGODB_DB']]
+        self._clss        = self.g['_clss']
         self.post    = post    = ctrs.post.Post(self.g).post
         self.put     = put     = ctrs.put.Put(self.g).put
         self.lnkAdd  = lnkAdd  = ctrs.lnk.Lnk(self.g).add
