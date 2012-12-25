@@ -45,11 +45,13 @@ class BaseMongoTestCase(unittest.TestCase):
         app.config['TESTING'] = True
         self._flush_db()
 
-        self.g           = globals.load()
-        self.g['usr']    = {"OID": "50468de92558713d84b03fd7", "at": (-84.163063, 9.980516)}
-        self.g['me']      = app.me
-        self.g['pymongo'] = app.pymongo
-        self.g['logger'] = app.logger
+        g           = globals.load()
+        g['usr']    = {"OID": "50468de92558713d84b03fd7", "at": (-84.163063, 9.980516)}
+        g['me']      = app.me
+        g['pymongo'] = app.pymongo
+        g['logger'] = app.logger
+        self.g = g
+        app.g = g
 
     def tearDown(self):
         #self._flush_db()

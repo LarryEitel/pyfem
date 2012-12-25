@@ -19,8 +19,8 @@ class CtrsPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = ctrs.post.Post(self.g).post
-        put          = ctrs.put.Put(self.g).put
+        post         = ctrs.post.Post().post
+        put          = ctrs.put.Put().put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -39,8 +39,8 @@ class CtrsPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = ctrs.post.Post(self.g).post
-        put          = ctrs.put.Put(self.g).put
+        post         = ctrs.post.Post().post
+        put          = ctrs.put.Put().put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -59,8 +59,8 @@ class CtrsPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStoogeEmptyEmails']
 
-        post         = ctrs.post.Post(self.g).post
-        put          = ctrs.put.Put(self.g).put
+        post         = ctrs.post.Post().post
+        put          = ctrs.put.Put().put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -81,8 +81,8 @@ class CtrsPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStoogeEmptyEmails']
 
-        post         = ctrs.post.Post(self.g).post
-        put          = ctrs.put.Put(self.g).put
+        post         = ctrs.post.Post().post
+        put          = ctrs.put.Put().put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -105,8 +105,8 @@ class CtrsPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = ctrs.post.Post(self.g).post
-        put          = ctrs.put.Put(self.g).put
+        post         = ctrs.post.Post().post
+        put          = ctrs.put.Put().put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -128,8 +128,8 @@ class CtrsPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = ctrs.post.Post(self.g).post
-        put          = ctrs.put.Put(self.g).put
+        post         = ctrs.post.Post().post
+        put          = ctrs.put.Put().put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -151,8 +151,8 @@ class CtrsPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = ctrs.post.Post(self.g).post
-        put          = ctrs.put.Put(self.g).put
+        post         = ctrs.post.Post().post
+        put          = ctrs.put.Put().put
 
         # Load one doc
         resp = post(**{'docs': [doc]})
@@ -182,8 +182,8 @@ class CtrsPutTests(BaseMongoTestCase):
 
         doc = sampDat['PrsLarryStooge']
 
-        post         = ctrs.post.Post(self.g).post
-        put          = ctrs.put.Put(self.g).put
+        post         = ctrs.post.Post().post
+        put          = ctrs.put.Put().put
 
         # Load one doc
         resp = post(**{'docs': [doc]})

@@ -8,16 +8,10 @@ import globals
 from app import app
 
 class Lnk(object):
-    def __init__(self, g):
-        self.g   = g
-        self.usr = g['usr']
-        self.me  = g['me']
-        #self.es  = g['es']
-
     def cmd(self, cmd):
-        g = self.g
+        g = app.g
         debug = g['logger'].debug
-        fldClss = dict(emails='Email')
+        fldClss = g['fldClss']
 
         debug(u'\n' + (u'_'*50) + u'\n' + cmd + u'\n' + (u'_'*50))
         params = cmd.split('|')
@@ -28,7 +22,7 @@ class Lnk(object):
             chld_ = params[0].split('.')
             par_ = params[1].split('.')
             role_ = params[2]
-            return self.add(**dict(
+            resp = self.add(**dict(
                 chld_=
                     dict(
                         _cls=chld_[0],
@@ -38,19 +32,18 @@ class Lnk(object):
                         _cls=par_[0],
                         slug=par_[1]),
                 role_=role_))
-
-
-
-
+            assert resp['status'] == 200
+            return resp
 
     def add(self, chld_, par_, role_):
-        me           = self.me
-        pymongo        = self.g['pymongo']
-        _clss        = self.g['_clss']
+        me           = app.me
+        g            = app.g
+        pymongo        = app.pymongo
+        _clss        = g['_clss']
         response     = {}
         status       = 200
         doc_errors = []
-        usrOID       = self.usr['OID']
+        usrOID       = app.g['usr']['OID']
 
         query = {'slug': chld_['slug']}
 
@@ -74,12 +67,16 @@ class Lnk(object):
               update = {'$set': {'locked': True}},
               new = True
           )
+        if not doc:
+            return {'response': dict(errors="Failed to lock.", status=500)}
 
         # get role details
         roleCollNam = _clss['LnkRole']['collNam']
         roleColl    = pymongo[roleCollNam]
 
         role = roleColl.find_one({'slug': role_})
+        if not role:
+            return {'response': dict(errors="Failed to find role.", status=500)}
 
         # init $push actions for pars and pths
         flds = {}
@@ -104,67 +101,62 @@ class Lnk(object):
                 pthItem['uris'].append(par_['_cls'] + '.' + par_['slug'])
                 pths.append(dict(pthItem))
 
-        errors      = {}
-        doc_info    = {}
 
-        # possible errors? from where?
-        if doc_errors:
-            response['errors']        = doc_errors
-            status                    = 500
-        else:
-            # $push pars
+
+        # $push pars
+        doc = chldColl.find_and_modify(
+            query = query,
+            update = {'$push': {'pars': parLnk}},
+        )
+        if not doc:
+            return {'response': dict(errors="Failed to push pars.", status=500)}
+
+        # Add pthLnks to chldDoc.pths.
+        for pth in pths:
+            # $push pths for each pth
             doc = chldColl.find_and_modify(
                 query = query,
-                update = {'$push': {'pars': parLnk}},
+                update = {'$push': {'pths': pth}},
             )
-
-            # # $push pars2
-            # parPthLnk = dict(pth=parLnk['cls']+'.'+parLnk['slug'], role=parLnk['role'])
-            # doc = chldColl.find_and_modify(
-            #     query = query,
-            #     update = {'$push': {'pars2': parPthLnk}},
-            # )
-
-            # Add pthLnks to chldDoc.pths.
-            for pth in pths:
-                # $push pths for each pth
-                doc = chldColl.find_and_modify(
-                    query = query,
-                    update = {'$push': {'pths': pth}},
-                )
+        if not doc:
+            return {'response': dict(errors="Failed to push pths.", status=500)}
 
 
-            # need to add lnk to any docs that reference chld as their parent
-            # add this pth to their pths
-            # if son is lnk'd to dad, son has a par.lnk to dad and pth.lnk to dad
-            # if dad in lnk'd to HIS dad, then son will gain a lnk to his dad's dad in son's pths.
+        # need to add lnk to any docs that reference chld as their parent
+        # add this pth to their pths
+        # if son is lnk'd to dad, son has a par.lnk to dad and pth.lnk to dad
+        # if dad in lnk'd to HIS dad, then son will gain a lnk to his dad's dad in son's pths.
 
-            if role['slug'] == 'office':
-                pass
+        if role['slug'] == 'office':
+            pass
 
-            # $push pars
-            # need to add to parPth.uris
-            parPth['uris'].append(chld_['_cls'] + '.' + chld_['slug'])
+        # $push pars
+        # need to add to parPth.uris
+        parPth['uris'].append(chld_['_cls'] + '.' + chld_['slug'])
 
 
-            # what about other collections?
-            for _id in chldColl.find({'pths.uris': chld_['_cls'] + '.' + chld_['slug']}, {'_id': 1}):
-                doc = chldColl.find_and_modify(
-                    query = {'_id': _id['_id']},
-                    update = {'$push': {'pths': parPth}},
-                )
+        # what about other collections?
+        for _id in chldColl.find({'pths.uris': chld_['_cls'] + '.' + chld_['slug']}, {'_id': 1}):
+            doc = chldColl.find_and_modify(
+                query = {'_id': _id['_id']},
+                update = {'$push': {'pths': parPth}},
+            )
+            if not doc:
+                return {'response': dict(errors="Failed to push affected pths.", status=500)}
 
-            # unlock chldDoc
-            doc  = chldColl.find_and_modify(
-                  query = query,
-                  update = {'$unset': {'locked': True}},
-                  new = True
-              )
+        # unlock chldDoc
+        doc  = chldColl.find_and_modify(
+              query = query,
+              update = {'$unset': {'locked': True}},
+              new = True
+          )
+        if not doc:
+            return {'response': dict(errors="Failed to unlock.", status=500)}
 
-            response['_id'] = doc['_id']
-            response['OID'] = doc['_id'].__str__()
-            response['uri'] = doc['_cls'].split('.')[-1] + '.' + doc['slug']
-            response['doc'] = doc
+        response['_id'] = doc['_id']
+        response['OID'] = doc['_id'].__str__()
+        response['uri'] = doc['_cls'].split('.')[-1] + '.' + doc['slug']
+        response['doc'] = doc
 
         return {'response': response, 'status': status}
 

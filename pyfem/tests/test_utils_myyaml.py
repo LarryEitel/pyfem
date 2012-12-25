@@ -14,7 +14,7 @@ class UtilsMyYamlTest(BaseMongoTestCase):
         super(UtilsMyYamlTest, self).setUp()
 
     def test_postToMongo(self):
-        post = ctrs.post.Post(self.g).post
+        post = ctrs.post.Post().post
         resp = postToMongo(post, self.data_dir + 'lnkroles')
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == len(resp['response']['yamlData']['data'])

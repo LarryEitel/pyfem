@@ -22,7 +22,6 @@ class Config(object):
     MONGO_DBNAME        = 'pyfem'
     MONGO_USERNAME      = None
     MONGO_PASSWORD      = None
-    MONGO_TEST_DBNAME   = 'pyfem-test'
     
     # used by mongoengine
     MONGODB_SETTINGS    = dict(host=MONGO_HOST, port=MONGO_PORT, me=MONGO_DBNAME, username=MONGO_USERNAME, password=MONGO_PASSWORD)

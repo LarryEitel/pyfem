@@ -115,11 +115,11 @@ class Email(ED, EDMix):
 
 
 class Mixin(object):
-    pars2   = app.me.ListField(app.me.DictField())
     pars   = app.me.ListField(app.me.EmbeddedDocumentField(Par))
     pths   = app.me.ListField(app.me.EmbeddedDocumentField(Pth))
     # chlds  = app.me.ListField(app.me.EmbeddedDocumentField(Pth))
     emails = app.me.ListField(app.me.EmbeddedDocumentField(Email))
+    tels = app.me.ListField(app.me.EmbeddedDocumentField(Tel))
     notes  = app.me.ListField(app.me.EmbeddedDocumentField(Note))
     slug   = app.me.StringField()
 

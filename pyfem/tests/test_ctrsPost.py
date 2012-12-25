@@ -22,7 +22,7 @@ class CtrsPostTests(BaseMongoTestCase):
         sampDat = self.sampDat
         doc     = sampDat['PrsLarryWayne']
 
-        post    = ctrs.post.Post(self.g).post
+        post    = ctrs.post.Post().post
 
         # try one doc
         resp    = post(**{'docs': [doc]})
@@ -40,7 +40,7 @@ class CtrsPostTests(BaseMongoTestCase):
         sampDat = self.sampDat
         doc     = sampDat['PrsMoeStooge']
 
-        post    = ctrs.post.Post(self.g).post
+        post    = ctrs.post.Post().post
 
         # try one doc
         resp    = post(**{'docs': [doc]})
@@ -54,7 +54,7 @@ class CtrsPostTests(BaseMongoTestCase):
         sampDat = self.sampDat
         doc     = sampDat['UsrMoeStooge']
 
-        post    = ctrs.post.Post(self.g).post
+        post    = ctrs.post.Post().post
 
         # try one doc
         resp    = post(**{'docs': [doc]})
@@ -67,7 +67,7 @@ class CtrsPostTests(BaseMongoTestCase):
         ucs     = self.ucs
         sampDat = self.sampDat
 
-        post    = ctrs.post.Post(self.g).post
+        post    = ctrs.post.Post().post
 
         doc     = sampDat['PrsTryWithNoSlug']
         resp    = post(**{'docs': [doc]})
@@ -88,7 +88,7 @@ class CtrsPostTests(BaseMongoTestCase):
         ucs     = self.ucs
         sampDat = self.sampDat
 
-        post    = ctrs.post.Post(self.g).post
+        post    = ctrs.post.Post().post
 
         doc     = sampDat['PrsMoeStooge']
         resp    = post(**{'docs': [doc]})
@@ -110,7 +110,7 @@ class CtrsPostTests(BaseMongoTestCase):
         sampDat = self.sampDat
         doc     = sampDat['PrsInvalidWithDupEmailTryAddress']
 
-        post    = ctrs.post.Post(self.g).post
+        post    = ctrs.post.Post().post
 
         # try one doc
         resp    = post(**{'docs': [doc]})
@@ -124,7 +124,7 @@ class CtrsPostTests(BaseMongoTestCase):
         sampDat = self.sampDat
         doc     = sampDat['PrsInvalidWithDupPrimListItem']
 
-        post    = ctrs.post.Post(self.g).post
+        post    = ctrs.post.Post().post
 
         # try one doc
         resp    = post(**{'docs': [doc]})
@@ -136,7 +136,7 @@ class CtrsPostTests(BaseMongoTestCase):
         ucs     = self.ucs
         sampDat = self.sampDat
 
-        post    = ctrs.post.Post(self.g).post
+        post    = ctrs.post.Post().post
 
         # try several docs, EXCEPT items with Invalid in the key
         docs    = [sampDat[d] for d in sampDat if not 'Invalid' in d]

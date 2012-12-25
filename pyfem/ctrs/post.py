@@ -4,27 +4,42 @@ import re
 import datetime
 from bson import ObjectId
 import mdls
+import ctrs
 import globals
 from app import app
 
 class Post(object):
+    def cmd(self, cmd):
+        g = app.g
+        debug = g['logger'].debug
+        post    = ctrs.post.Post().post
+        fldClss = g['fldClss']
 
-    def __init__(self, g):
-        #: Doc comment for instance attribute me
-        self.g   = g
-        self.usr = g['usr']
-        self.me  = g['me']
-        #self.es  = g['es']
+        debug(u'\n' + (u'_'*50) + u'\n' + cmd + u'\n' + (u'_'*50))
+        params = cmd.split('|')
+
+        # example: 'Cmp.ni|slug:new_company,cNam:MS'
+        _cls   = params.pop(0)
+        data   = dict(_cls=_cls)
+
+        # get flds to set
+        doc   = dict([(v.split(':')[0], v.split(':')[1]) for v in params])
+        doc['_cls'] = _cls
+        doc['_types'] = [_cls]
+
+        resp = post(**{'docs': [doc]})
+        assert resp['status'] == 200
+        return resp
 
     def post(self, docs):
         docs = [docs] if type(docs) == dict else docs
-        me           = self.me
+        me           = app.me
 
         response     = {}
         docs_handled = {}
         status       = 200
 
-        usrOID       = self.usr['OID']
+        usrOID       = app.g['usr']['OID']
 
         post_errors  = []
         total_errors = 0

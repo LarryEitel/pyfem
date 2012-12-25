@@ -19,12 +19,18 @@ class CtrsLnkTests(BaseMongoTestCase):
         g = self.g
         to_yaml = ctrs.d.to_yaml
         debug   = self.g['logger'].debug
-        Put = ctrs.put.Put(g)
-        Lnk = ctrs.lnk.Lnk(g)
+        Put = ctrs.put.Put()
+        Lnk = ctrs.lnk.Lnk()
+        Post = ctrs.post.Post()
 
         # start of cmd's to add/manipulate db
-        resp = Put.cmd('push|Cmp.ni.emails|address:steve@apple.com|typ:work')
-        #resp = Put.cmd('set|Prs.lwe|q:emails.address:bill@ms.com,emails.typ:work|address:steve@apple.com|typ:work')
+        # here are a few
+        Post.cmd('Cmp|slug:ms|cNam:MS')
+        Put.cmd('push|Cmp.ms.tels|text:123 456 7890|typ:work')
+        Put.cmd('push|Cmp.ni.tels|text:123 456 7890|typ:work')
+        Put.cmd('push|Cmp.ni.emails|address:steve@apple.com|typ:work')
+        Put.cmd('set|Cmp|q:slug:ni,emails.address:steve@apple.com,emails.typ:work|emails.$.address:bill@ms.com|emails.$.typ:home')
+        Put.cmd('set|Cmp|q:slug:ni|cNam:New Name')
 
         # Link kirmse to ni
         resp = Lnk.cmd('add|Cmp.kirmse|Cmp.ni|area-company')
@@ -104,9 +110,9 @@ class CtrsLnkTests(BaseMongoTestCase):
         g = self.g
         me = g['me']
         self._clss        = g['_clss']
-        self.post    = post    = ctrs.post.Post(g).post
-        self.put     = put     = ctrs.put.Put(g).put
-        self.lnkAdd  = lnkAdd  = ctrs.lnk.Lnk(g).add
+        self.post    = post    = ctrs.post.Post().post
+        self.put     = put     = ctrs.put.Put().put
+        self.lnkAdd  = lnkAdd  = ctrs.lnk.Lnk().add
         self.usecase = usecase = myyaml.pyObj(self.tests_data_yaml_dir + 'ctrsLnk')
         self.sampDat = sampDat = usecase['sampDat']
 

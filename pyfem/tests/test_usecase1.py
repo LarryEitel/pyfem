@@ -62,8 +62,8 @@ class UseCase1Tests(BaseMongoTestCase):
 
     def setUp(self):
         super(UseCase1Tests, self).setUp()
-        self.post = post = ctrs.post.Post(self.g).post
-        self.put  = put  = ctrs.put.Put(self.g).put
+        self.post = post = ctrs.post.Post().post
+        self.put  = put  = ctrs.put.Put().put
         self.usecase = usecase = myyaml.pyObj(self.tests_data_yaml_dir + 'usecase1')
         self.sampDat = sampDat = usecase['sampDat']
 

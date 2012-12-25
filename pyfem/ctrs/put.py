@@ -9,24 +9,32 @@ import ctrs
 from mdls import *
 
 class Put(object):
-
-    def __init__(self, g):
-        #: Doc comment for instance attribute me
-        self.g = g
-        self.usr = g['usr']
-        self.me  = g['me']
-        #self.es  = g['es']
-
     def cmd(self, cmd):
-        g = self.g
+        g = app.g
         debug = g['logger'].debug
-        post    = ctrs.post.Post(g).post
-        put     = ctrs.put.Put(g).put
-        fldClss = dict(emails='Email')
+        post    = ctrs.post.Post().post
+        put     = ctrs.put.Put().put
+        fldClss = g['fldClss']
 
         debug(u'\n' + (u'_'*50) + u'\n' + cmd + u'\n' + (u'_'*50))
         params = cmd.split('|')
         fn = params.pop(0)
+
+        if fn == 'set':
+            # example: 'set|Cmp|q:slug:ni,emails.address:steve@apple.com,emails.typ:work|address:bill@ms.com|typ:home'
+            uri    = params.pop(0)
+            _cls   = uri
+            querys = params.pop(0)[2:].split(',') # strip off q: and split
+            query  = dict([(v.split(':')[0],v.split(':')[1]) for v in querys])
+            data   = dict(_cls=_cls, query=query)
+
+            # get flds to set
+            flds   = dict([(v.split(':')[0], v.split(':')[1]) for v in params])
+
+            data['update'] = dict(actions={'$set': dict(flds=flds)})
+            resp = put(**data)
+            assert resp['status'] == 200
+            return resp
 
         if fn == 'push':
             # example: 'putPush|Prs.lwe.emails|address:steve@apple.com|typ:work'
@@ -43,17 +51,22 @@ class Put(object):
             flds['_types'] = [fldCls]
 
             data['update'] = dict(actions={'$push': dict(flds={fld: [flds]})})
-            return put(**data)
+            resp = put(**data)
+            assert resp['status'] == 200
+            return resp
 
 
     def put(self, _cls, query, update, **kwargs):
-        debug    = self.g['logger'].debug
-        me       = self.me
-        _clss        = self.g['_clss']
+        debug    = app.g['logger'].debug
+        me       = app.me
+        g        = app.g
+        usrOID       = g['usr']['OID']
+
+        _clss        = g['_clss']
 
         mCls       = getattr(mdls, _cls)
         collNam    = _clss[_cls]['collNam']
-        coll       = self.g['pymongo'][collNam]
+        coll       = g['pymongo'][collNam]
 
         response   = {}
         status     = 200

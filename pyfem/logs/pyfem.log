@@ -2775,3 +2775,891 @@ Cmp.unit104
     Cmp.troop1031
 
  |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+__________________________________________________
+push|Cmp.ni.emails|address:steve@apple.com|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[27]
+
+__________________________________________________
+add|Cmp.kirmse|Cmp.ni|area-company
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.unit104|Cmp.kirmse|unit-area
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.troop1031|Cmp.unit104|troop-unit
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.ni|Pl.atlanta-ga|office
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+__________________________________________________
+push|Cmp.ni.emails|address:steve@apple.com|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[27]
+
+__________________________________________________
+add|Cmp.kirmse|Cmp.ni|area-company
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.unit104|Cmp.kirmse|unit-area
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.troop1031|Cmp.unit104|troop-unit
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.ni|Pl.atlanta-ga|office
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+__________________________________________________
+push|Cmp.ni.emails|address:steve@apple.com|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[27]
+
+__________________________________________________
+add|Cmp.kirmse|Cmp.ni|area-company
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.unit104|Cmp.kirmse|unit-area
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.troop1031|Cmp.unit104|troop-unit
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.ni|Pl.atlanta-ga|office
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+__________________________________________________
+push|Cmp.ni.emails|address:steve@apple.com|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[27]
+
+__________________________________________________
+add|Cmp.kirmse|Cmp.ni|area-company
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.unit104|Cmp.kirmse|unit-area
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.troop1031|Cmp.unit104|troop-unit
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.ni|Pl.atlanta-ga|office
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+__________________________________________________
+push|Cmp.ni.emails|address:steve@apple.com|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[27]
+
+__________________________________________________
+add|Cmp.kirmse|Cmp.ni|area-company
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.unit104|Cmp.kirmse|unit-area
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.troop1031|Cmp.unit104|troop-unit
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.ni|Pl.atlanta-ga|office
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+__________________________________________________
+push|Cmp.ni.emails|address:steve@apple.com|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[27]
+
+__________________________________________________
+add|Cmp.kirmse|Cmp.ni|area-company
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.unit104|Cmp.kirmse|unit-area
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.troop1031|Cmp.unit104|troop-unit
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.ni|Pl.atlanta-ga|office
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[22]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+__________________________________________________
+Cmp|slug:ms|cNam:MS
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\post.py:[18]
+
+__________________________________________________
+push|Cmp.ms.tels|text:123 456 7890|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[19]
+
+__________________________________________________
+push|Cmp.ni.tels|text:123 456 7890|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[19]
+
+__________________________________________________
+push|Cmp.ni.emails|address:steve@apple.com|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[19]
+
+__________________________________________________
+set|Cmp|q:slug:ni,emails.address:steve@apple.com,emails.typ:work|emails.$.address:bill@ms.com|emails.$.typ:home
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[19]
+
+__________________________________________________
+set|Cmp|q:slug:ni|cNam:New Name
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[19]
+
+__________________________________________________
+add|Cmp.kirmse|Cmp.ni|area-company
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[16]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.unit104|Cmp.kirmse|unit-area
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[16]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.troop1031|Cmp.unit104|troop-unit
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[16]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.ni|Pl.atlanta-ga|office
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[16]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+__________________________________________________
+Cmp|slug:ms|cNam:MS
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\post.py:[18]
+
+__________________________________________________
+push|Cmp.ms.tels|text:123 456 7890|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[19]
+
+__________________________________________________
+push|Cmp.ni.tels|text:123 456 7890|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[19]
+
+__________________________________________________
+push|Cmp.ni.emails|address:steve@apple.com|typ:work
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[19]
+
+__________________________________________________
+set|Cmp|q:slug:ni,emails.address:steve@apple.com,emails.typ:work|emails.$.address:bill@ms.com|emails.$.typ:home
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[19]
+
+__________________________________________________
+set|Cmp|q:slug:ni|cNam:New Name
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\put.py:[19]
+
+__________________________________________________
+add|Cmp.kirmse|Cmp.ni|area-company
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[16]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.unit104|Cmp.kirmse|unit-area
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[16]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.troop1031|Cmp.unit104|troop-unit
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[16]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+__________________________________________________
+add|Cmp.ni|Pl.atlanta-ga|office
+__________________________________________________ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\lnk.py:[16]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
