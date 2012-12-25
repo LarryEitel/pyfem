@@ -12,11 +12,11 @@ class D(object):
         for k, v in kwargs.iteritems():
             setattr(self, k, v)
         self.g = g = globals.load()
-        self.db = db = app.db.connection[app.config['MONGODB_DB']]
+        self.pymongo = pymongo = app.pymongo
         _clss = g['_clss']
         colls = {}
         for cls, val in _clss.iteritems():
-            colls[cls] = db[val['collNam']]
+            colls[cls] = pymongo[val['collNam']]
         self.colls = colls
 
     @property
@@ -32,7 +32,7 @@ class D(object):
         return self.__repr__()
 
     def get(self, _cls, query):
-        doc = self.db[self.meta['collNam']].find_one(query)
+        doc = self.pymongo[self.meta['collNam']].find_one(query)
         if doc:
             self._fields = [k for k in doc.iterkeys()]
             for k, v in doc.iteritems():
@@ -214,11 +214,11 @@ class Par(object):
 class Ol(object):
     def __init__(self):
         self.g = g = globals.load()
-        db = app.db.connection[app.config['MONGODB_DB']]
+        pymongo = app.pymongo.connection[app.config['MONGODB_DB']]
         _clss = g['_clss']
         colls = {}
         for cls, val in _clss.iteritems():
-            colls[cls] = db[val['collNam']]
+            colls[cls] = pymongo[val['collNam']]
         self.colls = colls
 
     def show(self, d):

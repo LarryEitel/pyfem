@@ -15,16 +15,11 @@ import ctrs
 
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
-        if os.environ.get('pyfem_SETTINGS'):
-            os.environ['pyfem_SETTINGS'] = ''
-
-        import default_settings
-        default_settings.TEMPLATE_DEBUG = True
         from app import app
         from util import now
 
-        app.config.from_object('default_settings')
-        app.config['MONGODB_DB'] = 'pyfem_unittest'
+        # app.config.from_object('default_settings')
+        # app.config['MONGODB_DB'] = 'pyfem_unittest'
         app.config['DEBUG'] = True
         app.config['TESTING'] = True
 
@@ -37,21 +32,8 @@ class BaseTestCase(unittest.TestCase):
 
 class BaseMongoTestCase(unittest.TestCase):
     def setUp(self):
-        if os.environ.get('pyfem_SETTINGS'):
-            os.environ['pyfem_SETTINGS'] = ''
-
-        import default_settings
-        default_settings.TEMPLATE_DEBUG = True
-
-
         from app import app
-        from flask.ext.mongoengine import MongoEngine
         from util import now
-
-        app.config.from_object('default_settings')
-        app.config['MONGODB_DB'] = 'pyfem-test'
-        app.config['DEBUG']      = True
-        app.config['TESTING']    = True
 
         self.tests_data_yaml_dir = app.config['HOME_PATH'] + 'tests/data/yaml/'
         self.data_dir            = app.config['HOME_PATH'] + 'data/'
@@ -60,26 +42,14 @@ class BaseMongoTestCase(unittest.TestCase):
 
         self.config = app.config
 
-        # self.app = app.test_client()
-        #app.db                   = MongoEngine(app)
-
-
-        db = MongoEngine()
-        db.init_app(app)
-
+        app.config['TESTING'] = True
         self._flush_db()
-        # self.flask_app = app
 
         self.g           = globals.load()
         self.g['usr']    = {"OID": "50468de92558713d84b03fd7", "at": (-84.163063, 9.980516)}
-        self.g['db']     = app.db
-
-
+        self.g['me']      = app.me
+        self.g['pymongo'] = app.pymongo
         self.g['logger'] = app.logger
-
-
-        self.used_keys   = []
-
 
     def tearDown(self):
         #self._flush_db()
@@ -87,11 +57,11 @@ class BaseMongoTestCase(unittest.TestCase):
 
     def _flush_db(self):
         from mongoengine.connection import _get_db
-        db = _get_db()
+        me = _get_db()
         #Truncate/wipe the test database
-        names = [name for name in db.collection_names() \
+        names = [name for name in me.collection_names() \
             if 'system.' not in name]
-        [db.drop_collection(name) for name in names]
+        [me.drop_collection(name) for name in names]
 
     def _get_target_url(self):
         raise NotImplementedError
@@ -121,27 +91,3 @@ class BaseMongoTestCase(unittest.TestCase):
         expected = (expected.year, expected.month, expected.day, expected.hour, expected.minute)
         actual = (actual.year, actual.month, actual.day, actual.hour, actual.minute)
         self.assertEqual(expected, actual)
-
-    def doit(self, cmd):
-        g = self.g
-        post    = ctrs.post.Post(g).post
-        put     = ctrs.put.Put(g).put
-
-        params = cmd.split('|')
-        fn = params.pop(0)
-
-        if fn == 'lnkAdd':
-            # example: 'lnkAdd|Cmp.kirmse|Cmp.ni|area-company'
-            chld_ = params[0].split('.')
-            par_ = params[1].split('.')
-            role_ = params[2]
-            return ctrs.lnk.Lnk(g).add(**dict(
-                chld_=
-                    dict(
-                        _cls=chld_[0],
-                        slug=chld_[1]),
-                par_=
-                    dict(
-                        _cls=par_[0],
-                        slug=par_[1]),
-                role_=role_))

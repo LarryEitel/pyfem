@@ -71,7 +71,7 @@ Create/Post new document.
                         Loop until successful
                             # slug not already used?
                             if not mongo.<collection>.find slug + incr:
-                                # try adding slug to db.slugs
+                                # try adding slug to me.slugs
                                 Loop until successful
                                     # add to slugs
                                     response = controller.generic.post

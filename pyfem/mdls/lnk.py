@@ -10,15 +10,15 @@ import utils.name
 
 class LnkRole(D, Mixin):
     '''Link Relationships'''
-    fam      = app.db.BooleanField(help_text='Is Family Link/Relationship?')
-    chldClss = app.db.ListField(MyStringField(help_text='Child Document class "_cls".'))
+    fam      = app.me.BooleanField(help_text='Is Family Link/Relationship?')
+    chldClss = app.me.ListField(MyStringField(help_text='Child Document class "_cls".'))
     chldGen  = MyStringField(help_text='Child Gender')
     chld     = MyStringField(help_text='Child Name/Title')
-    parClss  = app.db.ListField(MyStringField(help_text='Parent Document class "_cls".'))
+    parClss  = app.me.ListField(MyStringField(help_text='Parent Document class "_cls".'))
     parGen   = MyStringField(help_text='Parent Gender')
     par      = MyStringField(help_text='Parent Name/Title')
     mask     = MyStringField(help_text='Sharing Mask')
-    w        = app.db.FloatField(help_text='Sort Weight')
+    w        = app.me.FloatField(help_text='Sort Weight')
 
     _meta = {
         'collection': 'lnkroles'

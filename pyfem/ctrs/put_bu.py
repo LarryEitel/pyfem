@@ -11,17 +11,17 @@ from mdls import *
 class Put(object):
 
     def __init__(self, g):
-        #: Doc comment for instance attribute db
+        #: Doc comment for instance attribute me
         self.g = g
         self.usr = g['usr']
-        self.db  = g['db']
+        self.me  = g['me']
         #self.es  = g['es']
 
     def put(self, **kwargs):
         """patch a doc"""
 
         debug    = self.g['logger'].debug
-        db       = self.db
+        me       = self.me
 
         _cls     = kwargs['_cls']
         qryDat   = kwargs['query']

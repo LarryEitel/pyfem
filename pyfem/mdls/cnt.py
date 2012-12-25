@@ -9,7 +9,7 @@ import helpers
 import utils.name
 
 class Cnt(D, Mixin):
-    code = app.db.StringField()
+    code = app.me.StringField()
 
     # need this.
     meta = {'allow_inheritance': True,
@@ -54,7 +54,7 @@ class Cnt(D, Mixin):
 
 
 class Cmp(Cnt):
-    symbol = app.db.StringField()
+    symbol = app.me.StringField()
     cNam   = MyStringField(required=True)
 
     meta = {
@@ -63,22 +63,22 @@ class Cmp(Cnt):
 
 class Prs(Cnt):
     # namePrefix
-    prefix    = app.db.StringField()
+    prefix    = app.me.StringField()
 
     # givenName
     fNam      = MyStringField(required=True)
 
     # additionalName
-    fNam2     = app.db.StringField()
+    fNam2     = app.me.StringField()
 
     # givenName
-    lNam      = app.db.StringField()
-    lNam2     = app.db.StringField()
+    lNam      = app.me.StringField()
+    lNam2     = app.me.StringField()
 
     # nameSuffix
-    suffix    = app.db.StringField()
-    gen       = app.db.StringField()
-    rBy       = app.db.ObjectIdField()
+    suffix    = app.me.StringField()
+    gen       = app.me.StringField()
+    rBy       = app.me.ObjectIdField()
 
     meta = {
         'indexes': [{'fields':['prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix']}]
@@ -156,7 +156,7 @@ class Prs(Cnt):
 
 class Usr(Prs):
     # namePrefix
-    uNam    = app.db.StringField(required=True)
+    uNam    = app.me.StringField(required=True)
 
     meta = {
         'indexes': [{'fields':['slug'], 'unique': True},

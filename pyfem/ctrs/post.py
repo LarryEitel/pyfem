@@ -10,15 +10,15 @@ from app import app
 class Post(object):
 
     def __init__(self, g):
-        #: Doc comment for instance attribute db
+        #: Doc comment for instance attribute me
         self.g   = g
         self.usr = g['usr']
-        self.db  = g['db']
+        self.me  = g['me']
         #self.es  = g['es']
 
     def post(self, docs):
         docs = [docs] if type(docs) == dict else docs
-        db           = self.db
+        me           = self.me
 
         response     = {}
         docs_handled = {}

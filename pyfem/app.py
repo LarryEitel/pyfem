@@ -4,9 +4,10 @@ import path
 
 from flask import Flask
 from flask.ext.mongoengine import MongoEngine
+from mongoengine.connection import _get_db
 from jinja2 import ModuleLoader
 from flask_debugtoolbar import DebugToolbarExtension
-
+from settings import Config
 
 from util import (
     slugify,
@@ -21,14 +22,17 @@ from util import (
 
 def get_app():
     app = Flask('pyfem')
-    app.config.from_object('default_settings')
-    if os.getenv('pyfem_SETTINGS', None):
-        app.config.from_envvar('pyfem_SETTINGS')
+    app.config.from_object(Config)
+
+    # set environment PYFEM_SETTINGS=testing_settings to automatically use a -test version of db
+    if os.environ.get('PYFEM_SETTINGS'):
+        if os.environ['PYFEM_SETTINGS'] == 'testing_settings':
+            app.config['MONGODB_SETTINGS'] = dict(db=app.config['MONGO_DBNAME'] + '-test')
 
     app.secret_key = app.config['SECRET_KEY']
 
-    # app.g  = globals.load()
-    app.db = MongoEngine(app)
+    app.me = MongoEngine(app)
+    app.pymongo = _get_db()
 
     app.jinja_env.add_extension('util.Markdown2Extension')
     app.jinja_env.filters['slugify'] = slugify
@@ -46,7 +50,7 @@ def get_app():
         app.jinja_env.loader = ModuleLoader(compiled_templates)
 
     configure_logging(app)
-    
+
     return app
 
 app = get_app()

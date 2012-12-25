@@ -7,9 +7,9 @@ from mdls.myfields import MyStringField, MyEmailField
 from mongoengine_extras.fields import SlugField, AutoSlugField
 
 class Note(ED):
-    #address = app.db.EmailField(required= True)
+    #address = app.me.EmailField(required= True)
     title = MyStringField(required= True)
-    body  = app.db.StringField()
+    body  = app.me.StringField()
 
     def __str__(self):
         s = ('[' + str(self.eId) + '] ') if self.eId else ''
@@ -18,9 +18,9 @@ class Note(ED):
         return s
 class EDMix(object):
     typ     = MyStringField(required= True)
-    w       = app.db.FloatField()
-    prim    = app.db.BooleanField()
-    note    = app.db.EmbeddedDocumentField(Note)
+    w       = app.me.FloatField()
+    prim    = app.me.BooleanField()
+    note    = app.me.EmbeddedDocumentField(Note)
 
     def validateList(self, theList):
         errors = {}
@@ -78,7 +78,7 @@ class Pth(ED, EDMix):
     
     
     pth  = MyStringField(help_text='Cmp.ni.admin.11')
-    uris = app.db.ListField(app.db.StringField())
+    uris = app.me.ListField(app.me.StringField())
 
     _meta  = {'unique_with': ['cls', 'slug', 'role']}
 
@@ -115,20 +115,20 @@ class Email(ED, EDMix):
 
 
 class Mixin(object):
-    pars2   = app.db.ListField(app.db.DictField())
-    pars   = app.db.ListField(app.db.EmbeddedDocumentField(Par))
-    pths   = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
-    # chlds  = app.db.ListField(app.db.EmbeddedDocumentField(Pth))
-    emails = app.db.ListField(app.db.EmbeddedDocumentField(Email))
-    notes  = app.db.ListField(app.db.EmbeddedDocumentField(Note))
-    slug   = app.db.StringField()
+    pars2   = app.me.ListField(app.me.DictField())
+    pars   = app.me.ListField(app.me.EmbeddedDocumentField(Par))
+    pths   = app.me.ListField(app.me.EmbeddedDocumentField(Pth))
+    # chlds  = app.me.ListField(app.me.EmbeddedDocumentField(Pth))
+    emails = app.me.ListField(app.me.EmbeddedDocumentField(Email))
+    notes  = app.me.ListField(app.me.EmbeddedDocumentField(Note))
+    slug   = app.me.StringField()
 
-    sId    = app.db.SequenceField()
+    sId    = app.me.SequenceField()
 
-    oBy    = app.db.ObjectIdField()
-    oOn    = app.db.DateTimeField()
-    cBy    = app.db.ObjectIdField()
-    mBy    = app.db.ObjectIdField()
-    mOn    = app.db.DateTimeField()
-    dOn    = app.db.DateTimeField()
-    dBy    = app.db.ObjectIdField()
+    oBy    = app.me.ObjectIdField()
+    oOn    = app.me.DateTimeField()
+    cBy    = app.me.ObjectIdField()
+    mBy    = app.me.ObjectIdField()
+    mOn    = app.me.DateTimeField()
+    dOn    = app.me.DateTimeField()
+    dBy    = app.me.ObjectIdField()

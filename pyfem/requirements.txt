@@ -1,6 +1,7 @@
 Flask
 Flask-PyMongo
 Flask-DebugToolbar
+Flask-YAMLConfig
 Jinja2
 WTForms
 Werkzeug

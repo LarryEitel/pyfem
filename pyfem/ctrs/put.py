@@ -5,25 +5,55 @@ import datetime
 from bson import ObjectId
 import mdls
 import globals
-import mdls
+import ctrs
 from mdls import *
 
 class Put(object):
 
     def __init__(self, g):
-        #: Doc comment for instance attribute db
+        #: Doc comment for instance attribute me
         self.g = g
         self.usr = g['usr']
-        self.db  = g['db']
+        self.me  = g['me']
         #self.es  = g['es']
+
+    def cmd(self, cmd):
+        g = self.g
+        debug = g['logger'].debug
+        post    = ctrs.post.Post(g).post
+        put     = ctrs.put.Put(g).put
+        fldClss = dict(emails='Email')
+
+        debug(u'\n' + (u'_'*50) + u'\n' + cmd + u'\n' + (u'_'*50))
+        params = cmd.split('|')
+        fn = params.pop(0)
+
+        if fn == 'push':
+            # example: 'putPush|Prs.lwe.emails|address:steve@apple.com|typ:work'
+            uri = params.pop(0).split('.')
+            _cls = uri[0]
+            slug = uri[1]
+            fld = uri[2]
+            data = dict(_cls=_cls, query=dict(slug=slug))
+            fldCls = fldClss[fld]
+
+            # get flds to set
+            flds = dict([(v.split(':')[0], v.split(':')[1]) for v in params])
+            flds['_cls'] = fldCls
+            flds['_types'] = [fldCls]
+
+            data['update'] = dict(actions={'$push': dict(flds={fld: [flds]})})
+            return put(**data)
+
 
     def put(self, _cls, query, update, **kwargs):
         debug    = self.g['logger'].debug
-        db       = self.db
+        me       = self.me
+        _clss        = self.g['_clss']
 
         mCls       = getattr(mdls, _cls)
-        collNam    = mCls._collection.name
-        coll       = mCls._collection
+        collNam    = _clss[_cls]['collNam']
+        coll       = self.g['pymongo'][collNam]
 
         response   = {}
         status     = 200
@@ -55,13 +85,6 @@ class Put(object):
             update = {'$set': {'locked': True}},
             new = True
         )
-
-        # are any of them involved in generating dNam/dNamS?
-        updateLnks = False
-        if hasattr(targetDocCls, '_meta') and 'fldsThatUpdt_dNam' in targetDocCls._meta:
-            dNamFlds = set(targetDocCls._meta['fldsThatUpdt_dNam'])
-            fldsThatUpdt_dNam = [fld for i, fld in enumerate(fldNams) if fld in dNamFlds]
-            updateLnks = len(fldsThatUpdt_dNam) > 0
 
 
         # validate actions and update values to be put/patched to the targetDoc

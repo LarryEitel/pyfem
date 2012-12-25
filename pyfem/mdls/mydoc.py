@@ -64,7 +64,7 @@ class DMix(object):
 
 
 # inspired by http://stackoverflow.com/questions/6102103/using-mongoengine-document-class-methods-for-custom-validation-and-pre-save-hook
-class D(app.db.Document, DMix):
+class D(app.me.Document, DMix):
 
     meta = {'allow_inheritance': True}
 
@@ -117,7 +117,7 @@ class D(app.db.Document, DMix):
             return u'%s-%s' % (slugVal, next)
 
 
-class ED(app.db.EmbeddedDocument, DMix):
+class ED(app.me.EmbeddedDocument, DMix):
     def validDocData(self):
         return validDocData(self)
 

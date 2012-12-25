@@ -11,7 +11,7 @@ class TagGrp(D, Mixin):
     # skillTags
     # bio
     # pets
-    clss = app.db.ListField(MyStringField(), required= True)
+    clss = app.me.ListField(MyStringField(), required= True)
     '''Tag model classes for which this tagGrp is relevant'''
 
     _meta = {

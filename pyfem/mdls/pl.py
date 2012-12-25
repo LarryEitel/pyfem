@@ -9,7 +9,7 @@ import helpers
 import utils.name
 
 class Pl(D, Mixin):
-    code = app.db.StringField()
+    code = app.me.StringField()
     city = MyStringField(required=True)
 
     _meta = {

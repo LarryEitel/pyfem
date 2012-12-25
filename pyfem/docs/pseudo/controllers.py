@@ -7,19 +7,19 @@ QUESTIONS:
 
 # ctrs.py
 class Generic
-    def __init__(self, db, es = None):
-        #: Doc comment for instance attribute db
-        self.db = db
+    def __init__(self, me, es = None):
+        #: Doc comment for instance attribute me
+        self.me = me
         self.es = es
     def post(self, **kwargs):
         session    = kwargs['session'] if 'session' in kwargs else {}
-        db         = self.db
+        me         = self.me
         _c         = kwargs['_c']
         model      = getattr(mdls, _c)
         collNam    = model.meta['collection']
         collNamTmp = model.meta['collNam'] + '_tmp'
-        coll       = db[collNam]
-        collTmp    = db[collNamTmp]
+        coll       = me[collNam]
+        collTmp    = me[collNamTmp]
 
         # QUESTION: How to init an empty schematic model with defaults, etc.
         # if no OID exists, this is a new doc. Will need to generate a temporary doc to work with.

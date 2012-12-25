@@ -16,12 +16,18 @@ def cmpYml(yml, expect):
 
 class CtrsLnkTests(BaseMongoTestCase):
     def test_add(self):
-        doit    = self.doit
+        g = self.g
         to_yaml = ctrs.d.to_yaml
         debug   = self.g['logger'].debug
+        Put = ctrs.put.Put(g)
+        Lnk = ctrs.lnk.Lnk(g)
+
+        # start of cmd's to add/manipulate db
+        resp = Put.cmd('push|Cmp.ni.emails|address:steve@apple.com|typ:work')
+        #resp = Put.cmd('set|Prs.lwe|q:emails.address:bill@ms.com,emails.typ:work|address:steve@apple.com|typ:work')
 
         # Link kirmse to ni
-        resp = doit('lnkAdd|Cmp.kirmse|Cmp.ni|area-company')
+        resp = Lnk.cmd('add|Cmp.kirmse|Cmp.ni|area-company')
         assert cmpYml(to_yaml(resp['response']['doc']), \
             '''
             Cmp.kirmse
@@ -32,7 +38,7 @@ class CtrsLnkTests(BaseMongoTestCase):
             ''')
 
         # Link unit104 to kirmse
-        resp = doit('lnkAdd|Cmp.unit104|Cmp.kirmse|unit-area')
+        resp = Lnk.cmd('add|Cmp.unit104|Cmp.kirmse|unit-area')
         assert cmpYml(to_yaml(resp['response']['doc']), \
             '''
             Cmp.unit104
@@ -45,7 +51,7 @@ class CtrsLnkTests(BaseMongoTestCase):
             ''')
 
         # Link troop1031 to unit104
-        resp = doit('lnkAdd|Cmp.troop1031|Cmp.unit104|troop-unit')
+        resp = Lnk.cmd('add|Cmp.troop1031|Cmp.unit104|troop-unit')
         assert cmpYml(to_yaml(resp['response']['doc']), \
             '''
             Cmp.troop1031
@@ -61,7 +67,7 @@ class CtrsLnkTests(BaseMongoTestCase):
 
 
         # Link ni to atlanta-ga
-        resp = doit('lnkAdd|Cmp.ni|Pl.atlanta-ga|office')
+        resp = Lnk.cmd('add|Cmp.ni|Pl.atlanta-ga|office')
         assert cmpYml(to_yaml(resp['response']['doc']), \
             '''
             Cmp.ni
@@ -96,8 +102,7 @@ class CtrsLnkTests(BaseMongoTestCase):
     def setUp(self):
         super(CtrsLnkTests, self).setUp()
         g = self.g
-        db = g['db']
-        self.mgodb        = db.connection[db.app.config['MONGODB_DB']]
+        me = g['me']
         self._clss        = g['_clss']
         self.post    = post    = ctrs.post.Post(g).post
         self.put     = put     = ctrs.put.Put(g).put
