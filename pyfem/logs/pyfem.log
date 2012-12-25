@@ -773,3 +773,1069 @@ Cmp.unit104
     Cmp.troop1031
 
  |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[270]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+        Cmp.kirmse
+            Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+        Cmp.kirmse
+            Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+        Cmp.kirmse
+            Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+        Cmp.kirmse
+            Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+        Cmp.kirmse
+            Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+        Cmp.kirmse
+            Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.troop1031
+  pars
+  Cmp.unit104
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+        Cmp.kirmse
+            Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.troop1031
+  pars
+  Cmp.unit104
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[259]
+
+Cmp.troop1031
+    Cmp.unit104
+        Cmp.kirmse
+            Cmp.ni
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[260]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+        Cmp.kirmse
+            Cmp.ni
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[260]
+
+Cmp.troop1031
+  pars
+  Cmp.unit104
+    Cmp.kirmse
+      Cmp.ni
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[260]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+        Cmp.kirmse
+            Cmp.ni
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[261]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[261]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[261]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+      pths
+        Cmp.unit104.unit
+        Cmp.kirmse.area
+        Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[261]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+        Cmp.kirmse
+            Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[260]
+
+Cmp.troop1031
+  pars
+  Cmp.unit104
+    pars
+    Cmp.kirmse
+      Cmp.ni
+    pths
+      Cmp.kirmse.area
+      Cmp.ni.company
+    Children
+      Cmp.troop1031
+
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[260]
+
+Cmp.troop1031
+  pars
+  Cmp.unit104
+    pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[260]
+
+Cmp.troop1031
+  pars
+  Cmp.unit104
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[260]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[261]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+    Cmp.kirmse
+    Cmp.ni
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[262]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+    pths
+      Cmp.unit104.unit
+      Cmp.kirmse.area
+      Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[262]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+  pths
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+Cmp.ni
+  pars
+    Pl.atlanta-ga
+  pths
+    Pl.atlanta-ga.office
+  Children
+    Cmp.kirmse
+      Cmp.unit104
+        Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[263]
+
+
+Cmp.ni referenced in pths |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[276]
+
+Cmp.troop1031
+  pars
+    Cmp.unit104
+      Cmp.kirmse
+        Cmp.ni
+          Pl.atlanta-ga
+  pths
+    Cmp.unit104.unit
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.kirmse
+  pars
+    Cmp.ni
+      Pl.atlanta-ga
+  pths
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.unit104
+      Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]
+
+Cmp.unit104
+  pars
+    Cmp.kirmse
+      Cmp.ni
+        Pl.atlanta-ga
+  pths
+    Cmp.kirmse.area
+    Cmp.ni.company
+    Pl.atlanta-ga.office
+  Children
+    Cmp.troop1031
+
+ |DEBUG:c:\Users\Larry\__prjs\__py\pyfem\pyfem\ctrs\d.py:[283]

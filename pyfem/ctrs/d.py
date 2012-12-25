@@ -85,8 +85,11 @@ class D(object):
         # yml += (u'  '*level) + self.__yaml__() + '\n'
         yml += (u'  '*level) + self.__yaml__()
         if hasattr(self, 'pars') and self.pars:
+            #level += 1
             if level < 1:
                 yml += '\n' + (u'  '*(level+1)) + 'pars'
+                level += 1
+
             for _par in self.pars:
                 par = Par(**_par)
                 # lines.append(dict(level=level+2, obj=par))
@@ -94,9 +97,10 @@ class D(object):
                     chld_cls = chld['_cls'].split('.')[-1]
                     doc = getattr(__import__(self.__module__), chld_cls)()
                     doc.get(**dict(_cls=chld_cls, query=dict(slug=chld['slug'])))
-                    yml += doc.to_yaml(level+2)
+                    yml += doc.to_yaml(level+1)
 
-        if level < 1:
+        if level < 2:
+            level -= 1 # hackage!
             if hasattr(self, 'pths') and self.pths:
                 yml += '\n' + (u'  '*(level+1)) + 'pths' + '\n'
                 for _pth in self.pths:
@@ -105,7 +109,7 @@ class D(object):
 
         # children
         chlds = []
-        if level < 1:
+        if level < 2:
             collNams = {}
             for _cls, v in self.g['_clss'].iteritems():
                 collNams[v['collNam']] = self.colls[_cls]
@@ -250,6 +254,15 @@ class Cmp(Cnt):
         _cls = self._cls.split('.')[-1]
         s = '.'.join([_cls, self.slug])
         return s
+
+def to_yaml(doc):
+    debug   = app.logger.debug
+    _cls = doc['_cls'].split('.')[-1]
+    D = getattr(__import__(__name__), _cls)(**doc)
+    yml = D.to_yaml(0)
+    debug(yml + '\n')
+    return yml
+
 
 def referenced_in_pths(doc):
     debug   = app.logger.debug

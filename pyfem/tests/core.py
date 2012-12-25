@@ -10,6 +10,7 @@ import os
 import usecase
 import usecase1
 import globals
+import ctrs
 
 
 class BaseTestCase(unittest.TestCase):
@@ -120,3 +121,27 @@ class BaseMongoTestCase(unittest.TestCase):
         expected = (expected.year, expected.month, expected.day, expected.hour, expected.minute)
         actual = (actual.year, actual.month, actual.day, actual.hour, actual.minute)
         self.assertEqual(expected, actual)
+
+    def doit(self, cmd):
+        g = self.g
+        post    = ctrs.post.Post(g).post
+        put     = ctrs.put.Put(g).put
+
+        params = cmd.split('|')
+        fn = params.pop(0)
+
+        if fn == 'lnkAdd':
+            # example: 'lnkAdd|Cmp.kirmse|Cmp.ni|area-company'
+            chld_ = params[0].split('.')
+            par_ = params[1].split('.')
+            role_ = params[2]
+            return ctrs.lnk.Lnk(g).add(**dict(
+                chld_=
+                    dict(
+                        _cls=chld_[0],
+                        slug=chld_[1]),
+                par_=
+                    dict(
+                        _cls=par_[0],
+                        slug=par_[1]),
+                role_=role_))

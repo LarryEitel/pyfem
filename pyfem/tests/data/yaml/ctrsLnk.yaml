@@ -1,65 +1,6 @@
 # http://yaml-online-parser.appspot.com
 
 dos:
-  lnkAdd|Cmp.kirmse|Cmp.ni|area-company:
-    test: #ctrs.lnk.add()
-      {chld_: {_cls: Cmp, slug: kirmse}, par_: {_cls: Cmp, slug: ni}, role_: area-company}
-    expect:
-      flds:
-        _cls: D.Cnt.Cmp
-        slug: kirmse
-      evals:
-        doc['pars'][0]['cls']: Cmp
-        doc['pars'][0]['slug']: ni
-        doc['pars'][0]['role']: area
-        doc['pths'][0]['cls']: Cmp
-        doc['pths'][0]['slug']: ni
-        doc['pths'][0]['role']: company
-  lnkAdd|Cmp.unit104|Cmp.kirmse|unit-area:
-    test:
-      {chld_: {_cls: Cmp, slug: unit104}, par_: {_cls: Cmp, slug: kirmse}, role_: unit-area}
-    expect:
-      flds:
-        _cls: D.Cnt.Cmp
-        slug: unit104
-      evals:
-        doc['pars'][0]['cls']: Cmp
-        doc['pars'][0]['slug']: kirmse
-        doc['pars'][0]['role']: unit
-        doc['pths'][0]['cls']: Cmp
-        doc['pths'][0]['slug']: kirmse
-        doc['pths'][0]['role']: area
-  lnkAdd|Cmp.troop1031|Cmp.unit104|troop-unit:
-    test:
-      {chld_: {_cls: Cmp, slug: troop1031}, par_: {_cls: Cmp, slug: unit104}, role_: troop-unit}
-    expect:
-      flds:
-        _cls: D.Cnt.Cmp
-        slug: troop1031
-      evals:
-        doc['pars'][0]['cls']: Cmp
-        doc['pars'][0]['slug']: unit104
-        doc['pars'][0]['role']: troop
-        doc['pths'][0]['cls']: Cmp
-        doc['pths'][0]['slug']: unit104
-        doc['pths'][0]['role']: unit
-  
-  lnkAdd|Cmp.ni|Pl.atlanta-ga|office:
-    test: #ctrs.lnk.add()
-      {chld_: {_cls: Cmp, slug: ni}, par_: {_cls: Pl, slug: atlanta-ga}, role_: office}
-    expect:
-      flds:
-        _cls: D.Cnt.Cmp
-        slug: ni
-      evals:
-        doc['pars'][0]['cls']: Pl
-        doc['pars'][0]['slug']: atlanta-ga
-        doc['pars'][0]['role']: office
-        doc['pths'][0]['cls']: Pl
-        doc['pths'][0]['slug']: atlanta-ga
-        doc['pths'][0]['role']: office
-
-
   del|Cmp.kirmse|Cmp.ni|area-company:
     test:
       del: {fr: {_cls: Cmp, slug: kirmse}, to: {_cls: Cmp, slug: ni}, role: area-company}
@@ -114,21 +55,6 @@ dos:
                   - Pl.cr
                   - Usr.lwe
 expect:
-  put__Cmp.kirmse_Cmp.ni_dept-company:
-    _cls: Cmp
-    slug: ni
-    pars:
-      - {lnk: Cmp.ni.admin.11}
-    pths:
-      - {lnk: Cmp.ni.admin.11, uris: [Cmp.ni, Usr.lwe]}
-  lnkUsr.lwe_Cmp.ni_admin:
-    _cls: Cmp
-    slug: ni
-    pars:
-      - {lnk: Pl.cr.home}
-    pths:
-      - {lnk: Pl.cr.home, uris: [Pl.cr, Usr.lwe]}
-
   PrsLarryWayne:
     _cls: Prs
     _types : [Prs]

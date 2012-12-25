@@ -67,8 +67,7 @@ class Lnk(object):
         pths.append(parPth)
 
 
-        # gather par pths
-        # filter to avoid dups!
+        # Gather parent pths to be appended to chldDoc.pths
         if 'pths' in par and par['pths']:
             for pthItem in par['pths']:
                 pthItem['uris'] = list(pthItem['uris'])
@@ -89,14 +88,14 @@ class Lnk(object):
                 update = {'$push': {'pars': parLnk}},
             )
 
-            # $push pars2
-            parPthLnk = dict(pth=parLnk['cls']+'.'+parLnk['slug'], role=parLnk['role'])
-            doc = chldColl.find_and_modify(
-                query = query,
-                update = {'$push': {'pars2': parPthLnk}},
-            )
+            # # $push pars2
+            # parPthLnk = dict(pth=parLnk['cls']+'.'+parLnk['slug'], role=parLnk['role'])
+            # doc = chldColl.find_and_modify(
+            #     query = query,
+            #     update = {'$push': {'pars2': parPthLnk}},
+            # )
 
-            # push pths
+            # Add pthLnks to chldDoc.pths.
             for pth in pths:
                 # $push pths for each pth
                 doc = chldColl.find_and_modify(
@@ -116,13 +115,15 @@ class Lnk(object):
             # $push pars
             # need to add to parPth.uris
             parPth['uris'].append(chld_['_cls'] + '.' + chld_['slug'])
+
+
             for _id in chldColl.find({'pths.uris': chld_['_cls'] + '.' + chld_['slug']}, {'_id': 1}):
                 doc = chldColl.find_and_modify(
                     query = {'_id': _id['_id']},
                     update = {'$push': {'pths': parPth}},
                 )
 
-            # unlock
+            # unlock chldDoc
             doc  = chldColl.find_and_modify(
                   query = query,
                   update = {'$unset': {'locked': True}},

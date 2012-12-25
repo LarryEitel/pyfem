@@ -9,69 +9,88 @@ from utils import myyaml, mdl
 from utils.myyaml import postToMongo
 import ctrs
 import mdls
+def cmpYml(yml, expect):
+    i = 2
+    while expect[i] == ' ': i += 1
+    return yml == expect.replace(u' '*(i-1), '')
 
 class CtrsLnkTests(BaseMongoTestCase):
     def test_add(self):
-        post    = self.post
-        put     = self.put
-        lnkAdd  = self.lnkAdd
-        #tree    = self.tree2
-        #tree2    = self.tree2
-        sampDat = self.sampDat
-        dos     = self.dos
+        doit    = self.doit
+        to_yaml = ctrs.d.to_yaml
         debug   = self.g['logger'].debug
 
         # Link kirmse to ni
-        do = dos['lnkAdd|Cmp.kirmse|Cmp.ni|area-company']
-        resp = lnkAdd(**do['test'])
-        status = resp['status']
-        assert status == 200
-        doc = resp['response']['doc']
-        assert '_id' in doc
-        for fld, val in do['expect']['flds'].iteritems():
-            assert doc[fld] == val
-        for expr, val in do['expect']['evals'].iteritems():
-            assert eval(expr) == val
+        resp = doit('lnkAdd|Cmp.kirmse|Cmp.ni|area-company')
+        assert cmpYml(to_yaml(resp['response']['doc']), \
+            '''
+            Cmp.kirmse
+              pars
+                Cmp.ni
+              pths
+                Cmp.ni.company
+            ''')
 
         # Link unit104 to kirmse
-        do = dos['lnkAdd|Cmp.unit104|Cmp.kirmse|unit-area']
-        resp = lnkAdd(**do['test'])
-        status = resp['status']
-        assert status == 200
-        doc = resp['response']['doc']
-        assert '_id' in doc
-        for fld, val in do['expect']['flds'].iteritems():
-            assert doc[fld] == val
-        for expr, val in do['expect']['evals'].iteritems():
-            assert eval(expr) == val
+        resp = doit('lnkAdd|Cmp.unit104|Cmp.kirmse|unit-area')
+        assert cmpYml(to_yaml(resp['response']['doc']), \
+            '''
+            Cmp.unit104
+              pars
+                Cmp.kirmse
+                  Cmp.ni
+              pths
+                Cmp.kirmse.area
+                Cmp.ni.company
+            ''')
 
         # Link troop1031 to unit104
-        do = dos['lnkAdd|Cmp.troop1031|Cmp.unit104|troop-unit']
-        resp = lnkAdd(**do['test'])
-        status = resp['status']
-        assert status == 200
-        doc = resp['response']['doc']
-        assert '_id' in doc
-        for fld, val in do['expect']['flds'].iteritems():
-            assert doc[fld] == val
-        for expr, val in do['expect']['evals'].iteritems():
-            assert eval(expr) == val
+        resp = doit('lnkAdd|Cmp.troop1031|Cmp.unit104|troop-unit')
+        assert cmpYml(to_yaml(resp['response']['doc']), \
+            '''
+            Cmp.troop1031
+              pars
+                Cmp.unit104
+                  Cmp.kirmse
+                    Cmp.ni
+              pths
+                Cmp.unit104.unit
+                Cmp.kirmse.area
+                Cmp.ni.company
+            ''')
+
 
         # Link ni to atlanta-ga
-        do = dos['lnkAdd|Cmp.ni|Pl.atlanta-ga|office']
-        resp = lnkAdd(**do['test'])
-        status = resp['status']
-        assert status == 200
-        doc = resp['response']['doc']
-        assert '_id' in doc
-        for fld, val in do['expect']['flds'].iteritems():
-            assert doc[fld] == val
-        for expr, val in do['expect']['evals'].iteritems():
-            assert eval(expr) == val
+        resp = doit('lnkAdd|Cmp.ni|Pl.atlanta-ga|office')
+        assert cmpYml(to_yaml(resp['response']['doc']), \
+            '''
+            Cmp.ni
+              pars
+                Pl.atlanta-ga
+              pths
+                Pl.atlanta-ga.office
+              Children
+                Cmp.kirmse
+                  Cmp.unit104
+                    Cmp.troop1031
+            ''')
 
-        _in_pths = ctrs.d.referenced_in_pths(doc)
-        # did pths get added correctly?
-        x=0
+        _in_pths = ctrs.d.referenced_in_pths(resp['response']['doc'])
+        # did Pl.atlanta-ga.office get added correctly to pths?
+        assert cmpYml(_in_pths['_yml']['Cmp.unit104'], \
+            '''
+            Cmp.unit104
+              pars
+                Cmp.kirmse
+                  Cmp.ni
+                    Pl.atlanta-ga
+              pths
+                Cmp.kirmse.area
+                Cmp.ni.company
+                Pl.atlanta-ga.office
+              Children
+                Cmp.troop1031
+            ''')
 
 
     def setUp(self):
@@ -79,15 +98,12 @@ class CtrsLnkTests(BaseMongoTestCase):
         g = self.g
         db = g['db']
         self.mgodb        = db.connection[db.app.config['MONGODB_DB']]
-        self._clss        = self.g['_clss']
-        self.post    = post    = ctrs.post.Post(self.g).post
-        self.put     = put     = ctrs.put.Put(self.g).put
-        self.lnkAdd  = lnkAdd  = ctrs.lnk.Lnk(self.g).add
-        #self.tree    = tree    = ctrs.d.D(self.g, 1, 1).tree
-        #self.tree2    = tree2    = ctrs.d.D(self.g, 1, 1).tree2
+        self._clss        = g['_clss']
+        self.post    = post    = ctrs.post.Post(g).post
+        self.put     = put     = ctrs.put.Put(g).put
+        self.lnkAdd  = lnkAdd  = ctrs.lnk.Lnk(g).add
         self.usecase = usecase = myyaml.pyObj(self.tests_data_yaml_dir + 'ctrsLnk')
         self.sampDat = sampDat = usecase['sampDat']
-        self.dos = usecase['dos']
 
         # load lnkroles
         resp = postToMongo(post, self.data_dir + 'lnkroles')
