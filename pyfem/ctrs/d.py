@@ -5,19 +5,24 @@ import datetime
 from bson import ObjectId
 import globals
 from app import app
-class D(object):
+
+g = globals.load()
+_clss = g['_clss']
+mColls = {}
+for cls, val in _clss.iteritems():
+    mColls[cls] = app.pymongo[val['collNam']]
+
+
+class Base(object):
+    def data(self):
+        return dict([(k,v) for k,v in self.__dict__.iteritems() if not k[0] == '_' and v and not type(v) == datetime.datetime])
+class D(Base):
     _cls = 'D'
     meta = dict(collNam='d')
     def __init__(self, **kwargs):
         for k, v in kwargs.iteritems():
             setattr(self, k, v)
-        self.g = g = globals.load()
-        self.pymongo = pymongo = app.pymongo
-        _clss = g['_clss']
-        colls = {}
-        for cls, val in _clss.iteritems():
-            colls[cls] = pymongo[val['collNam']]
-        self.colls = colls
+
 
     @property
     def uri(self):
@@ -32,7 +37,7 @@ class D(object):
         return self.__repr__()
 
     def get(self, _cls, query):
-        doc = self.pymongo[self.meta['collNam']].find_one(query)
+        doc = app.pymongo[self.meta['collNam']].find_one(query)
         if doc:
             self._fields = [k for k in doc.iterkeys()]
             for k, v in doc.iteritems():
@@ -42,8 +47,8 @@ class D(object):
     def in_pths(self):
         uris = {}
         collNams = {}
-        for _cls, v in self.g['_clss'].iteritems():
-            collNams[v['collNam']] = self.colls[_cls]
+        for _cls, v in g['_clss'].iteritems():
+            collNams[v['collNam']] = mColls[_cls]
         for collNam, coll in collNams.iteritems():
             for doc in coll.find({'pths.uris':self.uri}):
                 uri = doc['_cls'].split('.')[-1] + '.' + doc['slug']
@@ -66,8 +71,8 @@ class D(object):
         # children
         chlds = []
         collNams = {}
-        for _cls, v in self.g['_clss'].iteritems():
-            collNams[v['collNam']] = self.colls[_cls]
+        for _cls, v in g['_clss'].iteritems():
+            collNams[v['collNam']] = mColls[_cls]
         level = 0
         for collNam, coll in collNams.iteritems():
             chldsNew = self.getChlds(coll, level)
@@ -92,7 +97,7 @@ class D(object):
             for _par in self.pars:
                 par = Par(**_par)
                 yml += par.to_yaml(level+1)
-                #for chld in self.colls[par.cls].find(dict(slug=par.slug)):
+                #for chld in mColls[par.cls].find(dict(slug=par.slug)):
                     #chld_cls = chld['_cls'].split('.')[-1]
                     #doc = getattr(__import__(self.__module__), chld_cls)()
                     #doc.get(**dict(_cls=chld_cls, query=dict(slug=chld['slug'])))
@@ -117,8 +122,8 @@ class D(object):
         chlds = []
         if level < 2:
             collNams = {}
-            for _cls, v in self.g['_clss'].iteritems():
-                collNams[v['collNam']] = self.colls[_cls]
+            for _cls, v in g['_clss'].iteritems():
+                collNams[v['collNam']] = mColls[_cls]
             for collNam, coll in collNams.iteritems():
                 chldsNew = self.getChlds(coll, level)
                 if chldsNew:
@@ -152,7 +157,7 @@ class D(object):
             for _par in self.pars:
                 par = Par(**_par)
                 # lines.append(dict(level=level+2, obj=par))
-                for chld in self.colls[par.cls].find(dict(slug=par.slug)):
+                for chld in mColls[par.cls].find(dict(slug=par.slug)):
                     chld_cls = chld['_cls'].split('.')[-1]
                     doc = getattr(__import__(self.__module__), chld_cls)()
                     doc.get(**dict(_cls=chld_cls, query=dict(slug=chld['slug'])))
@@ -173,8 +178,8 @@ class D(object):
         chlds = []
         if level < 1:
             collNams = {}
-            for _cls, v in self.g['_clss'].iteritems():
-                collNams[v['collNam']] = self.colls[_cls]
+            for _cls, v in g['_clss'].iteritems():
+                collNams[v['collNam']] = mColls[_cls]
             for collNam, coll in collNams.iteritems():
                 chldsNew = self.getChlds(coll, level)
                 if chldsNew:
@@ -184,7 +189,7 @@ class D(object):
                 lines += chlds
 
         return lines
-class Pth(object):
+class Pth(Base):
     _cls = _c = 'Pth'
     def __init__(self, cls='', slug='', role='', uris=[]):
         self.cls = cls
@@ -199,7 +204,7 @@ class Pth(object):
 
     def __yaml__(self):
         return self.__repr__() + ': [' + (','.join(self.uris)) + ']'
-class Par(object):
+class Par(Base):
     _cls = _c = 'Par'
     def __init__(self, cls='', slug='', role='', mask=''):
         self.cls = cls
@@ -220,13 +225,13 @@ class Par(object):
         return self.__repr__()
 class Ol(object):
     def __init__(self):
-        self.g = g = globals.load()
+        g = g = globals.load()
         pymongo = app.pymongo.connection[app.config['MONGODB_DB']]
         _clss = g['_clss']
         colls = {}
         for cls, val in _clss.iteritems():
             colls[cls] = pymongo[val['collNam']]
-        self.colls = colls
+        mColls = colls
 
     def show(self, d):
         #print d
@@ -245,6 +250,20 @@ class Pl(D):
 class Cnt(D):
     _cls = _c = 'Cnt'
     meta = dict(collNam='cnts')
+
+    def data(self):
+        dat = super(Cnt, self).data()
+        listFlds = ['emails', 'tels', 'pars', 'pths']
+        for listFld in listFlds:
+            if listFld in dat:
+                # loop through items in list field
+                fldItems = []
+                for i, fld in enumerate(dat[listFld]):
+                    kvs = dict([(k,v) for k,v in dat[listFld][i].iteritems() if not k[0] == '_' and v])
+                    s = '[' + (','.join(["%s:%s" %(k,str(v)) for k,v in kvs.iteritems()])) + ']'
+                    fldItems.append(s)
+                dat[listFld] = '[' + (','.join(fldItems)) + ']'
+        return dat
 
     def __repr__(self):
         _cls = self._cls.split('.')[-1]
@@ -362,12 +381,20 @@ class DS(object):
         _list = []
         for doc in docs:
             item = []
-            item.append('.'.join([doc['_c'], doc['slug']]))
+            item.append('.'.join([doc['_c'], doc['slug'], str(doc['sId'])]))
             docCls = getattr(__import__(__name__), doc['_c'])
             if getattr(docCls, 'vNam'):
                 item.append(getattr(docCls, 'vNam')(**doc))
-            else:
-                item.append(doc.__str__())
+
+            docInstance = docCls(**doc)
+            data = docInstance.data()
+            # temp
+            del data['pars']
+            del data['pths']
+            del data['slug']
+            del data['sId']
+            s = u'|'.join([u"%s:%s" %(k,v) for k,v in data.iteritems()]).replace(u"u'", u"'")
+            item.append(s)
 
             _list.append(item)
         for item in _list:
