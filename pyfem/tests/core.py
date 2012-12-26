@@ -11,6 +11,7 @@ import usecase
 import usecase1
 import globals
 import ctrs
+from utils.myyaml import postToMongo
 
 
 class BaseTestCase(unittest.TestCase):
@@ -42,6 +43,7 @@ class BaseMongoTestCase(unittest.TestCase):
 
         self.config = app.config
 
+        app.config['DEBUG'] = True
         app.config['TESTING'] = True
         self._flush_db()
 
@@ -52,6 +54,15 @@ class BaseMongoTestCase(unittest.TestCase):
         g['logger'] = app.logger
         self.g = g
         app.g = g
+
+
+
+        # load lnkroles
+        resp = postToMongo(ctrs.post.Post().post, self.data_dir + 'lnkroles')
+        assert resp['status'] == 200
+        assert len(resp['response']['docs']) == len(resp['response']['yamlData']['data'])
+
+
 
     def tearDown(self):
         #self._flush_db()

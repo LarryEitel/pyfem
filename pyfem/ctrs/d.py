@@ -81,23 +81,29 @@ class D(object):
         return value
 
     def to_yaml(self, level):
+        debug = app.logger.debug
         yml = '\n'
-        # yml += (u'  '*level) + self.__yaml__() + '\n'
         yml += (u'  '*level) + self.__yaml__()
         if hasattr(self, 'pars') and self.pars:
-            #level += 1
             if level < 1:
                 yml += '\n' + (u'  '*(level+1)) + 'pars'
                 level += 1
 
             for _par in self.pars:
                 par = Par(**_par)
-                # lines.append(dict(level=level+2, obj=par))
-                for chld in self.colls[par.cls].find(dict(slug=par.slug)):
-                    chld_cls = chld['_cls'].split('.')[-1]
-                    doc = getattr(__import__(self.__module__), chld_cls)()
-                    doc.get(**dict(_cls=chld_cls, query=dict(slug=chld['slug'])))
-                    yml += doc.to_yaml(level+1)
+                yml += par.to_yaml(level+1)
+                #for chld in self.colls[par.cls].find(dict(slug=par.slug)):
+                    #chld_cls = chld['_cls'].split('.')[-1]
+                    #doc = getattr(__import__(self.__module__), chld_cls)()
+                    #doc.get(**dict(_cls=chld_cls, query=dict(slug=chld['slug'])))
+                    ##debug('About to recurse')
+                    #yml += doc.to_yaml(level+1)
+                    ##if level < 2:
+                        ###yml += par.to_yaml(level+1)
+                        ##yml += doc.to_yaml(level+1)
+                    ##else:
+                        ##yml += doc.to_yaml(level+1)
+                    ##debug('Return from recurse:\n' + yml)
 
         if level < 2:
             level -= 1 # hackage!
@@ -179,7 +185,7 @@ class D(object):
 
         return lines
 class Pth(object):
-    _cls = 'Pth'
+    _cls = _c = 'Pth'
     def __init__(self, cls='', slug='', role='', uris=[]):
         self.cls = cls
         self.slug = slug
@@ -192,10 +198,9 @@ class Pth(object):
         return s
 
     def __yaml__(self):
-        return self.__repr__()
-
+        return self.__repr__() + ': [' + (','.join(self.uris)) + ']'
 class Par(object):
-    _cls = 'Par'
+    _cls = _c = 'Par'
     def __init__(self, cls='', slug='', role='', mask=''):
         self.cls = cls
         self.slug = slug
@@ -208,9 +213,11 @@ class Par(object):
         s += '^' + self.mask if self.mask else ''
         return s
 
+    def to_yaml(self, level):
+        return '\n' + (u'  '*(level)) + self.__yaml__()
+
     def __yaml__(self):
         return self.__repr__()
-
 class Ol(object):
     def __init__(self):
         self.g = g = globals.load()
@@ -227,18 +234,16 @@ class Ol(object):
         for ln in lines:
             print '  '*ln['level'], ln['obj']
         x=0
-
 class Pl(D):
-    _cls = 'Pl'
+    _cls = _c = 'Pl'
     meta = dict(collNam='pls')
 
     def __repr__(self):
         _cls = self._cls.split('.')[-1]
         s = '.'.join([_cls, self.slug])
         return s
-
 class Cnt(D):
-    _cls = 'Cnt'
+    _cls = _c = 'Cnt'
     meta = dict(collNam='cnts')
 
     def __repr__(self):
@@ -247,13 +252,80 @@ class Cnt(D):
         return s
 
 class Cmp(Cnt):
-    _cls = 'Cmp'
+    _cls = _c = 'Cmp'
     meta = dict(collNam='cnts')
 
     def __repr__(self):
         _cls = self._cls.split('.')[-1]
         s = '.'.join([_cls, self.slug])
         return s
+
+    @staticmethod
+    def vNam(cNam, **kwargs):
+        s = ''
+        s += cNam
+        return s
+
+class Prs(Cnt):
+    _cls = _c = 'Prs'
+    meta = dict(collNam='cnts')
+
+    def __repr__(self):
+        _cls = self._cls.split('.')[-1]
+        s = '.'.join([_cls, self.slug])
+
+        return s
+    @staticmethod
+    def vFullName(prefix='', fNam='', fNam2='', lNam='', lNam2='', suffix='', **kwargs):
+        '''Mr Bill Wayne Smith Sr'''
+        s = ''
+        fNamS = ''
+        fNamS += prefix + ' ' if prefix else ''
+        fNamS += fNam + ' ' if fNam else ''
+        fNamS += fNam2 + ' ' if fNam2 else ''
+        fNamS = fNamS[:-1] if fNamS else ''
+
+        lNamS = ''
+        lNamS += lNam + ' ' if lNam else ''
+        lNamS += lNam2 + ' ' if lNam2 else ''
+        lNamS += suffix + ' ' if suffix else ''
+        lNamS = lNamS[:-1] if lNamS else ''
+
+        return fNamS + (' ' + lNamS if lNamS else '')
+
+    @staticmethod
+    def vNam(prefix='', fNam='', fNam2='', lNam='', lNam2='', suffix='', **kwargs):
+        s = ''
+        fNamS = ''
+        fNamS += prefix + ' ' if prefix else ''
+        fNamS += fNam + ' ' if fNam else ''
+        fNamS += fNam2 + ' ' if fNam2 else ''
+        fNamS = fNamS[:-1] if fNamS else ''
+
+        lNamS = ''
+        lNamS += lNam + ' ' if lNam else ''
+        lNamS += lNam2 + ' ' if lNam2 else ''
+        lNamS += suffix + ' ' if suffix else ''
+        lNamS = lNamS[:-1] if lNamS else ''
+
+        if lNamS:
+            s += lNamS
+            if fNamS:
+                s += ', ' + fNamS
+        elif fNamS:
+            s += fNamS
+        return s
+
+
+class Usr(Prs):
+    _cls = _c = 'Usr'
+    meta = dict(collNam='cnts')
+
+    def __repr__(self):
+        _cls = self._cls.split('.')[-1]
+        s = '.'.join([_cls, self.slug])
+        return s
+
 
 def to_yaml(doc):
     debug   = app.logger.debug
@@ -283,3 +355,22 @@ def referenced_in_pths(doc):
         debug(yml + '\n')
 
     return dict(_dat=_dat, _yml=_yml)
+
+class DS(object):
+    @staticmethod
+    def listDocs(docs):
+        _list = []
+        for doc in docs:
+            item = []
+            item.append('.'.join([doc['_c'], doc['slug']]))
+            docCls = getattr(__import__(__name__), doc['_c'])
+            if getattr(docCls, 'vNam'):
+                item.append(getattr(docCls, 'vNam')(**doc))
+            else:
+                item.append(doc.__str__())
+
+            _list.append(item)
+        for item in _list:
+            s = ', '.join(item)
+            app.logger.debug(s)
+            print s

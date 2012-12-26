@@ -59,6 +59,7 @@ class Put(object):
     def put(self, _cls, query, update, **kwargs):
         debug    = app.g['logger'].debug
         me       = app.me
+        pymongo       = app.pymongo
         g        = app.g
         usrOID       = g['usr']['OID']
 
@@ -66,7 +67,7 @@ class Put(object):
 
         mCls       = getattr(mdls, _cls)
         collNam    = _clss[_cls]['collNam']
-        coll       = g['pymongo'][collNam]
+        coll       = pymongo[collNam]
 
         response   = {}
         status     = 200

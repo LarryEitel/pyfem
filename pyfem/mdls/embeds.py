@@ -68,15 +68,15 @@ class Par(ED, EDMix):
 
     # when to add?
     shr  = MyStringField(help_text='share mask, 11')
-    
+
     _meta  = {'unique_with': ['cls', 'slug', 'role']}
 
 class Pth(ED, EDMix):
     cls  = MyStringField(help_text='Parent _cls')
     slug = MyStringField(help_text='Parent slug')
     role = MyStringField(help_text='Child role')
-    
-    
+
+
     pth  = MyStringField(help_text='Cmp.ni.admin.11')
     uris = app.me.ListField(app.me.StringField())
 
@@ -122,6 +122,7 @@ class Mixin(object):
     tels = app.me.ListField(app.me.EmbeddedDocumentField(Tel))
     notes  = app.me.ListField(app.me.EmbeddedDocumentField(Note))
     slug   = app.me.StringField()
+    _c   = app.me.StringField()
 
     sId    = app.me.SequenceField()
 

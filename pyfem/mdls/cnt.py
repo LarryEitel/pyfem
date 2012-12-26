@@ -14,6 +14,7 @@ class Cnt(D, Mixin):
     # need this.
     meta = {'allow_inheritance': True,
             'indexes': [
+                {'fields':['_c']},
                 {'fields':['slug'], 'unique': True},
                 {'fields':['sId'], 'unique': True},
                 {'fields':['pars.cls', 'pars.slug']},
@@ -159,11 +160,7 @@ class Usr(Prs):
     uNam    = app.me.StringField(required=True)
 
     meta = {
-        'indexes': [{'fields':['slug'], 'unique': True},
-                    {'fields':['sId'], 'unique': True},
-                    {'fields':['uNam'], 'unique': True, 'sparse': True},
-                    {'fields':['-mOn']}
-                    ]
+        'indexes': [{'fields':['uNam'], 'unique': True, 'sparse': True}]
         }
 
     def get_absolute_url(self):

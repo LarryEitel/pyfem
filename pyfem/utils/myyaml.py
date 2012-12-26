@@ -51,6 +51,12 @@ def postToMongo(post, yamlFilePath):
 
     return {'response': response, 'status': status}
 
+def lTrimCompare(yml, expect):
+    '''Convenience funct to compare outputted yaml with inline snippet. Inline snippet is indented in the code. This function left trims the white space.'''
+    i = 2
+    while expect[i] == ' ': i += 1
+    return yml == expect.replace(u' '*(i-1), '')
+
 
 def pyObj(yamlFilePath):
     yamlFilePath += '.yaml' if '.yaml' not in yamlFilePath else ''

@@ -18,7 +18,8 @@ from util import (
 )
 
 def get_app():
-    app = Flask(__name__)
+    #app = Flask(__name__)
+    app = Flask('pyfem')
     app.config.from_object(Config)
 
     # set environment PYFEM_SETTINGS=testing_settings to automatically use a -test version of db
@@ -47,7 +48,6 @@ def get_app():
     #     app.jinja_env.loader = ModuleLoader(compiled_templates)
 
     configure_logging(app)
-
     return app
 
 app = get_app()

@@ -336,7 +336,8 @@ def configure_logging(app):
         # '%(asctime)-15s\n%(levelname)s in %(module)s [%(pathname)s:%(lineno)d]:\n' +
         #    '%(message)s\n
         log_format = (
-            '%(message)s |%(levelname)s:%(pathname)s:[%(lineno)d]'
+            #'%(message)s |%(levelname)s:%(pathname)s:[%(lineno)d]'
+            '%(message)s'
         )
 
         new_handler.setFormatter(logging.Formatter(log_format))

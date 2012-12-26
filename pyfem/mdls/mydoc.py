@@ -72,8 +72,9 @@ class D(app.me.Document, DMix):
         return validate(self)
     # http://stackoverflow.com/questions/6102103/using-mongoengine-document-class-methods-for-custom-validation-and-pre-save-hook
 
-    #def save(self, *args, **kwargs):
-        #super(MyDoc, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self._c = self._cls
+        super(D, self).save(*args, **kwargs)
 
     def generate_slug(self, value):
         """Query the database for similarly matching values. Then

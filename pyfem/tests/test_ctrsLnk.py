@@ -5,14 +5,10 @@ except ImportError:
     import unittest  # NOQA
 
 from core import BaseMongoTestCase
-from utils import myyaml, mdl
-from utils.myyaml import postToMongo
+from utils import myyaml
+from utils.myyaml import postToMongo, lTrimCompare
 import ctrs
 import mdls
-def cmpYml(yml, expect):
-    i = 2
-    while expect[i] == ' ': i += 1
-    return yml == expect.replace(u' '*(i-1), '')
 
 class CtrsLnkTests(BaseMongoTestCase):
     def test_add(self):
@@ -25,62 +21,64 @@ class CtrsLnkTests(BaseMongoTestCase):
 
         # start of cmd's to add/manipulate db
         # here are a few
+        Post.cmd('Cmp|slug:ni|cNam:GSNI|typ:company')
+        Post.cmd('Cmp|slug:kirmse|cNam:Kirmse|typ:area')
+        Post.cmd('Cmp|slug:unit104|cNam:104|typ:unit')
+        Post.cmd('Cmp|slug:troop1031|cNam:1031|typ:troop')
+        Post.cmd('Pl|slug:atlanta-ga|city:Atlanta')
         Post.cmd('Cmp|slug:ms|cNam:MS')
         Put.cmd('push|Cmp.ms.tels|text:123 456 7890|typ:work')
         Put.cmd('push|Cmp.ni.tels|text:123 456 7890|typ:work')
         Put.cmd('push|Cmp.ni.emails|address:steve@apple.com|typ:work')
         Put.cmd('set|Cmp|q:slug:ni,emails.address:steve@apple.com,emails.typ:work|emails.$.address:bill@ms.com|emails.$.typ:home')
-        Put.cmd('set|Cmp|q:slug:ni|cNam:New Name')
+
 
         # Link kirmse to ni
         resp = Lnk.cmd('add|Cmp.kirmse|Cmp.ni|area-company')
-        assert cmpYml(to_yaml(resp['response']['doc']), \
+        assert lTrimCompare(to_yaml(resp['response']['doc']), \
             '''
             Cmp.kirmse
               pars
-                Cmp.ni
+                Cmp.ni.area
               pths
-                Cmp.ni.company
+                Cmp.ni.company: [Cmp.ni]
             ''')
 
         # Link unit104 to kirmse
         resp = Lnk.cmd('add|Cmp.unit104|Cmp.kirmse|unit-area')
-        assert cmpYml(to_yaml(resp['response']['doc']), \
+        assert lTrimCompare(to_yaml(resp['response']['doc']), \
             '''
             Cmp.unit104
               pars
-                Cmp.kirmse
-                  Cmp.ni
+                Cmp.kirmse.unit
               pths
-                Cmp.kirmse.area
-                Cmp.ni.company
+                Cmp.kirmse.area: [Cmp.kirmse]
+                Cmp.ni.company: [Cmp.ni,Cmp.kirmse]
             ''')
 
         # Link troop1031 to unit104
         resp = Lnk.cmd('add|Cmp.troop1031|Cmp.unit104|troop-unit')
-        assert cmpYml(to_yaml(resp['response']['doc']), \
+        assert lTrimCompare(to_yaml(resp['response']['doc']), \
             '''
             Cmp.troop1031
               pars
-                Cmp.unit104
-                  Cmp.kirmse
-                    Cmp.ni
+                Cmp.unit104.troop
               pths
-                Cmp.unit104.unit
-                Cmp.kirmse.area
-                Cmp.ni.company
+                Cmp.unit104.unit: [Cmp.unit104]
+                Cmp.kirmse.area: [Cmp.kirmse,Cmp.unit104]
+                Cmp.ni.company: [Cmp.ni,Cmp.kirmse,Cmp.unit104]
             ''')
 
 
         # Link ni to atlanta-ga
         resp = Lnk.cmd('add|Cmp.ni|Pl.atlanta-ga|office')
-        assert cmpYml(to_yaml(resp['response']['doc']), \
+        assert lTrimCompare(to_yaml(resp['response']['doc']), \
             '''
             Cmp.ni
               pars
-                Pl.atlanta-ga
-              pths
                 Pl.atlanta-ga.office
+              pths
+                Pl.atlanta-ga.office: [Pl.atlanta-ga]
               Children
                 Cmp.kirmse
                   Cmp.unit104
@@ -88,18 +86,16 @@ class CtrsLnkTests(BaseMongoTestCase):
             ''')
 
         _in_pths = ctrs.d.referenced_in_pths(resp['response']['doc'])
-        # did Pl.atlanta-ga.office get added correctly to pths?
-        assert cmpYml(_in_pths['_yml']['Cmp.unit104'], \
+        ## did Pl.atlanta-ga.office get added correctly to pths?
+        assert lTrimCompare(_in_pths['_yml']['Cmp.unit104'], \
             '''
             Cmp.unit104
               pars
-                Cmp.kirmse
-                  Cmp.ni
-                    Pl.atlanta-ga
+                Cmp.kirmse.unit
               pths
-                Cmp.kirmse.area
-                Cmp.ni.company
-                Pl.atlanta-ga.office
+                Cmp.kirmse.area: [Cmp.kirmse]
+                Cmp.ni.company: [Cmp.ni,Cmp.kirmse]
+                Pl.atlanta-ga.office: [Pl.atlanta-ga,Cmp.ni]
               Children
                 Cmp.troop1031
             ''')
@@ -107,29 +103,6 @@ class CtrsLnkTests(BaseMongoTestCase):
 
     def setUp(self):
         super(CtrsLnkTests, self).setUp()
-        g = self.g
-        me = g['me']
-        self._clss        = g['_clss']
-        self.post    = post    = ctrs.post.Post().post
-        self.put     = put     = ctrs.put.Put().put
-        self.lnkAdd  = lnkAdd  = ctrs.lnk.Lnk().add
-        self.usecase = usecase = myyaml.pyObj(self.tests_data_yaml_dir + 'ctrsLnk')
-        self.sampDat = sampDat = usecase['sampDat']
-
-        # load lnkroles
-        resp = postToMongo(post, self.data_dir + 'lnkroles')
-        assert resp['status'] == 200
-        assert len(resp['response']['docs']) == len(resp['response']['yamlData']['data'])
-
-        # load sample initial data
-        for item in sampDat['initload'].itervalues():
-            self.asrt(post(item))
-
-    def asrt(self, cmd):
-        resp = cmd
-        if not resp['status'] == 200:
-            print resp['response']['errors'][0]
-        assert resp['status'] == 200
 
 if __name__ == "__main__":
     unittest.main()
