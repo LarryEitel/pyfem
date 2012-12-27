@@ -15,7 +15,7 @@ Link a doc/child to a parent as child-parent role
         Add pthLnks to chldDoc.pths.
         Unlock chldDoc.
 
-put Usr.lwe.pars, $push, Cmp.ni, admin
+
 
 
 

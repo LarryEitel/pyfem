@@ -21,6 +21,7 @@ class EDMix(object):
     w       = app.me.FloatField()
     prim    = app.me.BooleanField()
     note    = app.me.EmbeddedDocumentField(Note)
+    _c   = app.me.StringField()
 
     def validateList(self, theList):
         errors = {}
@@ -61,7 +62,7 @@ class EDMix(object):
         return errors
 
 class Par(ED, EDMix):
-    cls  = MyStringField(help_text='Parent _cls')
+    cls  = MyStringField(help_text='Parent _c')
     slug = MyStringField(help_text='Parent slug')
     role = MyStringField(help_text='Child role')
     mask = MyStringField(help_text='Child role mask')
@@ -72,7 +73,7 @@ class Par(ED, EDMix):
     _meta  = {'unique_with': ['cls', 'slug', 'role']}
 
 class Pth(ED, EDMix):
-    cls  = MyStringField(help_text='Parent _cls')
+    cls  = MyStringField(help_text='Parent _c')
     slug = MyStringField(help_text='Parent slug')
     role = MyStringField(help_text='Child role')
 

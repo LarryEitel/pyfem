@@ -17,23 +17,121 @@ class Lnk(object):
         params = cmd.split('|')
         fn = params.pop(0)
 
+        if fn == 'del':
+            # example: 'del|Cmp.kirmse|Cmp.ni|area-company'
+            chld_ = params[0].split('.')
+            par_ = params[1].split('.')
+            role_ = params[2]
+            resp = self.delete(**dict(
+                chld_=
+                    dict(
+                        _c=chld_[0],
+                        slug=chld_[1]),
+                par_=
+                    dict(
+                        _c=par_[0],
+                        slug=par_[1]),
+                role_=role_))
+            assert resp['status'] == 200
+            return resp
+
         if fn == 'add':
-            # example: 'lnkAdd|Cmp.kirmse|Cmp.ni|area-company'
+            # example: 'add|Cmp.kirmse|Cmp.ni|area-company'
             chld_ = params[0].split('.')
             par_ = params[1].split('.')
             role_ = params[2]
             resp = self.add(**dict(
                 chld_=
                     dict(
-                        _cls=chld_[0],
+                        _c=chld_[0],
                         slug=chld_[1]),
                 par_=
                     dict(
-                        _cls=par_[0],
+                        _c=par_[0],
                         slug=par_[1]),
                 role_=role_))
             assert resp['status'] == 200
             return resp
+
+    def delete(self, chld_, par_, role_):
+        '''
+            Delete an existing lnk/link between two docs
+            Example:
+                Imagine docs: Owner, Company, Dept, Manager, Employee
+                    Employee is linked to Manager
+                    Manager is linked to Dept
+                    Dept is linked to Company
+                    Company is linked to Owner
+            Delete Company/Owner link
+                If Owner is no longer the 'parent' of Company, then:
+                    Delete Company/Owner link.
+                    Delete pths that contain this relationship
+            '''
+
+        me           = app.me
+        g            = app.g
+        pymongo        = app.pymongo
+        _clss        = g['_clss']
+        response     = {}
+        status       = 200
+        doc_errors = []
+        usrOID       = app.g['usr']['OID']
+
+        query = {'slug': chld_['slug']}
+
+        # get chld/child collection
+        chldColl    = pymongo[_clss[chld_['_c']]['collNam']]
+
+        # get par/parent collection
+        parColl    = pymongo[_clss[par_['_c']]['collNam']]
+
+
+        # lock the child/chld doc that was linked to par/parent
+        chld  = chldColl.find_and_modify(
+              query = {'slug': chld_['slug']},
+              update = {'$set': {'lock': True}},
+              new = True
+            )
+        if not chld:
+            return {'response': dict(errors="Failed to lock child.", status=500)}
+
+        # find and delete the lnk that was made to the parent
+        chld  = chldColl.find_and_modify(
+              query = {'slug': chld_['slug'], 'pars.cls': par_['_c'], 'pars.slug': par_['slug'], 'pars.role': role_.split('-')[0]},
+              update = {'$set': {'pars.$.deleted': True}},
+              new = True
+            )
+        if not chld:
+            return {'response': dict(errors="Failed to delete par/parent.", status=500)}
+
+
+        # what about other collections?
+        for _id in chldColl.find({'pths.cls': par_['_c'], 'pths.slug': par_['slug'], 'pths.role': role_.split('-')[1]}, {'_id': 1}):
+            doc = chldColl.find_and_modify(
+                query = {'_id': _id['_id'], 'pths.cls': par_['_c'], 'pths.slug': par_['slug'], 'pths.role': role_.split('-')[1]},
+                update = {'$set': {'pths.$.deleted': True}},
+                new = True
+            )
+            if not doc:
+                return {'response': dict(errors="Failed to delete pth.", status=500)}
+
+        # unlock the child/chld doc that was linked to par/parent
+        doc  = chldColl.find_and_modify(
+              query = {'slug': chld_['slug']},
+              update = {'$unset': {'locked': True}},
+              new = True
+            )
+        if not chld:
+            return {'response': dict(errors="Failed to unlock child.", status=500)}
+
+
+        response['_id'] = doc['_id']
+        response['OID'] = doc['_id'].__str__()
+        response['uri'] = doc['_c'].split('.')[-1] + '.' + doc['slug']
+        response['doc'] = doc
+
+        return {'response': response, 'status': status}
+
 
     def add(self, chld_, par_, role_):
         me           = app.me
@@ -47,18 +145,14 @@ class Lnk(object):
 
         query = {'slug': chld_['slug']}
 
-        # get par class that we will create a lnk/path to
-        parCls     = getattr(mdls, par_['_cls'])
-        parCollNam = _clss[par_['_cls']]['collNam']
-        parColl    = pymongo[parCollNam]
+        # get par collection that we will create a lnk/path to
+        parColl    = pymongo[_clss[par_['_c']]['collNam']]
 
         # get par_/par doc
         par    = parColl.find_one({'slug': par_['slug']})
 
-        # get par_/par class that we will create a lnk/path
-        chldCls     = getattr(mdls, chld_['_cls'])
-        chldCollNam = _clss[chld_['_cls']]['collNam']
-        chldColl    = pymongo[chldCollNam]
+        # get child collection
+        chldColl    = pymongo[_clss[chld_['_c']]['collNam']]
 
         # find and lock the child doc that will be updated
         ### RACE: Handle if already locked, retry
@@ -71,8 +165,7 @@ class Lnk(object):
             return {'response': dict(errors="Failed to lock.", status=500)}
 
         # get role details
-        roleCollNam = _clss['LnkRole']['collNam']
-        roleColl    = pymongo[roleCollNam]
+        roleColl    = pymongo[_clss['LnkRole']['collNam']]
 
         role = roleColl.find_one({'slug': role_})
         if not role:
@@ -82,14 +175,14 @@ class Lnk(object):
         flds = {}
 
         # init parLnk to be pushed to chld.pars
-        parLnk      = dict(cls= par_['_cls'], slug= par_['slug'], role= role['chld'])
+        parLnk      = dict(cls= par_['_c'], slug= par_['slug'], role= role['chld'])
         if 'mask' in role and role['mask']: parLnk['mask'] = role['mask']
 
         pths = []
 
         # init Pth to be pushed to pths
-        parPth      = dict(cls= par_['_cls'], slug= par_['slug'], role= role['par'],
-                           uris= [par_['_cls'] + '.' + par_['slug']])
+        parPth      = dict(cls= par_['_c'], slug= par_['slug'], role= role['par'],
+                           uris= [par_['_c'] + '.' + par_['slug']])
 
         pths.append(parPth)
 
@@ -98,7 +191,7 @@ class Lnk(object):
         if 'pths' in par and par['pths']:
             for pthItem in par['pths']:
                 pthItem['uris'] = list(pthItem['uris'])
-                pthItem['uris'].append(par_['_cls'] + '.' + par_['slug'])
+                pthItem['uris'].append(par_['_c'] + '.' + par_['slug'])
                 pths.append(dict(pthItem))
 
 
@@ -132,11 +225,11 @@ class Lnk(object):
 
         # $push pars
         # need to add to parPth.uris
-        parPth['uris'].append(chld_['_cls'] + '.' + chld_['slug'])
+        parPth['uris'].append(chld_['_c'] + '.' + chld_['slug'])
 
 
         # what about other collections?
-        for _id in chldColl.find({'pths.uris': chld_['_cls'] + '.' + chld_['slug']}, {'_id': 1}):
+        for _id in chldColl.find({'pths.uris': chld_['_c'] + '.' + chld_['slug']}, {'_id': 1}):
             doc = chldColl.find_and_modify(
                 query = {'_id': _id['_id']},
                 update = {'$push': {'pths': parPth}},
@@ -155,7 +248,7 @@ class Lnk(object):
 
         response['_id'] = doc['_id']
         response['OID'] = doc['_id'].__str__()
-        response['uri'] = doc['_cls'].split('.')[-1] + '.' + doc['slug']
+        response['uri'] = doc['_c'].split('.')[-1] + '.' + doc['slug']
         response['doc'] = doc
 
         return {'response': response, 'status': status}

@@ -14,6 +14,9 @@ for cls, val in _clss.iteritems():
 
 
 class Base(object):
+    def __init__(self, deleted=False):
+        self.deleted = deleted
+
     def data(self):
         return dict([(k,v) for k,v in self.__dict__.iteritems() if not k[0] == '_' and v and not type(v) == datetime.datetime])
 class D(Base):
@@ -91,12 +94,11 @@ class D(Base):
         yml += (u'  '*level) + self.__yaml__()
         if hasattr(self, 'pars') and self.pars:
             if level < 1:
-                yml += '\n' + (u'  '*(level+1)) + 'pars'
-                level += 1
+                yml += '\n' + (u'  '*1) + 'pars'
 
             for _par in self.pars:
                 par = Par(**_par)
-                yml += par.to_yaml(level+1)
+                yml += par.to_yaml(level+2)
                 #for chld in mColls[par.cls].find(dict(slug=par.slug)):
                     #chld_cls = chld['_cls'].split('.')[-1]
                     #doc = getattr(__import__(self.__module__), chld_cls)()
@@ -111,12 +113,12 @@ class D(Base):
                     ##debug('Return from recurse:\n' + yml)
 
         if level < 2:
-            level -= 1 # hackage!
+            #level -= 1 # hackage!
             if hasattr(self, 'pths') and self.pths:
-                yml += '\n' + (u'  '*(level+1)) + 'pths' + '\n'
+                yml += '\n' + (u'  '*1) + 'pths'
                 for _pth in self.pths:
                     pth = Pth(**_pth)
-                    yml += (u'  '*(level+2)) + pth.__yaml__() + '\n'
+                    yml += pth.to_yaml(2)
 
         # children
         chlds = []
@@ -129,9 +131,9 @@ class D(Base):
                 if chldsNew:
                     chlds += chldsNew
             if chlds:
-                yml += (u'  '*(level+1)) + 'Children' + '\n'
+                yml += '\n' + (u'  '*(1)) + 'Children'
                 for line in chlds:
-                    yml += (u'  '*(line['level'])) + line['obj'].__yaml__() + '\n'
+                    yml += '\n' + (u'  '*(line['level'])) + line['obj'].__yaml__()
 
         return yml
 
@@ -191,11 +193,14 @@ class D(Base):
         return lines
 class Pth(Base):
     _cls = _c = 'Pth'
-    def __init__(self, cls='', slug='', role='', uris=[]):
+    def __init__(self, cls='', slug='', role='', uris=[], **kwargs):
         self.cls = cls
         self.slug = slug
         self.role = role
         self.uris = uris
+
+    def to_yaml(self, level):
+        return '\n' + (u'  '*(level)) + self.__yaml__()
 
     def __repr__(self):
         s = '.'.join([self.cls, self.slug])
@@ -206,7 +211,7 @@ class Pth(Base):
         return self.__repr__() + ': [' + (','.join(self.uris)) + ']'
 class Par(Base):
     _cls = _c = 'Par'
-    def __init__(self, cls='', slug='', role='', mask=''):
+    def __init__(self, cls='', slug='', role='', mask='', **kwargs):
         self.cls = cls
         self.slug = slug
         self.role = role

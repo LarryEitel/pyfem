@@ -24,7 +24,7 @@ class Post(object):
 
         # get flds to set
         doc   = dict([(v.split(':')[0], v.split(':')[1]) for v in params])
-        doc['_cls'] = _cls
+        doc['_cls'] = doc['_c'] = _cls
         doc['_types'] = [_cls]
 
         resp = post(**{'docs': [doc]})
@@ -48,7 +48,10 @@ class Post(object):
             errors      = {}
             doc_info    = {}
 
-            modelClass = getattr(mdls, docData['_cls'])
+            try:
+                modelClass = getattr(mdls, docData['_c'])
+            except:
+                modelClass = getattr(mdls, docData['_cls'])
 
             doc = modelClass(**docData)
             resp = doc.save()

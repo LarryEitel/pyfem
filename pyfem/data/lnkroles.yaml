@@ -24,6 +24,27 @@ data:
     par      : client
     chldClss: [Cmp,Prs,Usr]
     chld     : consultant
+  manager-dept:
+    _cls     : LnkRole
+    slug     : manager-dept
+    parClss : [Cmp]
+    par      : dept
+    chldClss: [Prs,Usr]
+    chld     : manager 
+  employee-manager:
+    _cls     : LnkRole
+    slug     : employee-manager
+    parClss : [Prs,Usr]
+    par      : manager
+    chldClss: [Prs,Usr]
+    chld     : employee 
+  company-owner:
+    _cls     : LnkRole
+    slug     : company-owner
+    parClss : [Usr,Prs]
+    par      : owner
+    chldClss: [Cmp]
+    chld     : company
   dept-company:
     _cls     : LnkRole
     slug     : dept-company
