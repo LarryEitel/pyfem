@@ -389,10 +389,10 @@ class DS(object):
             docInstance = docCls(**doc)
             data = docInstance.data()
             # temp
-            del data['pars']
-            del data['pths']
-            del data['slug']
-            del data['sId']
+            delFlds = ['pars', 'pths', 'slug', 'sId']
+            for delFld in delFlds:
+                if delFld in data: del data[delFld]
+
             s = u'|'.join([u"%s:%s" %(k,v) for k,v in data.iteritems()]).replace(u"u'", u"'")
             item.append(s)
 

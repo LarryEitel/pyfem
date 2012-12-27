@@ -14,11 +14,34 @@ class CtrsGetTests(BaseMongoTestCase):
     def test_get(self):
         Get = ctrs.get.Get()
         DS = ctrs.d.DS()
-        #docs = Get.get(**dict(collNam='cnts', query=dict(_c='Usr'), vflds=True))
-        #docs = Get.get(**dict(collNam='cnts', query=dict(_c='Usr'), fields='fNam, lNam,_id:0'))
-        #docs = Get.get(**dict(collNam='cnts', query=dict(_c='Cmp'), sorts='cNam-1'))
+
+
+        docs = Get.get(**dict(collNam='cnts', query=dict(_c='Usr'), vflds=True))
+        assert docs[0]['vNam'] == u"Stooge, Larry Wayne"
+        docs = Get.cmd('cnts|q:_c:Usr|vflds:1')
+        assert docs[0]['vNam'] == u"Stooge, Larry Wayne"
+
+        docs = Get.get(**dict(collNam='cnts', query=dict(_c='Usr'), fields='fNam, lNam,_id:0'))
+        assert len(docs[0].keys()) == 3
+        docs = Get.cmd('cnts|q:_c:Usr|fields:fNam,lNam,_id:0')
+        assert len(docs[0].keys()) == 3
+
+        docs = Get.get(**dict(collNam='cnts', query=dict(_c='Cmp'), sorts='cNam-1'))
+        assert docs[0]['cNam'] == u"New Name"
+        docs = Get.cmd('cnts|q:_c:Cmp|sorts:cNam-1')
+        assert docs[0]['cNam'] == u"New Name"
+
         docs = Get.get(**dict(collNam='cnts', skip=2, limit=2))
-        DS.listDocs(docs)
+        assert len(docs) == 2
+        docs = Get.cmd('cnts|skip:2|limit:2')
+        assert len(docs) == 2
+
+        docs = Get.get(**dict(collNam='cnts', query={'emails.address':'bill@ms.com'}))
+        assert docs[0]['emails'][0]['address'] == u"bill@ms.com"
+        docs = Get.cmd('cnts|q:emails.address:bill@ms.com|fields:cNam,emails,_id:0|sorts:cNam-1|vflds:1|skip:0|limit:1')
+        assert docs[0]['emails'][0]['address'] == u"bill@ms.com"
+
+        #DS.listDocs(docs)
         pass
 
     def setUp(self):

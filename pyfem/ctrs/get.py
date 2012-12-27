@@ -10,52 +10,50 @@ from mdls import *
 
 class Get(object):
     def cmd(self, cmd):
+        # example: 'cnts|q:emails.address:bill@ms.com|fields:cNam,_id:0|sorts:cNam-1|vflds:1|skip:0|limit:1'
         g = app.g
         debug = g['logger'].debug
-        post    = ctrs.post.Post().post
-        put     = ctrs.put.Put().put
+        get    = ctrs.get.Get().get
         fldClss = g['fldClss']
 
         debug(u'\n' + (u'_'*50) + u'\n' + cmd + u'\n' + (u'_'*50))
         params = cmd.split('|')
-        fn = params.pop(0)
+        collNam = params.pop(0)
+        data = dict(collNam=collNam)
+        for _param in params:
+            param = _param[0:_param.index(':')]
+            _param = _param[_param.index(':')+1:]
+            if param == 'q':
+                query = {}
+                _paramParts = _param.split(',')
+                for _paramPart in _paramParts:
+                    _paramPartSplit = _paramPart.split(':')
+                    query[_paramPartSplit[0]] = _paramPartSplit[1]
+                data['query'] = query
+            elif param == 'fields':
+                data['fields'] = _param
+            elif param == 'sorts':
+                data['sorts'] = _param
+            elif param == 'vflds':
+                data['vflds'] = True
+            elif param == 'skip':
+                data['skip'] = _param
+            elif param == 'limit':
+                data['limit'] = _param
 
-        if fn == 'set':
-            # example: 'set|Cmp|q:slug:ni,emails.address:steve@apple.com,emails.typ:work|address:bill@ms.com|typ:home'
-            uri    = params.pop(0)
-            _cls   = uri
-            querys = params.pop(0)[2:].split(',') # strip off q: and split
-            query  = dict([(v.split(':')[0],v.split(':')[1]) for v in querys])
-            data   = dict(_cls=_cls, query=query)
+        docs = get(**data)
+        return docs
 
-            # get flds to set
-            flds   = dict([(v.split(':')[0], v.split(':')[1]) for v in params])
 
-            data['update'] = dict(actions={'$set': dict(flds=flds)})
-            resp = put(**data)
-            assert resp['status'] == 200
-            return resp
-
-        if fn == 'push':
-            # example: 'putPush|Prs.lwe.emails|address:steve@apple.com|typ:work'
-            uri = params.pop(0).split('.')
-            _cls = uri[0]
-            slug = uri[1]
-            fld = uri[2]
-            data = dict(_cls=_cls, query=dict(slug=slug))
-            fldCls = fldClss[fld]
-
-            # get flds to set
-            flds = dict([(v.split(':')[0], v.split(':')[1]) for v in params])
-            flds['_cls'] = fldCls
-            flds['_types'] = [fldCls]
-
-            data['update'] = dict(actions={'$push': dict(flds={fld: [flds]})})
-            resp = put(**data)
-            assert resp['status'] == 200
-            return resp
-
-    def get(self, collNam, query=None, fields=None, sorts=None, skip=0, limit=0, vflds=False):
+    def get(self,
+            collNam,       # ie cnts
+            query=None,    # ie {'slug':'ni'}
+            fields=None,   # ie fNam, lNam,_id:0
+            sorts=None,    # ie cNam-1 ## cNam descending
+            skip=0,
+            limit=0,
+            vflds=False    # ie vflds:1 ## include virtual fields like vNam
+            ):
         debug    = app.g['logger'].debug
         me       = app.me
         g        = app.g
@@ -75,6 +73,9 @@ class Get(object):
                     flds[fld[:-2]] = 0
                 else:
                     flds[fld] = 1
+
+            # make sure _c included
+            flds['_c'] = 1
             fields = flds
 
         if sorts:
@@ -89,20 +90,42 @@ class Get(object):
                     flds.append((fld, 1))
             sorts = flds
 
-        if sorts:
-            cursor = coll.find(query, fields = fields, skip = int(skip), limit = int(limit)).sort(sorts)
+        if not vflds:
+            if sorts:
+                cursor = coll.find(query, fields = fields, skip = int(skip), limit = int(limit)).sort(sorts)
+            else:
+                cursor = coll.find(query, fields = fields, skip = int(skip), limit = int(limit))
         else:
-            cursor = coll.find(query, fields = fields, skip = int(skip), limit = int(limit))
+            # need all field for virtual functions, filter fields later if requested
+            if sorts:
+                cursor = coll.find(query, skip = int(skip), limit = int(limit)).sort(sorts)
+            else:
+                cursor = coll.find(query, skip = int(skip), limit = int(limit))
+
 
         docs = []
         for doc in cursor:
             # handle any virtual fields
             if vflds:
                 docCls = getattr(ctrs.d, doc['_c'])
+                docFlds = {}
                 for vfld in [vfld for vfld in dir(docCls)
                              if vfld[0] == 'v'
                              and hasattr(getattr(docCls, vfld), '__call__')]:
+
+
+                    docFlds[vfld] = getattr(docCls, vfld)(**doc)
                     doc[vfld] = getattr(docCls, vfld)(**doc)
+
+                    # filter fields here cause needed fields for virtual functions
+                    if fields:
+                        _doc = {}
+                        for fld in [k for k,v in fields.iteritems() if v]:
+                            _doc[fld] = doc[fld]
+                        doc = _doc
+
+                for k, v in docFlds.iteritems():
+                    doc[k] = v
             docs.append(doc)
 
         return docs
