@@ -29,7 +29,9 @@ class Put(object):
             data   = dict(_cls=_cls, query=query)
 
             # get flds to set
-            flds   = dict([(v.split(':')[0], v.split(':')[1]) for v in params])
+            flds   = dict([(v.split(':')[0],
+                            v.split(':')[1] if not v.split(':')[1].isdigit() else int(v.split(':')[1]))
+                           for v in params])
 
             data['update'] = dict(actions={'$set': dict(flds=flds)})
             resp = put(**data)

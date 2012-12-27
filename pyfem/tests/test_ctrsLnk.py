@@ -134,7 +134,7 @@ class CtrsLnkTests(BaseMongoTestCase):
                 Pl.ny-ny.office: [Pl.ny-ny,Cmp.kirmse]
             ''')
         x=0
-    def test_delete(self):
+    def test_trash(self):
         g = self.g
         to_yaml = ctrs.d.to_yaml
         debug   = self.g['logger'].debug
@@ -166,9 +166,9 @@ class CtrsLnkTests(BaseMongoTestCase):
         docs = Get.cmd('cnts')
         DS.listDocs(docs)
 
-        # this is the before delete action
-        docs = Get.cmd('cnts|q:slug:owner')
-        assert lTrimCompare(to_yaml(docs[0]), \
+        # this is the before trash action
+        doc = Get.cmd('cnts:1|q:slug:owner')
+        assert lTrimCompare(to_yaml(doc), \
             '''
             Prs.owner
               Children
@@ -178,8 +178,8 @@ class CtrsLnkTests(BaseMongoTestCase):
                       Prs.employee
             ''')
 
-        docs = Get.cmd('cnts|q:slug:company')
-        assert lTrimCompare(to_yaml(docs[0]), \
+        doc = Get.cmd('cnts:1|q:slug:company')
+        assert lTrimCompare(to_yaml(doc), \
             '''
             Cmp.company
               pars
@@ -192,8 +192,8 @@ class CtrsLnkTests(BaseMongoTestCase):
                     Prs.employee
             ''')
 
-        docs = Get.cmd('cnts|q:slug:employee')
-        assert lTrimCompare(to_yaml(docs[0]), \
+        doc = Get.cmd('cnts:1|q:slug:employee')
+        assert lTrimCompare(to_yaml(doc), \
             '''
             Prs.employee
               pars
@@ -205,13 +205,23 @@ class CtrsLnkTests(BaseMongoTestCase):
                 Prs.owner.owner: [Prs.owner,Cmp.company,Cmp.dept,Prs.manager]
             ''')
 
-        # delete lnk
-        resp = Lnk.cmd('del|Cmp.company|Prs.owner|company-owner')
-        resp['response']['doc']['pars'][0]['deleted'] == True
+        # trash lnk
+        # direct call
+        resp = Lnk.trash(**dict(chld_=dict(_c='Cmp', slug='company'), par_= dict(_c='Prs', slug='owner'), role_='company-owner'))
+        resp['response']['doc']['pars'][0]['trash'] == True
 
-        # check at least one of doc.pths that should now have deleted = True
-        docs = Get.cmd('cnts|q:slug:employee')
-        docs[0]['pths'][3]['deleted'] == True
+
+        # using cmd shortcut
+        # TODO: create Put.recycle to unset trash field
+        resp = Put.cmd('set|Cmp|q:slug:company|pars.0.trash:0')
+
+        resp = Lnk.cmd('del|Cmp.company|Prs.owner|company-owner')
+        resp['response']['doc']['pars'][0]['trash'] == True
+
+
+        # check at least one of doc.pths that should now have trash = True
+        doc = Get.cmd('cnts:1|q:slug:employee')
+        doc['pths'][3]['trash'] == True
 
 
 

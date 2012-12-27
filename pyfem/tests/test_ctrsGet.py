@@ -11,10 +11,18 @@ import ctrs
 import mdls
 
 class CtrsGetTests(BaseMongoTestCase):
-    def test_get(self):
+    def test_get_one(self):
         Get = ctrs.get.Get()
         DS = ctrs.d.DS()
 
+        doc = Get.get_one(**dict(collNam='cnts', query=dict(_c='Usr'), vflds=True))
+        assert doc['vNam'] == u"Stooge, Larry Wayne"
+        doc = Get.cmd('cnts:1|q:_c:Usr|vflds:1')
+        assert doc['vNam'] == u"Stooge, Larry Wayne"
+
+    def test_get(self):
+        Get = ctrs.get.Get()
+        DS = ctrs.d.DS()
 
         docs = Get.get(**dict(collNam='cnts', query=dict(_c='Usr'), vflds=True))
         assert docs[0]['vNam'] == u"Stooge, Larry Wayne"

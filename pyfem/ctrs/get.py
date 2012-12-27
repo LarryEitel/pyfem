@@ -19,6 +19,10 @@ class Get(object):
         debug(u'\n' + (u'_'*50) + u'\n' + cmd + u'\n' + (u'_'*50))
         params = cmd.split('|')
         collNam = params.pop(0)
+
+        get_one = collNam[-2:] == ':1'
+        collNam = collNam[:-2] if get_one else collNam
+
         data = dict(collNam=collNam)
         for _param in params:
             param = _param[0:_param.index(':')]
@@ -41,26 +45,41 @@ class Get(object):
             elif param == 'limit':
                 data['limit'] = _param
 
+        if get_one:
+            data['skip'] = 0
+            data['limit'] = 1
+
         docs = get(**data)
         return docs
 
 
-    def get(self,
+    def get_one(self,
             collNam,       # ie cnts
+            query=None,    # ie {'slug':'ni'}
+            fields=None,   # ie fNam, lNam,_id:0
+            sorts=None,    # ie cNam-1 ## cNam descending
+            limit=0,
+            vflds=False    # ie vflds:1 ## include virtual fields like vNam
+            ):
+        return self.get(**dict(collNam=collNam, query=query, fields=fields, sorts=sorts, vflds=vflds, limit=1))
+
+    def get(self, collNam, query=None, fields=None, sorts=None, skip=0, limit=0, vflds=False):
+        '''
+            Nam,       # ie cnts
             query=None,    # ie {'slug':'ni'}
             fields=None,   # ie fNam, lNam,_id:0
             sorts=None,    # ie cNam-1 ## cNam descending
             skip=0,
             limit=0,
             vflds=False    # ie vflds:1 ## include virtual fields like vNam
-            ):
+            '''
         debug    = app.g['logger'].debug
         me       = app.me
         g        = app.g
         D        = ctrs.d.D
         pymongo  = app.pymongo
 
-        coll       = pymongo[collNam]
+        coll     = pymongo[collNam]
 
 
         if fields:
@@ -127,5 +146,8 @@ class Get(object):
                 for k, v in docFlds.iteritems():
                     doc[k] = v
             docs.append(doc)
+
+        if int(limit) == 1 and not skip and docs:
+            return docs[0]
 
         return docs

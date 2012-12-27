@@ -22,7 +22,7 @@ class Lnk(object):
             chld_ = params[0].split('.')
             par_ = params[1].split('.')
             role_ = params[2]
-            resp = self.delete(**dict(
+            resp = self.trash(**dict(
                 chld_=
                     dict(
                         _c=chld_[0],
@@ -53,7 +53,7 @@ class Lnk(object):
             assert resp['status'] == 200
             return resp
 
-    def delete(self, chld_, par_, role_):
+    def trash(self, chld_, par_, role_):
         '''
             Delete an existing lnk/link between two docs
             Example:
@@ -95,25 +95,25 @@ class Lnk(object):
         if not chld:
             return {'response': dict(errors="Failed to lock child.", status=500)}
 
-        # find and delete the lnk that was made to the parent
+        # find and trash the lnk that was made to the parent
         chld  = chldColl.find_and_modify(
               query = {'slug': chld_['slug'], 'pars.cls': par_['_c'], 'pars.slug': par_['slug'], 'pars.role': role_.split('-')[0]},
-              update = {'$set': {'pars.$.deleted': True}},
+              update = {'$set': {'pars.$.trash': True}},
               new = True
             )
         if not chld:
-            return {'response': dict(errors="Failed to delete par/parent.", status=500)}
+            return {'response': dict(errors="Failed to trash par/parent.", status=500)}
 
 
         # what about other collections?
         for _id in chldColl.find({'pths.cls': par_['_c'], 'pths.slug': par_['slug'], 'pths.role': role_.split('-')[1]}, {'_id': 1}):
             doc = chldColl.find_and_modify(
                 query = {'_id': _id['_id'], 'pths.cls': par_['_c'], 'pths.slug': par_['slug'], 'pths.role': role_.split('-')[1]},
-                update = {'$set': {'pths.$.deleted': True}},
+                update = {'$set': {'pths.$.trash': True}},
                 new = True
             )
             if not doc:
-                return {'response': dict(errors="Failed to delete pth.", status=500)}
+                return {'response': dict(errors="Failed to trash pth.", status=500)}
 
         # unlock the child/chld doc that was linked to par/parent
         doc  = chldColl.find_and_modify(
