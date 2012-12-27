@@ -28,12 +28,10 @@ class CtrsTrashTests(BaseMongoTestCase):
         docs = Get.cmd('cnts|q:pths.cls:Cmp,pths.slug:kirmse')
         assert len(docs) == 2
         pths = docs[0]['pths']
-        assert pths[0]['trash']
-        assert pths[1]['trash']
-        assert not 'trash' in pths[2] or ('trash' in pths[2] and not pths[2]['trash'])
+        assert len(docs) == len([p for i, p in enumerate(pths) if 'Cmp.kirmse' in p['uris'] and p['trash']])
 
 
-        # TODO: add cmd for this, make separate test so it will reset data
+        # TODO: add cmd for this, make separate test
         ## same using cmd shortcut
         #resp = Trash.cmd('cnts:1|q:slug:kirmse')
         #assert resp['response']['doc']['trash']
