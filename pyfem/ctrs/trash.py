@@ -10,7 +10,7 @@ from mdls import *
 
 class Trash(object):
     def cmd(self, cmd):
-        # example: 'cnts|q:emails.address:bill@ms.com|fields:cNam,_id:0|sorts:cNam-1|vflds:1|skip:0|limit:1'
+        # example: 'cnts:1|q:slug:kirmse'
         g = app.g
         debug = g['logger'].debug
         get    = ctrs.get.Get().get
@@ -34,23 +34,11 @@ class Trash(object):
                     _paramPartSplit = _paramPart.split(':')
                     query[_paramPartSplit[0]] = _paramPartSplit[1]
                 data['query'] = query
-            elif param == 'fields':
-                data['fields'] = _param
-            elif param == 'sorts':
-                data['sorts'] = _param
-            elif param == 'vflds':
-                data['vflds'] = True
-            elif param == 'skip':
-                data['skip'] = _param
-            elif param == 'limit':
-                data['limit'] = _param
 
         if get_one:
-            data['skip'] = 0
             data['limit'] = 1
 
-        docs = get(**data)
-        return docs
+        return self.trash(**data)
 
 
     def trash_one(self, collNam, query=None, cascade=False):
@@ -115,7 +103,6 @@ class Trash(object):
         response['doc'] = target
 
         return {'response': response, 'status': status}
-
 
     def trash(self, collNam, query=None, cascade=False, limit=0):
         '''

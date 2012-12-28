@@ -6,11 +6,30 @@ except ImportError:
 
 from core import BaseMongoTestCase
 from utils import myyaml
-from utils.myyaml import postToMongo, lTrimCompare
 import ctrs
 import mdls
 
 class CtrsTrashTests(BaseMongoTestCase):
+    def test_trash_cmd(self):
+        Get = ctrs.get.Get()
+        Trash = ctrs.trash.Trash()
+        DS = ctrs.d.DS()
+
+        # same using cmd shortcut
+        resp = Trash.cmd('cnts:1|q:slug:kirmse')
+        assert resp['response']['doc']['trash']
+
+        # verify that children of target had pars lnk trash'ed
+        docs = Get.cmd('cnts|q:pars.cls:Cmp,pars.slug:kirmse')
+        assert len(docs) == 1
+        assert docs[0]['pars'][0]['trash']
+
+        # verify that descendents of target had pths lnks trash'ed
+        docs = Get.cmd('cnts|q:pths.cls:Cmp,pths.slug:kirmse')
+        assert len(docs) == 2
+        pths = docs[0]['pths']
+        assert len(docs) == len([p for i, p in enumerate(pths) if 'Cmp.kirmse' in p['uris'] and p['trash']])
+
     def test_trash_one(self):
         Get = ctrs.get.Get()
         Trash = ctrs.trash.Trash()
@@ -29,35 +48,6 @@ class CtrsTrashTests(BaseMongoTestCase):
         assert len(docs) == 2
         pths = docs[0]['pths']
         assert len(docs) == len([p for i, p in enumerate(pths) if 'Cmp.kirmse' in p['uris'] and p['trash']])
-
-
-        # TODO: add cmd for this, make separate test
-        ## same using cmd shortcut
-        #resp = Trash.cmd('cnts:1|q:slug:kirmse')
-        #assert resp['response']['doc']['trash']
-
-        ## verify that children of target had pars lnk trash'ed
-        #docs = Get.cmd('cnts|q:pars.cls:Cmp,pars.slug:kirmse')
-        #assert len(docs) == 1
-        #assert docs[0]['pars'][0]['trash']
-
-        ## verify that descendents of target had pths lnks trash'ed
-        #docs = Get.cmd('cnts|q:pths.cls:Cmp,pths.slug:kirmse')
-        #assert len(docs) == 2
-        #pths = docs[0]['pths']
-        #assert pths[0]['trash']
-        #assert pths[1]['trash']
-        #assert not 'trash' in pths[2] or ('trash' in pths[2] and not pths[2]['trash'])
-
-        x=0
-
-
-
-    # def test_trash(self):
-    #     Get = ctrs.get.Get()
-    #     Delete = ctrs.delete.Delete()
-    #     DS = ctrs.d.DS()
-
 
     def setUp(self):
         super(CtrsTrashTests, self).setUp()
