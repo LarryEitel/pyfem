@@ -47,6 +47,30 @@ class PyYamlDumper(object):
                     items[sortPos] = item
 
             if items:
+                # take list of items like:
+                '''
+                _c: Prs
+                slug: owner
+                vNam: Doe, John
+                fNam: John
+                And alig colons to be:
+                _c  : Prs
+                slug: owner
+                vNam: Doe, John
+                fNam: John
+                '''
+                maxColonPos = 0
+                for k, v in items.iteritems():
+                    colonPos = v.index(':')
+                    if colonPos > maxColonPos:
+                        maxColonPos = colonPos
+
+                for k, v in items.iteritems():
+                    colonPos = v.index(':')
+                    if colonPos < maxColonPos:
+                        items[k] = v.replace(':', ' '*(maxColonPos-colonPos) + ':')
+
+
                 output += '%s' % (('\n' + '').join([items[k] for k in sorted(items)]))
 
         elif valType == list:

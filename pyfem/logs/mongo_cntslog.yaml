@@ -1,40 +1,139 @@
 
-# cnts: Fri Dec 28 19:03:46 2012
+# cnts: Fri Dec 28 22:19:25 2012
 owner:
-  _c: Prs
-  vNam: Doe, John
-  slug: owner
-  pars:
+  _c       : Prs
+  _id      : 50de6f4d936aa21aecf8f0f9
+  slug     : owner
+  vNam     : Doe, John
+  fNam     : John
+  lNam     : Doe
+  oOn      : 2012-12-28 22      :19      :25.473000
+  vFullName: John Doe
+  mOn      : 2012-12-28 22      :19      :25.473000
+  sId      : 44
 dept:
-  _c: Cmp
-  vNam: Department
+  _c  : Cmp
+  _id : 50de6f4d936aa21aecf8f0fb
   slug: dept
+  vNam: Department
+  cNam: Department
+  pths:
+    - cls : Cmp
+      slug: company
+      role: company
+      uris:
+        - Cmp.company
+    - cls  : Prs
+      slug : owner
+      role : owner
+      uris :
+        - Prs.owner
+        - Cmp.company
+      trash: true
+  mOn : 2012-12-28 22 :19 :25.496000
+  oOn : 2012-12-28 22 :19 :25.496000
   pars:
-    - cls: Cmp
+    - cls : Cmp
       slug: company
       role: dept
+  sId : 48
 manager:
-  _c: Prs
-  vNam: Smith, Bill
-  slug: manager
-  pars:
-    - cls: Cmp
-      slug: dept
-      role: manager
+  _c       : Prs
+  _id      : 50de6f4d936aa21aecf8f0fc
+  slug     : manager
+  vNam     : Smith, Bill
+  fNam     : Bill
+  lNam     : Smith
+  pths     :
+    - cls      : Cmp
+      slug     : dept
+      role     : dept
+      uris     :
+        - Cmp.dept
+    - cls      : Cmp
+      slug     : company
+      role     : company
+      uris     :
+        - Cmp.company
+        - Cmp.dept
+    - cls       : Prs
+      slug      : owner
+      role      : owner
+      uris      :
+        - Prs.owner
+        - Cmp.company
+        - Cmp.dept
+      trash     : true
+  oOn      : 2012-12-28 22      :19      :25.501000
+  vFullName: Bill Smith
+  sId      : 50
+  pars     :
+    - cls      : Cmp
+      slug     : dept
+      role     : manager
+  mOn      : 2012-12-28 22      :19      :25.501000
 employee:
-  _c: Prs
-  vNam: Milton, Tommy
-  slug: employee
-  pars:
-    - cls: Prs
-      slug: manager
-      role: employee
+  _c       : Prs
+  _id      : 50de6f4d936aa21aecf8f0fd
+  slug     : employee
+  vNam     : Milton, Tommy
+  fNam     : Tommy
+  lNam     : Milton
+  pths     :
+    - cls      : Prs
+      slug     : manager
+      role     : manager
+      uris     :
+        - Prs.manager
+    - cls      : Cmp
+      slug     : dept
+      role     : dept
+      uris     :
+        - Cmp.dept
+        - Prs.manager
+    - cls      : Cmp
+      slug     : company
+      role     : company
+      uris     :
+        - Cmp.company
+        - Cmp.dept
+        - Prs.manager
+    - cls       : Prs
+      slug      : owner
+      role      : owner
+      uris      :
+        - Prs.owner
+        - Cmp.company
+        - Cmp.dept
+        - Prs.manager
+      trash     : true
+  oOn      : 2012-12-28 22      :19      :25.507000
+  vFullName: Tommy Milton
+  sId      : 52
+  pars     :
+    - cls      : Prs
+      slug     : manager
+      role     : employee
+  mOn      : 2012-12-28 22      :19      :25.507000
 company:
-  _c: Cmp
-  vNam: Company
+  _c  : Cmp
+  _id : 50de6f4d936aa21aecf8f0fa
   slug: company
-  pars:
-    - cls: Prs
-      slug: owner
-      role: company
+  vNam: Company
+  cNam: Company
+  pths:
+    - cls  : Prs
+      slug : owner
+      role : owner
+      uris :
+        - Prs.owner
       trash: true
+  lock: true
+  oOn : 2012-12-28 22 :19 :25.488000
+  mOn : 2012-12-28 22 :19 :25.488000
+  pars:
+    - cls  : Prs
+      slug : owner
+      role : company
+      trash: true
+  sId : 46

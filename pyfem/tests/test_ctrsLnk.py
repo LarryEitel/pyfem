@@ -226,8 +226,9 @@ class CtrsLnkTests(BaseMongoTestCase):
 
         #docs = Get.cmd('cnts|q:_c:Usr|vflds:1')
         docs = Get.cmd('cnts|vflds:1')
+        PyYaml.dump(docs, logCollNam='cnts', allflds=True)
         # PyYaml.dump(docs, logCollNam='cnts', onlyflds=['vNam'])
-        PyYaml.dump(docs, logCollNam='cnts', onlyflds=['_c','vNam','slug','pars'])
+        # PyYaml.dump(docs, logCollNam='cnts', onlyflds=['_c','vNam','slug','pars'])
 
 
         x=0
