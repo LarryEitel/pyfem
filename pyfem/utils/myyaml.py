@@ -1,5 +1,6 @@
 import os.path
 import datetime
+import time
 from bson import ObjectId
 from yaml import load, dump
 try:
@@ -11,59 +12,15 @@ from app import app
 
 # http://pyyaml.org/wiki/PyYAMLDocumentation
 
-class PyYamlInline(object):
-    @staticmethod
-    def dump(val):
-        trueValues = ['true', 'on', '+', 'yes', 'y']
-        falseValues = ['false', 'off', '-', 'no', 'n']
-
-        if type(val) == list:
-            inlinedumplist = PyYamlInline.dumpList(val)
-            #app.logger.debug('inlinedumplist: ' + inlinedumplist)
-            return inlinedumplist
-        elif type(val) == dict:
-            inlinedumpdict = PyYamlInline.dumpDict(val)
-            #app.logger.debug('inlinedumpdict: ' + inlinedumpdict)
-            return inlinedumpdict
-        elif type(val) == datetime.datetime:
-            return val.__str__()
-        elif type(val) == int:
-            return val
-        elif type(val) == ObjectId:
-            return val.__str__()
-        else:
-            return val
-
-    @staticmethod
-    def dumpDict(doc):
-        yamlDumper = PyYamlDumper()
-        dumperdump = yamlDumper.dump(doc)
-        #app.logger.debug('dumpDict:dumperdump: ' + dumperdump)
-        return dumperdump
-
-    @staticmethod
-    def dumpList(vals):
-        output = []
-        for val in vals:
-            yamlDumper = PyYamlDumper()
-            dumperdump = yamlDumper.dump(val)
-            #app.logger.debug('dumpList:dumperdump: ' + dumperdump)
-            output.append(dumperdump)
-
-            #inlinedump = PyYamlInline.dump(val)
-            #app.logger.debug('inlinedump:' + inlinedump)
-            #output.append(inlinedump)
-        return u'[%s]' % ', '.join(output)
-
-
-
 class PyYamlDumper(object):
-    def dump(self, input, indent=0):
+    def dump(self, input, indent=0, allflds=False, onlyflds=[]):
         output = u''
         prefix = (u' '*indent) if indent else ''
 
-        ignoreFlds = ['_types', '_cls', '_id', 'mOn', 'oOn']
-        ndxFlds = ['_c', 'slug', 'sId', 'cNam', 'prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix']
+        ignoreFldsForSure = [ '_types', '_cls']
+        ignoreFlds = ['sId', '_id', 'mOn', 'oOn', 'vFullName', 'pths', 'pars']
+
+        ndxFlds = ['_c', 'cls', '_id', 'slug', 'role', 'vNam', 'cNam', 'prefix', 'fNam', 'fNam2', 'lNam', 'lNam2', 'suffix']
         trueValues = ['true', 'on', '+', 'yes', 'y']
         falseValues = ['false', 'off', '-', 'no', 'n']
 
@@ -72,11 +29,16 @@ class PyYamlDumper(object):
             items = {}
             fldPos = 1000
             for key, val in input.iteritems():
-                if val and not key in ignoreFlds:
+                if (val
+                    and (not onlyflds and (not key in ignoreFlds or allflds) and not key in ignoreFldsForSure)
+                    or (onlyflds and key in onlyflds)):
+
                     item = u"%s%s:" % (prefix, key)
                     item += self.dump(val, indent + 2)
 
-                    if key in ndxFlds:
+                    if onlyflds:
+                        sortPos = onlyflds.index(key)
+                    elif key in ndxFlds:
                         sortPos = ndxFlds.index(key)
                     else:
                         sortPos = fldPos
@@ -85,16 +47,13 @@ class PyYamlDumper(object):
                     items[sortPos] = item
 
             if items:
-                output += '%s' % (('\n' + '').join([v for v in items.itervalues()]))
+                output += '%s' % (('\n' + '').join([items[k] for k in sorted(items)]))
 
         elif valType == list:
             items = []
             for i, val in enumerate(input):
                 if val:
-                    item = ''
-                    item += self.dump(val, indent + 2)
-                    item = item.lstrip()
-
+                    item = self.dump(val, indent + 2).lstrip()
                     items.append(u"%s%s%s" % (prefix, '- ', item))
             if items:
                 s = "%s" % (u"%s%s%s" % ('\n', '', '%s' % ('\n').join(items)))
@@ -106,6 +65,8 @@ class PyYamlDumper(object):
             output += ' ' + input.__str__()
         elif valType == ObjectId:
             output += ' ' + input.__str__()
+        elif valType == bool:
+            output += ' ' + 'true' if input else 'false'
         else:
             output += ' ' + input
 
@@ -113,11 +74,23 @@ class PyYamlDumper(object):
 
 class PyYaml(object):
     @staticmethod
-    def dump(doc, indent=0):
+    def dump(docs, allflds=False, logCollNam='cnts', onlyflds=[]):
+        if logCollNam:
+            logFName = app.config['HOME_PATH']+'logs/mongo_' + logCollNam + 'log.yaml'
+            logFH = open(logFName, 'w')
+
+
         yamlDumper = PyYamlDumper()
-        app.logger.debug(doc['slug'] + ':')
-        yml = yamlDumper.dump(doc, 2)
-        app.logger.debug(yml)
+        yml = '# ' + logCollNam + ': ' + time.ctime()
+        for doc in docs:
+            yml += '\n' + doc['slug'] + ':' + '\n'
+            yml += yamlDumper.dump(doc, 2, allflds, onlyflds)
+
+        if logCollNam:
+            logFH.write('\n')
+            logFH.write(yml)
+            logFH.close()
+
         return yml
 
 def postToMongo(post, yamlFilePath):

@@ -6,7 +6,7 @@ except ImportError:
 
 from core import BaseMongoTestCase
 from utils import myyaml
-from utils.myyaml import postToMongo, lTrimCompare
+from utils.myyaml import postToMongo, lTrimCompare, PyYaml
 import ctrs
 import mdls
 
@@ -224,6 +224,10 @@ class CtrsLnkTests(BaseMongoTestCase):
         doc['pths'][3]['trash'] == True
 
 
+        #docs = Get.cmd('cnts|q:_c:Usr|vflds:1')
+        docs = Get.cmd('cnts|vflds:1')
+        # PyYaml.dump(docs, logCollNam='cnts', onlyflds=['vNam'])
+        PyYaml.dump(docs, logCollNam='cnts', onlyflds=['_c','vNam','slug','pars'])
 
 
         x=0

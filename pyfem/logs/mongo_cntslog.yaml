@@ -1,0 +1,40 @@
+
+# cnts: Fri Dec 28 19:03:46 2012
+owner:
+  _c: Prs
+  vNam: Doe, John
+  slug: owner
+  pars:
+dept:
+  _c: Cmp
+  vNam: Department
+  slug: dept
+  pars:
+    - cls: Cmp
+      slug: company
+      role: dept
+manager:
+  _c: Prs
+  vNam: Smith, Bill
+  slug: manager
+  pars:
+    - cls: Cmp
+      slug: dept
+      role: manager
+employee:
+  _c: Prs
+  vNam: Milton, Tommy
+  slug: employee
+  pars:
+    - cls: Prs
+      slug: manager
+      role: employee
+company:
+  _c: Cmp
+  vNam: Company
+  slug: company
+  pars:
+    - cls: Prs
+      slug: owner
+      role: company
+      trash: true

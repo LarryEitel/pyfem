@@ -5,9 +5,10 @@ except ImportError:
     import unittest  # NOQA
 
 from core import BaseMongoTestCase
-from utils.myyaml import postToMongo
+from utils.myyaml import postToMongo, PyYaml
 from utils import myyaml
 import ctrs
+from load_sample_data import scenario_1
 
 class UtilsMyYamlTest(BaseMongoTestCase):
     def setUp(self):
@@ -18,6 +19,15 @@ class UtilsMyYamlTest(BaseMongoTestCase):
         resp = postToMongo(post, self.data_dir + 'lnkroles')
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == len(resp['response']['yamlData']['data'])
+
+
+    def test_MongoToYaml(self):
+        Get = ctrs.get.Get()
+        scenario_1()
+
+        #docs = Get.cmd('cnts|q:_c:Usr|vflds:1')
+        docs = Get.cmd('cnts|vflds:1')
+        PyYaml.dump(docs, logCollNam='cnts', allflds=True, whiteflds=['pths'])
 
 
 if __name__ == "__main__":
