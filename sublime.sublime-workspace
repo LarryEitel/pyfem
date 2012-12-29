@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"ign",
+				"ignoreFldsForSure"
+			],
+			[
+				"PyY",
+				"PyYamlDumper"
+			],
+			[
+				"MONGO",
+				"MONGODB_PASSWORD"
+			],
+			[
+				"MONGOD",
+				"MONGODB_USERNAME"
+			],
+			[
+				"cm",
+				"cmpYml"
+			],
+			[
 				"unit",
 				"unit104"
 			],
@@ -248,18 +268,10 @@
 	"buffers":
 	[
 		{
-			"file": "pyfem/ctrs/lnk.py",
+			"file": "pyfem/tests/test_utils_myyaml.py",
 			"settings":
 			{
-				"buffer_size": 4450,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pyfem/ctrs/d.py",
-			"settings":
-			{
-				"buffer_size": 6666,
+				"buffer_size": 808,
 				"line_ending": "Windows"
 			}
 		},
@@ -267,90 +279,96 @@
 			"file": "pyfem/tests/test_ctrsLnk.py",
 			"settings":
 			{
-				"buffer_size": 4068,
+				"buffer_size": 7839,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "pyfem/tests/test_ctrsD.py",
+			"file": "pyfem/ctrs/get.py",
 			"settings":
 			{
-				"buffer_size": 1380,
+				"buffer_size": 5230,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "pyfem/mdls/embeds.py",
+			"file": "pyfem/utils/myyaml.py",
 			"settings":
 			{
-				"buffer_size": 4576,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pyfem/tests/data/yaml/ctrsLnk.yaml",
-			"settings":
-			{
-				"buffer_size": 6484,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pyfem/docs/pseudo/lnk.yaml",
-			"settings":
-			{
-				"buffer_size": 2277,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pyfem/mdls/lnk.py",
-			"settings":
-			{
-				"buffer_size": 1806,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pyfem/ctrs/put.py",
-			"settings":
-			{
-				"buffer_size": 7330,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pyfem/tests/data/yaml/usecase2.yaml",
-			"settings":
-			{
-				"buffer_size": 3236,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pyfem/globals.py",
-			"settings":
-			{
-				"buffer_size": 610,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "Searching 16 files for \"to_mongo\"\n\nC:\\Users\\Larry\\__prjs\\__py\\pyfem\\venv\\Lib\\site-packages\\mongoengine\\base.py:\n  221:     def to_mongo(self, value):\n  366:     def to_mongo(self, value):\n  374:         if hasattr(value, 'to_mongo'):\n  375:             return value.to_mongo()\n  386:             value_dict = dict([(key, self.field.to_mongo(item))\n  406:                         value_dict[k] = GenericReferenceField().to_mongo(v)\n  410:                 elif hasattr(v, 'to_mongo'):\n  411:                     value_dict[k] = v.to_mongo()\n  413:                     value_dict[k] = self.to_mongo(v)\n  446:         return self.to_mongo(value)\n  480:     def to_mongo(self, value):\n  490:         return self.to_mongo(value)\n 1030:     def to_mongo(self):\n 1037:                 data[field.db_field] = field.to_mongo(value)\n 1050:             data[name] = field.to_mongo(self._data.get(name, None))\n 1179:         doc = self.to_mongo()\n\nC:\\Users\\Larry\\__prjs\\__py\\pyfem\\venv\\Lib\\site-packages\\mongoengine\\document.py:\n  213:         doc = self.to_mongo()\n\nC:\\Users\\Larry\\__prjs\\__py\\pyfem\\venv\\Lib\\site-packages\\mongoengine\\fields.py:\n  243:     def to_mongo(self, value):\n  293:     def to_mongo(self, value):\n  424:     def to_mongo(self, value):\n  458:     def to_mongo(self, value):\n  461:         return self.document_type.to_mongo(value)\n  477:         return self.to_mongo(value)\n  492:         return self.to_mongo(value)\n  508:     def to_mongo(self, document):\n  512:         data = document.to_mongo()\n  524:     def to_mongo(self, value):\n  531:         if hasattr(value, 'to_mongo'):\n  532:             return value.to_mongo()\n  544:             data[k] = self.to_mongo(v)\n  559:         return self.to_mongo(value)\n  623:     def to_mongo(self, value):\n  624:         value = super(SortedListField, self).to_mongo(value)\n  778:     def to_mongo(self, document):\n  798:         id_ = id_field.to_mongo(id_)\n  817:         return self.to_mongo(value)\n  873:     def to_mongo(self, document):\n  892:         id_ = id_field.to_mongo(id_)\n  901:         return self.to_mongo(value)\n  918:     def to_mongo(self, value):\n 1122:     def to_mongo(self, value):\n 1433:     def to_mongo(self, value):\n 1441:         return self.to_mongo(value)\n\nC:\\Users\\Larry\\__prjs\\__py\\pyfem\\venv\\Lib\\site-packages\\mongoengine\\queryset.py:\n  937:             raw.append(doc.to_mongo())\n\n44 matches across 4 files\n",
-			"settings":
-			{
-				"buffer_size": 2401,
-				"line_ending": "Windows",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "venv/Lib/site-packages/mongoengine/base.py",
-			"settings":
-			{
-				"buffer_size": 56426,
+				"buffer_size": 5770,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pyfem/ctrs/trash.py",
+			"settings":
+			{
+				"buffer_size": 4050,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/ctrs/post.py",
+			"settings":
+			{
+				"buffer_size": 2052,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "todo.md",
+			"settings":
+			{
+				"buffer_size": 567,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/tests/test_ctrsGet.py",
+			"settings":
+			{
+				"buffer_size": 3225,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/ctrs/lnk.py",
+			"settings":
+			{
+				"buffer_size": 8660,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Larry/__prjs/php/mongoyaml/vendor/sfYaml/test/sfYamlDumperTest.php",
+			"settings":
+			{
+				"buffer_size": 3294,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Larry/__prjs/php/mongoyaml/vendor/sfYaml/lib/sfYamlDumper.php",
+			"settings":
+			{
+				"buffer_size": 1692,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Larry/__prjs/php/mongoyaml/vendor/sfYaml/lib/sfYamlInline.php",
+			"settings":
+			{
+				"buffer_size": 11180,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pyfem/logs/mongo_cntslog.yaml",
+			"settings":
+			{
+				"buffer_size": 2687,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -506,23 +524,69 @@
 	},
 	"file_history":
 	[
-		"/C/Users/Larry/__prjs/__py/pyfem/todo.md",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_ctrsPut.py",
+		"/C/Users/Larry/__prjs/php/mongoyaml/vendor/sfYaml/lib/sfYaml.php",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/utils/mongoyaml.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/detail.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/lst.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/trash.py",
+		"/C/Users/Larry/Dropbox/xchg_prm/belen_sur.yaml",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/logs/pyfem.log",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_ctrsTrash.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_ctrsDetail.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/static/style.css",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/__init__.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/web/home.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_ctrsDelete.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/delete.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/data/lnkroles.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/embeds.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/venv/Lib/site-packages/mongoengine/base.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/ctrsPost.yaml",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/ctrsPut.yaml",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/controllers/generic.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_ctrsGet.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/get.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/d.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi_2/gsapi/tests/test_generic.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi_2/gsapi/controllers/generic.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/docs/pseudo/lnk.yaml",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/tests/controllers/test_generic.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/mydoc.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/ctrsLnk.yaml",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/post.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/core.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/utils/myyaml.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/put.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/embeds.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/app.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/settings.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/local_settings.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/globals.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/do.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/lnk.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/cmd.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_ctrsPut.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/lnk.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/pl.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/tag.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/venv/Lib/site-packages/mongoengine/document.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/put_bu.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/docs/pseudo/controllers.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/docs/pseudo/generic.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/default_settings.py",
+		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/run.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/cnt.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_ctrsD.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/docs/pseudo/lnk_bu.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/usecase2.yaml",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/utils/name.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/utils/mdl.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/utils.py",
+		"/C/Users/Larry/__prjs/__py/pyfem/todo.md",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/_est_ctrsLnk.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_ctrsLnk.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/default_settings.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/cnt.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/globals.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/ctrsPutLnk.yaml",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/putLnk.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/lnk.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/ctrsPut.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/put.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_ctrsPutLnk.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/docs/pseudo/lnk_bu.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_usecase1.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_utils_myyaml.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/data/lnkrels.yaml",
@@ -537,17 +601,9 @@
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/usecase1.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/views_.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_ctrsPost.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/post.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/ctrs/put_bu.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/docs/pseudo/controllers.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/docs/pseudo/generic.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/docs/pseudo/init.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/docs/pseudo/mod.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/helpers.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/lnk.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/pl.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/mdls/tag.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/core.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/load_sample_data.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/embeds.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/cnt.py",
@@ -558,9 +614,7 @@
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_controllers_lnk.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_controllers_put.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_controllers_post.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/web/home.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/zest_models_indexes.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/logs/pyfem.log",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/controllers/put.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/controllers_put.yaml",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/controllers_lnk.yaml",
@@ -572,9 +626,7 @@
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/data/cntrys.yaml",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/controllers/put_bu.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/docs/elastic.omd",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/utils/myyaml.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/controllers_post.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/usecase2.yaml",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_utils_yaml.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/data/lnkrel.yaml",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/lnkrel.yaml",
@@ -590,7 +642,6 @@
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/controllers/__init__.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_controllers_generic_put.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_controllers_generic_post.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/settings.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/aest_usecase1.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_usecases1.py",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_usecases_init.py",
@@ -600,40 +651,7 @@
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/controllers/Bill",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/Larry Jr",
 		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/usecases2.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/controllers_generic_put.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/controllers_generic_post.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/venv/Lib/site-packages/mongoengine/base.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/venv/Lib/site-packages/mongoengine/fields.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/lnkrels.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/myfields.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_utils_name.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/models_indexes.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/utils/name.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_models_indexes.py",
-		"/C/Users/Larry/AppData/Roaming/Sublime Text 2/Packages/SideBarEnhancements/messages/11.13.2012.1305.0.txt",
-		"/C/Users/Larry/Desktop/mac.pmc",
-		"/C/Users/Larry/Dropbox/_bu/ahk/mac.ahk",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/extras_fields_slug.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/requirements.txt",
-		"/C/Users/Larry/__prjs/__py/pyfem/venv/Lib/site-packages/mongoengine/document.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/gsapi/gsapi/models/cnt.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/usecases.yaml",
-		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/app.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/util.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/models/person.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/app.py",
-		"/C/Users/Larry/Dropbox/_bu/autostart_console.bat",
-		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/models/kard.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/test_indexes.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/models_indexs.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/models/logit.py",
-		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/runserver.py",
-		"/C/Users/Larry/Dropbox/Photos/Shiv/note.txt",
-		"/C/Users/Larry/__prjs/_ex/_prjs/kardboard/kardboard/models/flowreport.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/deactivate.cmd",
-		"/C/Users/Larry/__prjs/__py/pyfem/fabfile.py",
-		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/tels.yaml",
-		"/C/Users/Larry/__prjs/__py/pyfem/README.md"
+		"/C/Users/Larry/__prjs/__py/pyfem/pyfem/tests/data/yaml/controllers_generic_put.yaml"
 	],
 	"find":
 	{
@@ -641,9 +659,19 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem",
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem\\mdls",
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem,*.py",
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem,-*.js",
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem,-*.png",
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem,*.py",
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem",
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem",
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem\\ctrs",
+			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem\\tests",
 			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\venv\\Lib\\site-packages\\mongoengine",
 			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem",
 			"C:\\Users\\Larry\\__prjs\\__py\\pyfem\\pyfem\\models",
@@ -761,24 +789,30 @@
 			"C:\\Users\\Larry\\__prjs\\ofm",
 			"C:\\Users\\Larry\\__prjs\\ourfield",
 			"C:\\Users\\Larry\\__prjs\\node\\express-backbone-coffee-template",
-			"C:\\Users\\Larry\\__prjs\\ofm",
-			"C:\\Users\\Larry\\__prjs\\ofm\\node_modules",
-			"C:\\Users\\Larry\\__prjs\\node\\backbone-cellar\\tutorial\\final",
-			"C:\\Users\\Larry\\__prjs\\nodeblox",
-			"C:\\Users\\Larry\\__prjs\\ubuntu\\dev\\tw",
-			"C:\\Users\\Larry\\__prjs\\ubuntu\\dev\\basic",
-			"C:\\Users\\Larry\\__prjs\\ubuntu\\dev\\tw",
-			"C:\\Users\\Larry\\__prjs\\ubuntu\\dev\\ofb",
-			"C:\\Users\\Larry\\__prjs\\ourfield",
-			"C:\\Users\\Larry\\__prjs\\nb\\nbn\\answers",
-			"C:\\Users\\Larry\\__prjs\\nb\\nbn\\answers,*.js"
+			"C:\\Users\\Larry\\__prjs\\ofm"
 		]
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"delete",
+			"Delete",
+			"mdl",
+			"ED",
+			"self.db",
+			"db",
+			"self.db",
+			"_flush_db",
+			"to_python",
+			"\\\\n",
+			"log",
+			"to_python",
+			"debug",
+			"self.g['logger']",
+			"log",
+			"pymongo",
 			"to_mongo",
 			"to_mon",
 			"roleArg",
@@ -890,30 +924,18 @@
 			"path",
 			"socket",
 			"state",
-			"views",
-			"state",
-			"recursive",
-			"for_jsonschema",
-			"_cls",
-			"_types",
-			"make_safe_python",
-			"make_safe_pytho",
-			"make_safe_python",
-			"_types",
-			"validate_class_partial",
-			"modelexception",
-			"to_python",
-			"base64",
-			"models",
-			"session",
-			"api"
+			"views"
 		],
 		"highlight": true,
 		"in_selection": false,
-		"preserve_case": false,
+		"preserve_case": true,
 		"regex": false,
 		"replace_history":
 		[
+			"trash",
+			"self.me",
+			"me",
+			"\\n",
 			"role_",
 			"par_",
 			"chld_",
@@ -1037,11 +1059,7 @@
 			"}]}",
 			"[",
 			"}}]}",
-			"[{us_en:",
-			", desc: }}}",
-			", desc: }",
-			"us_en: {tNamS: ",
-			"    "
+			"[{us_en:"
 		],
 		"reverse": false,
 		"show_context": false,
@@ -1052,23 +1070,23 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 6,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "pyfem/ctrs/lnk.py",
+					"file": "pyfem/tests/test_utils_myyaml.py",
 					"settings":
 					{
-						"buffer_size": 4450,
+						"buffer_size": 808,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								759,
+								759
 							]
 						],
 						"settings":
@@ -1078,25 +1096,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1050.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "pyfem/ctrs/d.py",
+					"file": "pyfem/tests/test_ctrsLnk.py",
 					"settings":
 					{
-						"buffer_size": 6666,
+						"buffer_size": 7839,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								4452,
+								4452
 							]
 						],
 						"settings":
@@ -1106,17 +1124,73 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1626.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "pyfem/tests/test_ctrsLnk.py",
+					"file": "pyfem/ctrs/get.py",
 					"settings":
 					{
-						"buffer_size": 4068,
+						"buffer_size": 5230,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2674,
+								2674
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 117.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "pyfem/utils/myyaml.py",
+					"settings":
+					{
+						"buffer_size": 5770,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2401,
+								2401
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 351.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "pyfem/ctrs/trash.py",
+					"settings":
+					{
+						"buffer_size": 4050,
 						"regions":
 						{
 						},
@@ -1134,25 +1208,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2791.0,
+						"translation.y": 188.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "pyfem/tests/test_ctrsD.py",
+					"buffer": 5,
+					"file": "pyfem/ctrs/post.py",
 					"settings":
 					{
-						"buffer_size": 1380,
+						"buffer_size": 2052,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								257,
-								379
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1168,29 +1242,28 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "pyfem/mdls/embeds.py",
+					"buffer": 6,
+					"file": "todo.md",
 					"settings":
 					{
-						"buffer_size": 4576,
+						"buffer_size": 567,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3871,
-								3871
+								440,
+								440
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"is_xml": false,
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1348.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1198,79 +1271,23 @@
 			]
 		},
 		{
-			"selected": 7,
+			"selected": 5,
 			"sheets":
 			[
 				{
-					"buffer": 5,
-					"file": "pyfem/tests/data/yaml/ctrsLnk.yaml",
-					"settings":
-					{
-						"buffer_size": 6484,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								953,
-								953
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/YAML/YAML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3328.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "pyfem/docs/pseudo/lnk.yaml",
-					"settings":
-					{
-						"buffer_size": 2277,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1595,
-								1595
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 574.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
 					"buffer": 7,
-					"file": "pyfem/mdls/lnk.py",
+					"file": "pyfem/tests/test_ctrsGet.py",
 					"settings":
 					{
-						"buffer_size": 1806,
+						"buffer_size": 3225,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								98,
-								98
+								1974,
+								1974
 							]
 						],
 						"settings":
@@ -1280,59 +1297,31 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 390.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 8,
-					"file": "pyfem/ctrs/put.py",
+					"file": "pyfem/ctrs/lnk.py",
 					"settings":
 					{
-						"buffer_size": 7330,
+						"buffer_size": 8660,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3846,
-								3814
+								2372,
+								2372
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
 							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1400.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "pyfem/tests/data/yaml/usecase2.yaml",
-					"settings":
-					{
-						"buffer_size": 3236,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2051,
-								1609
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/YAML/YAML.tmLanguage",
-							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -1342,25 +1331,55 @@
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "pyfem/globals.py",
+					"buffer": 9,
+					"file": "/C/Users/Larry/__prjs/php/mongoyaml/vendor/sfYaml/test/sfYamlDumperTest.php",
 					"settings":
 					{
-						"buffer_size": 610,
+						"buffer_size": 3294,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								610,
-								610
+								3101,
+								3101
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
-							"tab_size": 4,
+							"is_xml": false,
+							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1287.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "/C/Users/Larry/__prjs/php/mongoyaml/vendor/sfYaml/lib/sfYamlDumper.php",
+					"settings":
+					{
+						"buffer_size": 1692,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1692,
+								1692
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -1371,243 +1390,68 @@
 				},
 				{
 					"buffer": 11,
+					"file": "/C/Users/Larry/__prjs/php/mongoyaml/vendor/sfYaml/lib/sfYamlInline.php",
 					"settings":
 					{
-						"buffer_size": 2401,
+						"buffer_size": 11180,
 						"regions":
 						{
-							"match":
+							"TagLint":
 							{
-								"flags": 112,
+								"flags": 52,
+								"icon": "dot",
 								"regions":
 								[
 									[
-										127,
-										135
-									],
-									[
-										165,
-										173
-									],
-									[
-										222,
-										230
-									],
-									[
-										266,
-										274
-									],
-									[
-										332,
-										340
-									],
-									[
-										419,
-										427
-									],
-									[
-										471,
-										479
-									],
-									[
-										528,
-										536
-									],
-									[
-										587,
-										595
-									],
-									[
-										626,
-										634
-									],
-									[
-										657,
-										665
-									],
-									[
-										707,
-										715
-									],
-									[
-										738,
-										746
-									],
-									[
-										806,
-										814
-									],
-									[
-										860,
-										868
-									],
-									[
-										923,
-										931
-									],
-									[
-										1042,
-										1050
-									],
-									[
-										1148,
-										1156
-									],
-									[
-										1186,
-										1194
-									],
-									[
-										1224,
-										1232
-									],
-									[
-										1262,
-										1270
-									],
-									[
-										1326,
-										1334
-									],
-									[
-										1369,
-										1377
-									],
-									[
-										1412,
-										1420
-									],
-									[
-										1443,
-										1451
-									],
-									[
-										1500,
-										1508
-									],
-									[
-										1526,
-										1534
-									],
-									[
-										1583,
-										1591
-									],
-									[
-										1627,
-										1635
-									],
-									[
-										1672,
-										1680
-									],
-									[
-										1711,
-										1719
-									],
-									[
-										1742,
-										1750
-									],
-									[
-										1817,
-										1825
-									],
-									[
-										1848,
-										1856
-									],
-									[
-										1904,
-										1912
-									],
-									[
-										1945,
-										1953
-									],
-									[
-										1976,
-										1984
-									],
-									[
-										2032,
-										2040
-									],
-									[
-										2073,
-										2081
-									],
-									[
-										2104,
-										2112
-									],
-									[
-										2142,
-										2150
-									],
-									[
-										2180,
-										2188
-									],
-									[
-										2230,
-										2238
-									],
-									[
-										2362,
-										2370
+										10818,
+										10837
 									]
 								],
-								"scope": ""
+								"scope": "variable.parameter"
 							}
 						},
 						"selection":
 						[
 							[
-								169,
-								169
+								2870,
+								2870
 							]
 						],
 						"settings":
 						{
-							"detect_indentation": false,
-							"output_tag": 1,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+							"is_xml": false,
+							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 507.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 12,
-					"file": "venv/Lib/site-packages/mongoengine/base.py",
+					"file": "pyfem/logs/mongo_cntslog.yaml",
 					"settings":
 					{
-						"buffer_size": 56426,
+						"buffer_size": 2687,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8243,
-								8243
+								712,
+								712
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/YAML/YAML.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 3397.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1643,7 +1487,7 @@
 		"cols":
 		[
 			0.0,
-			0.522131667569,
+			0.487540648687,
 			1.0
 		],
 		"rows":

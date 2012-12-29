@@ -68,7 +68,7 @@ class PyYamlDumper(object):
                 for k, v in items.iteritems():
                     colonPos = v.index(':')
                     if colonPos < maxColonPos:
-                        items[k] = v.replace(':', ' '*(maxColonPos-colonPos) + ':')
+                        items[k] = v.replace(':', ' '*(maxColonPos-colonPos) + ':', 1)
 
 
                 output += '%s' % (('\n' + '').join([items[k] for k in sorted(items)]))
@@ -96,6 +96,8 @@ class PyYamlDumper(object):
 
         return output
 
+
+
 class PyYaml(object):
     @staticmethod
     def dump(docs, allflds=False, logCollNam='cnts', onlyflds=[]):
@@ -108,6 +110,11 @@ class PyYaml(object):
         yml = '# ' + logCollNam + ': ' + time.ctime()
         for doc in docs:
             yml += '\n' + doc['slug'] + ':' + '\n'
+            #cmnt1 = dict(_c='Cmnt', slug='cmnt1')
+            #cmnt2 = dict(_c='Cmnt', slug='cmnt2')
+            #note1 = dict(_c='Note', slug='note1')
+            #note2 = dict(_c='Note', slug='note2', chlds=[cmnt1, cmnt2])
+            #doc['chlds1'] = [note1, note2]
             yml += yamlDumper.dump(doc, 2, allflds, onlyflds)
 
         if logCollNam:

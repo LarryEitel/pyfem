@@ -1,139 +1,163 @@
 
-# cnts: Fri Dec 28 22:19:25 2012
-owner:
-  _c       : Prs
-  _id      : 50de6f4d936aa21aecf8f0f9
-  slug     : owner
-  vNam     : Doe, John
-  fNam     : John
-  lNam     : Doe
-  oOn      : 2012-12-28 22      :19      :25.473000
-  vFullName: John Doe
-  mOn      : 2012-12-28 22      :19      :25.473000
-  sId      : 44
-dept:
+# cnts: Sat Dec 29 15:37:56 2012
+lwe:
+  _c   : Usr
+  _id  : 50df62b3936aa21998f1f8dc
+  slug : lwe
+  fNam : Larry
+  fNam2: Wayne
+  lNam : Stooge
+  oOn  : 2012-12-29 15:37:55.847000
+  uNam : lwe
+  sId  : 44
+  mOn  : 2012-12-29 15:37:55.847000
+ms:
   _c  : Cmp
-  _id : 50de6f4d936aa21aecf8f0fb
-  slug: dept
-  vNam: Department
-  cNam: Department
-  pths:
+  _id : 50df62b3936aa21998f1f8e2
+  slug: ms
+  cNam: MS
+  tels:
+    - text: 123 456 7890
+      typ : work
+  mOn : 2012-12-29 15:37:55.861000
+  oOn : 2012-12-29 15:37:55.861000
+  sId : 56
+ni:
+  _c    : Cmp
+  _id   : 50df62b3936aa21998f1f8dd
+  slug  : ni
+  cNam  : New Name
+  tels  :
+    - text: 123 456 7890
+      typ : work
+  pths  :
+    - cls : Pl
+      slug: atlanta-ga
+      role: office
+      uris:
+        - Pl.atlanta-ga
+  mOn   : 2012-12-29 15:37:55.850000
+  oOn   : 2012-12-29 15:37:55.850000
+  chlds :
+    - _c   : Cmp
+      slug : kirmse
+      cNam : Kirmse
+      chlds:
+        - _c   : Cmp
+          slug : unit104
+          cNam : 104
+          chlds:
+            - _c  : Cmp
+              slug: troop1031
+              cNam: 1031
+  pars  :
+    - cls : Pl
+      slug: atlanta-ga
+      role: office
+  sId   : 46
+  emails:
+    - typ    : home
+      address: bill@ms.com
+kirmse:
+  _c   : Cmp
+  _id  : 50df62b3936aa21998f1f8de
+  slug : kirmse
+  cNam : Kirmse
+  pths :
     - cls : Cmp
-      slug: company
+      slug: ni
       role: company
       uris:
-        - Cmp.company
-    - cls  : Prs
-      slug : owner
-      role : owner
-      uris :
-        - Prs.owner
-        - Cmp.company
-      trash: true
-  mOn : 2012-12-28 22 :19 :25.496000
-  oOn : 2012-12-28 22 :19 :25.496000
+        - Cmp.ni
+    - cls : Pl
+      slug: atlanta-ga
+      role: office
+      uris:
+        - Pl.atlanta-ga
+        - Cmp.ni
+  mOn  : 2012-12-29 15:37:55.852000
+  oOn  : 2012-12-29 15:37:55.852000
+  chlds:
+    - _c   : Cmp
+      slug : unit104
+      cNam : 104
+      chlds:
+        - _c  : Cmp
+          slug: troop1031
+          cNam: 1031
+  pars :
+    - cls : Cmp
+      slug: ni
+      role: area
+  sId  : 48
+unit104:
+  _c   : Cmp
+  _id  : 50df62b3936aa21998f1f8df
+  slug : unit104
+  cNam : 104
+  pths :
+    - cls : Cmp
+      slug: kirmse
+      role: area
+      uris:
+        - Cmp.kirmse
+    - cls : Cmp
+      slug: ni
+      role: company
+      uris:
+        - Cmp.ni
+        - Cmp.kirmse
+    - cls : Pl
+      slug: atlanta-ga
+      role: office
+      uris:
+        - Pl.atlanta-ga
+        - Cmp.ni
+  mOn  : 2012-12-29 15:37:55.854000
+  oOn  : 2012-12-29 15:37:55.854000
+  chlds:
+    - _c  : Cmp
+      slug: troop1031
+      cNam: 1031
+  pars :
+    - cls : Cmp
+      slug: kirmse
+      role: unit
+  sId  : 50
+troop1031:
+  _c  : Cmp
+  _id : 50df62b3936aa21998f1f8e0
+  slug: troop1031
+  cNam: 1031
+  pths:
+    - cls : Cmp
+      slug: unit104
+      role: unit
+      uris:
+        - Cmp.unit104
+    - cls : Cmp
+      slug: kirmse
+      role: area
+      uris:
+        - Cmp.kirmse
+        - Cmp.unit104
+    - cls : Cmp
+      slug: ni
+      role: company
+      uris:
+        - Cmp.ni
+        - Cmp.kirmse
+        - Cmp.unit104
+    - cls : Pl
+      slug: atlanta-ga
+      role: office
+      uris:
+        - Pl.atlanta-ga
+        - Cmp.ni
+  mOn : 2012-12-29 15:37:55.856000
+  oOn : 2012-12-29 15:37:55.856000
   pars:
     - cls : Cmp
-      slug: company
-      role: dept
-  sId : 48
-manager:
-  _c       : Prs
-  _id      : 50de6f4d936aa21aecf8f0fc
-  slug     : manager
-  vNam     : Smith, Bill
-  fNam     : Bill
-  lNam     : Smith
-  pths     :
-    - cls      : Cmp
-      slug     : dept
-      role     : dept
-      uris     :
-        - Cmp.dept
-    - cls      : Cmp
-      slug     : company
-      role     : company
-      uris     :
-        - Cmp.company
-        - Cmp.dept
-    - cls       : Prs
-      slug      : owner
-      role      : owner
-      uris      :
-        - Prs.owner
-        - Cmp.company
-        - Cmp.dept
-      trash     : true
-  oOn      : 2012-12-28 22      :19      :25.501000
-  vFullName: Bill Smith
-  sId      : 50
-  pars     :
-    - cls      : Cmp
-      slug     : dept
-      role     : manager
-  mOn      : 2012-12-28 22      :19      :25.501000
-employee:
-  _c       : Prs
-  _id      : 50de6f4d936aa21aecf8f0fd
-  slug     : employee
-  vNam     : Milton, Tommy
-  fNam     : Tommy
-  lNam     : Milton
-  pths     :
-    - cls      : Prs
-      slug     : manager
-      role     : manager
-      uris     :
-        - Prs.manager
-    - cls      : Cmp
-      slug     : dept
-      role     : dept
-      uris     :
-        - Cmp.dept
-        - Prs.manager
-    - cls      : Cmp
-      slug     : company
-      role     : company
-      uris     :
-        - Cmp.company
-        - Cmp.dept
-        - Prs.manager
-    - cls       : Prs
-      slug      : owner
-      role      : owner
-      uris      :
-        - Prs.owner
-        - Cmp.company
-        - Cmp.dept
-        - Prs.manager
-      trash     : true
-  oOn      : 2012-12-28 22      :19      :25.507000
-  vFullName: Tommy Milton
-  sId      : 52
-  pars     :
-    - cls      : Prs
-      slug     : manager
-      role     : employee
-  mOn      : 2012-12-28 22      :19      :25.507000
-company:
-  _c  : Cmp
-  _id : 50de6f4d936aa21aecf8f0fa
-  slug: company
-  vNam: Company
-  cNam: Company
-  pths:
-    - cls  : Prs
-      slug : owner
-      role : owner
-      uris :
-        - Prs.owner
-      trash: true
-  lock: true
-  oOn : 2012-12-28 22 :19 :25.488000
-  mOn : 2012-12-28 22 :19 :25.488000
-  pars:
-    - cls  : Prs
-      slug : owner
-      role : company
-      trash: true
-  sId : 46
+      slug: unit104
+      role: troop
+  sId : 52

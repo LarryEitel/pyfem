@@ -63,6 +63,26 @@ class Get(object):
             ):
         return self.get(**dict(collNam=collNam, query=query, fields=fields, sorts=sorts, vflds=vflds, limit=1))
 
+
+    def getChlds(self, doc, level=0):
+        _c = doc['_c']
+        slug = doc['slug']
+        debug = app.logger.debug
+        chlds = []
+        # children may be found in several collections
+        colls = dict([(collNam, app.pymongo[collNam]) for collNam in app.g['chldCollNams']])
+        for collNam, coll in colls.iteritems():
+            debug('In: ' + collNam)
+            for chld in coll.find({'pars.cls': _c, 'pars.slug': slug}):
+                debug('  chld: ' + chld['_c'] + '.' + chld['slug'])
+                #if not 'chlds' in doc:
+                    #doc['chlds'] = []
+                chld['chlds'] = self.getChlds(chld, level + 1)
+                #doc['chlds'].append(self.getChlds(chld, level + 1))
+                chlds.append(chld)
+        return chlds
+
+
     def get(self, collNam, query=None, fields=None, sorts=None, skip=0, limit=0, vflds=False):
         '''
             Nam,       # ie cnts
@@ -95,6 +115,7 @@ class Get(object):
 
             # make sure _c included
             flds['_c'] = 1
+            flds['slug'] = 1
             fields = flds
 
         if sorts:
@@ -124,6 +145,12 @@ class Get(object):
 
         docs = []
         for doc in cursor:
+
+            # get children
+            chlds = self.getChlds(doc)
+            if chlds:
+                doc['chlds'] = chlds
+
             # handle any virtual fields
             if vflds:
                 docCls = getattr(ctrs.d, doc['_c'])
@@ -145,6 +172,8 @@ class Get(object):
 
                 for k, v in docFlds.iteritems():
                     doc[k] = v
+
+
             docs.append(doc)
 
         if int(limit) == 1 and not skip and docs:

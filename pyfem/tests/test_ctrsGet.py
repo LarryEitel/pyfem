@@ -6,7 +6,7 @@ except ImportError:
 
 from core import BaseMongoTestCase
 from utils import myyaml
-from utils.myyaml import postToMongo, lTrimCompare
+from utils.myyaml import postToMongo, lTrimCompare, PyYaml
 import ctrs
 import mdls
 
@@ -14,6 +14,16 @@ class CtrsGetTests(BaseMongoTestCase):
     def test_get_one(self):
         Get = ctrs.get.Get()
         DS = ctrs.d.DS()
+
+        #docs = Get.cmd('cnts')
+        #PyYaml.dump(docs, logCollNam='cnts', allflds=True)
+
+        doc = Get.cmd('cnts:1|q:slug:ni')
+
+        #docs = Get.cmd('cnts')
+        PyYaml.dump([doc], logCollNam='cnts', allflds=True)
+
+        assert True
 
         doc = Get.get_one(**dict(collNam='cnts', query=dict(_c='Usr'), vflds=True))
         assert doc['vNam'] == u"Stooge, Larry Wayne"
@@ -30,9 +40,9 @@ class CtrsGetTests(BaseMongoTestCase):
         assert docs[0]['vNam'] == u"Stooge, Larry Wayne"
 
         docs = Get.get(**dict(collNam='cnts', query=dict(_c='Usr'), fields='fNam, lNam,_id:0'))
-        assert len(docs[0].keys()) == 3
+        assert len(docs[0].keys()) == 4
         docs = Get.cmd('cnts|q:_c:Usr|fields:fNam,lNam,_id:0')
-        assert len(docs[0].keys()) == 3
+        assert len(docs[0].keys()) == 4
 
         docs = Get.get(**dict(collNam='cnts', query=dict(_c='Cmp'), sorts='cNam-1'))
         assert docs[0]['cNam'] == u"New Name"

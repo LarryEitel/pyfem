@@ -26,8 +26,8 @@ class UtilsMyYamlTest(BaseMongoTestCase):
         scenario_1()
 
         #docs = Get.cmd('cnts|q:_c:Usr|vflds:1')
-        docs = Get.cmd('cnts|vflds:1')
-        PyYaml.dump(docs, logCollNam='cnts', allflds=True, whiteflds=['pths'])
+        docs = Get.cmd('cnts')
+        PyYaml.dump(docs, logCollNam='cnts', allflds=True)
 
 
 if __name__ == "__main__":

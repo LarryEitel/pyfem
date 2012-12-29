@@ -13,7 +13,9 @@ def load():
       'fldClss': {
         'emails'    : 'Email',
         'tels'    : 'Tel',
-      }}
+      },
+      'chldCollNams': ['cnts', 'pls']
+      }
     #g = myyaml.pyObj('globals.yaml')
     #_cs = g['_cs']
     #_cs_keys = _cs.keys()
