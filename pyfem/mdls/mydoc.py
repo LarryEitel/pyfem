@@ -17,14 +17,25 @@ def validDocData(m):
     return data
 
 def validate(doc):
+    debug = app.logger.debug
     # Get a list of tuples of field names and their current values
     fields = [(field, getattr(doc, name))
               for name, field in doc._fields.items()]
+
+    fields_original = fields
+
+    fields = []
+    collNam = app.g['_clss'][doc._cls]['collNam']
+    for name, field in doc._fields.items():
+        if name=='sId':
+            field.owner_document._meta['collection'] = collNam
+        fields.append((field, getattr(doc, name)))
 
     # Ensure that each field is matched to a valid value
     errors = {}
     for field, value in fields:
         if value is not None:
+            #debug('Try: ' + field.name + ': ' + str(value))
             try:
                 field._validate(value)
                 # need to capture field-level errors!
@@ -37,6 +48,7 @@ def validate(doc):
             except (ValueError, AttributeError, AssertionError), error:
                 errors[field.name] = error
         elif field.required:
+            debug('Try: ' + field.name + ': ' + str(value))
             errors[field.name] = ValidationError('Field is required',
                                                  field_name=field.name)
     return errors

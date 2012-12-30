@@ -12,34 +12,16 @@ ToDo
 - babel
 
 - trash, cascade?
-
-- view hierarchy 
-	mock up usecase like:
-		Prj.sow_what: Sow What
-			Description: bla bla
-			Date: some date
-			Etc:
-			- Note.slug: Note Title
-				Body of note
-				- Cmnt.slug: Comment Title
-					Author: ____, Date: ____
-					Comment Body
-					- Cmnt.slug: Reply to Comment
-						Author: ____, Date: ____
-						Comment Body
-			- Exp.slug: Experience Title
-				Description: ___
-				Etc: ____
-				- Note.slug: Note Title
-					Body of note
-				- Cmnt.slug: Reply to Comment
-					Author: ____, Date: ____
-					Comment Body
 										
 - recycle trashed items
 
+- Flask-Login
+
+- ImageFile
+
 - general tagging
 
+- places, locations, etc
 
 
 

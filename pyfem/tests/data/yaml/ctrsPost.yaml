@@ -88,13 +88,11 @@ PrsLarryStooge:
   emails:
     - _cls   : Email
       _types : [Email]
-      eId    : 1
       typ    : work
       address: bill@ms.com
       prim   : true
     - _cls   : Email
       _types : [Email]
-      eId    : 2
       typ    : work
       address: steve@apple.com
     - _cls   : Email
@@ -105,20 +103,17 @@ PrsLarryStooge:
       notes:
         - _cls   : Note
           _types : [Note]
-          eId    : 1
           typ    : work
           title  : a title
           body   : Now is the time
           tels:
             - _cls   : Tel
               _types : [Tel]
-              eId    : 1
               typ    : work
               text   : 123 123 1234
   notes:
     - _cls   : Note
       _types : [Note]
-      eId    : 1
       typ    : work
       title  : this is a test
       body   : Now is the time
@@ -135,7 +130,6 @@ PrsMoeStooge:
   emails:
     - _cls   : Email
       _types : [Email]
-      eId    : 1
       typ    : work
       address: bill@ms.com
       prim   : true
@@ -147,7 +141,6 @@ PrsTryWithNoSlug:
   emails:
     - _cls   : Email
       _types : [Email]
-      eId    : 1
       typ    : work
       address: bill@ms.com
       prim   : true
@@ -159,7 +152,6 @@ PrsTryWithNoSlug2:
   emails:
     - _cls   : Email
       _types : [Email]
-      eId    : 1
       typ    : work
       address: bill@ms.com
       prim   : true      
@@ -171,13 +163,11 @@ PrsInvalidWithDupEmailTryAddress:
   emails:
     - _cls   : Email
       _types : [Email]
-      eId    : 1
       typ    : work
       address: bill@ms.com
       prim   : true    # this is bad with two prim == true
     - _cls   : Email
       _types : [Email]
-      eId    : 1 # this is bad with two eId == 1
       typ    : work
       address: bill@ms.com
       prim   : true    
@@ -189,13 +179,11 @@ PrsInvalidWithDupPrimListItem:
   emails:
     - _cls   : Email
       _types : [Email]
-      eId    : 1
       typ    : work
       address: bill@ms.com
       prim   : true    # this is bad with two prim == true
     - _cls   : Email
       _types : [Email]
-      eId    : 1 # this is bad with two eId == 1
       typ    : home
       address: tim@ms.com
       prim   : true      

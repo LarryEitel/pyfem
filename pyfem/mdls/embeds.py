@@ -12,12 +12,12 @@ class Note(ED):
     body  = app.me.StringField()
 
     def __str__(self):
-        s = ('[' + str(self.eId) + '] ') if self.eId else ''
-        s += (self.typ + ': ') if self.typ else ''
+        s = (self.typ + ': ') if self.typ else ''
         s += self.title if self.title else ''
         return s
 class EDMix(object):
-    typ     = MyStringField(required= True)
+    #typ     = MyStringField(required= True)
+    typ     = MyStringField()
     w       = app.me.FloatField()
     prim    = app.me.BooleanField()
     note    = app.me.EmbeddedDocumentField(Note)
@@ -88,11 +88,11 @@ class Tel(ED, EDMix):
     text = MyStringField(required= True)
 
 class Email(ED, EDMix):
+    _cls = 'Email'
     address = MyEmailField(required= True)
 
     def __repr__(self):
-        s = ('[' + str(self.eId) + '] ') if self.eId else ''
-        s += (self.typ + ': ') if self.typ else ''
+        s = (self.typ + ': ') if self.typ else ''
         s += self.address if self.address else ''
         return s
 

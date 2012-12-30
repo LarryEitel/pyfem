@@ -9,26 +9,32 @@ import globals
 from app import app
 
 class Post(object):
-    def cmd(self, cmd):
+    def cmd(self, cmds):
         g = app.g
         debug = g['logger'].debug
         post    = ctrs.post.Post().post
         fldClss = g['fldClss']
 
-        debug(u'\n' + (u'_'*50) + u'\n' + cmd + u'\n' + (u'_'*50))
-        params = cmd.split('|')
+        if not type(cmds) == list: cmds = [cmds]
 
-        # example: 'Cmp.ni|slug:new_company,cNam:MS'
-        _cls   = params.pop(0)
-        data   = dict(_cls=_cls)
+        resps = []
+        errors = 0
+        docs = []
+        for cmd in cmds:
+            debug(u'\n' + (u'_'*50) + u'\n' + cmd + u'\n' + (u'_'*50))
+            params = cmd.split('|')
 
-        # get flds to set
-        doc   = dict([(v.split(':')[0], v.split(':')[1]) for v in params])
-        doc['_cls'] = doc['_c'] = _cls
-        doc['_types'] = [_cls]
+            # example: 'Cmp.ni|slug:new_company,cNam:MS'
+            _cls   = params.pop(0)
+            data   = dict(_cls=_cls)
 
-        resp = post(**{'docs': [doc]})
-        assert resp['status'] == 200
+            # get flds to set
+            doc   = dict([(v.split(':')[0], v.split(':')[1]) for v in params])
+            doc['_cls'] = doc['_c'] = _cls
+            doc['_types'] = [_cls]
+            docs.append(doc)
+
+        resp = post(**{'docs': docs})
         return resp
 
     def post(self, docs):
@@ -53,8 +59,9 @@ class Post(object):
             except:
                 modelClass = getattr(mdls, docData['_cls'])
 
-            doc = modelClass(**docData)
-            resp = doc.save()
+            doc    = modelClass(**docData)
+            doc._c = doc._cls
+            resp   = doc.save()
             if 'myErrors' in doc._data:
                 error = {'docData': docData, 'errors': doc._data['myErrors']}
                 post_errors.append(error)

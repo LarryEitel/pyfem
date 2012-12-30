@@ -5,202 +5,104 @@ except ImportError:
     import unittest  # NOQA
 
 from core import BaseMongoTestCase
-from utils import myyaml
 import ctrs
 
 class CtrsPutTests(BaseMongoTestCase):
-
-    def setUp(self):
-        super(CtrsPutTests, self).setUp()
-        self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'ctrsPut')
-
     def test_tryToAddDupTypEmail(self):
-        sampDat = self.sampDat
-
-        doc = sampDat['PrsLarryStooge']
-
-        post         = ctrs.post.Post().post
-        put          = ctrs.put.Put().put
+        g = self.g
+        to_yaml = ctrs.d.to_yaml
+        debug   = self.g['logger'].debug
+        Put = ctrs.put.Put()
+        Lnk = ctrs.lnk.Lnk()
+        Post = ctrs.post.Post()
 
         # Load one doc
-        resp = post(**{'docs': [doc]})
-        assert resp['status'] == 200
-        assert len(resp['response']['docs']) == 1
+        Post.cmd('Cmp|slug:ni|cNam:GSNI|typ:company')
+        Put.cmd('push|Cmp.ni.emails|address:bill@ms.com')
 
-        # one new email
-        sampItem = sampDat['PrsTryToAddDupTypEmail']
-        resp = put(**sampItem)
+        #try to add dup email
+        resp = Put.cmd('push|Cmp.ni.emails|address:bill@ms.com')
         assert resp['status'] == 500
         assert resp['response']['errors'][0]['errors']['address'] == 'address must be unique.'
-        x=0
 
     def test_tryToAddSecondPrimaryEmail(self):
-        sampDat = self.sampDat
-
-        doc = sampDat['PrsLarryStooge']
-
-        post         = ctrs.post.Post().post
-        put          = ctrs.put.Put().put
+        g = self.g
+        to_yaml = ctrs.d.to_yaml
+        debug   = self.g['logger'].debug
+        Put = ctrs.put.Put()
+        Post = ctrs.post.Post()
 
         # Load one doc
-        resp = post(**{'docs': [doc]})
-        assert resp['status'] == 200
-        assert len(resp['response']['docs']) == 1
+        Post.cmd('Cmp|slug:ni|cNam:GSNI|typ:company')
+        Put.cmd('push|Cmp.ni.emails|address:bill@ms.com|prim:1')
 
-        # one new email
-        sampItem = sampDat['PrsTryToAddSecondPrimaryEmail']
-        resp = put(**sampItem)
+        #try to add second primary
+        resp = Put.cmd('push|Cmp.ni.emails|address:sue@ms.com|prim:1')
         assert resp['status'] == 500
         assert resp['response']['errors'][0]['errors']['prim'] == 'Only one permited primary item.'
-        x=0
 
     def test_add_one_to_empty_list(self):
-        sampDat = self.sampDat
-
-        doc = sampDat['PrsLarryStoogeEmptyEmails']
-
-        post         = ctrs.post.Post().post
-        put          = ctrs.put.Put().put
+        g = self.g
+        to_yaml = ctrs.d.to_yaml
+        debug   = self.g['logger'].debug
+        Put = ctrs.put.Put()
+        Lnk = ctrs.lnk.Lnk()
+        Post = ctrs.post.Post()
 
         # Load one doc
-        resp = post(**{'docs': [doc]})
-        assert resp['status'] == 200
-        assert len(resp['response']['docs']) == 1
+        resp = Post.cmd('Cmp|slug:ni|cNam:GSNI|typ:company')
 
-        # one new email
-        sampItem = sampDat['PrsAddOneNewEmailToEmptyEmailsField']
-        resp = put(**sampItem)
+        # one new tel
+        resp = Put.cmd('push|Cmp.ni.tels|text:123 456 7890|typ:work')
         assert resp['status'] == 200
         targetDoc = resp['response']['doc']
-        targetElem = targetDoc['emails']
-        assert len(targetElem) == 1
-        assert targetElem[0]['address'] == 'timothy@ms.com'
+        targetElem = targetDoc['tels']
+        assert targetElem[0]['text'] == '123 456 7890'
 
-    def test_add_two_to_empty_list(self):
-        sampDat = self.sampDat
 
-        doc = sampDat['PrsLarryStoogeEmptyEmails']
-
-        post         = ctrs.post.Post().post
-        put          = ctrs.put.Put().put
+    def test_add_two_to_list(self):
+        g = self.g
+        to_yaml = ctrs.d.to_yaml
+        debug   = self.g['logger'].debug
+        Put = ctrs.put.Put()
+        Post = ctrs.post.Post()
 
         # Load one doc
-        resp = post(**{'docs': [doc]})
-        assert resp['status'] == 200
-        assert len(resp['response']['docs']) == 1
+        resp = Post.cmd('Cmp|slug:ni|cNam:GSNI|typ:company')
 
-
-        # two new email
-        sampItem = sampDat['PrsAddTwoNewEmailToEmptyEmailsField']
-        resp = put(**sampItem)
+        # new emails
+        resp = Put.cmd('push|Cmp.ni.emails|address:bill@ms.com|typ:work')
+        resp = Put.cmd('push|Cmp.ni.emails|address:william@ms.com|typ:home')
         assert resp['status'] == 200
         targetDoc = resp['response']['doc']
         targetElem = targetDoc['emails']
         assert len(targetElem) == 2
-        assert targetElem[1]['address'] == 'angie@ms.com'
-        x=0
-
-    def test_add_one_to_list(self):
-        sampDat = self.sampDat
-
-        doc = sampDat['PrsLarryStooge']
-
-        post         = ctrs.post.Post().post
-        put          = ctrs.put.Put().put
-
-        # Load one doc
-        resp = post(**{'docs': [doc]})
-        assert resp['status'] == 200
-        assert len(resp['response']['docs']) == 1
-
-        # one new email
-        sampItem = sampDat['PrsAddOneNewEmailToExistingEmailsField']
-        resp = put(**sampItem)
-        assert resp['status'] == 200
-        targetDoc = resp['response']['doc']
-        targetElem = targetDoc['emails']
-        assert targetElem[2]['address'] == 'timothy@ms.com'
-        assert len(targetElem) == 3
-        x=0
-
-    def test_add_two_to_list(self):
-        sampDat = self.sampDat
-
-        doc = sampDat['PrsLarryStooge']
-
-        post         = ctrs.post.Post().post
-        put          = ctrs.put.Put().put
-
-        # Load one doc
-        resp = post(**{'docs': [doc]})
-        assert resp['status'] == 200
-        assert len(resp['response']['docs']) == 1
-
-        # two new emails
-        sampItem = sampDat['PrsAddTwoNewEmailsToExistingEmailsField']
-        resp = put(**sampItem)
-        assert resp['status'] == 200
-        targetDoc = resp['response']['doc']
-        targetElem = targetDoc['emails']
-        assert targetElem[3]['address'] == 'sam@ms.com'
-        assert len(targetElem) == 4
-        x=0
+        assert targetElem[0]['address'] == 'bill@ms.com'
 
     def test_update(self):
-        sampDat = self.sampDat
-
-        doc = sampDat['PrsLarryStooge']
-
-        post         = ctrs.post.Post().post
-        put          = ctrs.put.Put().put
+        g = self.g
+        to_yaml = ctrs.d.to_yaml
+        debug   = self.g['logger'].debug
+        Put = ctrs.put.Put()
+        Post = ctrs.post.Post()
 
         # Load one doc
-        resp = post(**{'docs': [doc]})
-        assert resp['status'] == 200
-        assert len(resp['response']['docs']) == 1
-
+        Post.cmd('Usr|slug:lwe|uNam:lwe|fNam:Larry|fNam2:Wayne|lNam:Stooge')
+        Put.cmd('push|Usr.lwe.emails|address:bill@ms.com|typ:work')
+        Put.cmd('push|Usr.lwe.emails|address:william@ms.com|typ:home')
         # put fNam & lNam
-        sampItem = sampDat['PrsPut_fNam']
-        resp = put(**sampItem)
+        resp = Put.cmd('set|Usr|q:slug:lwe|fNam:Sam|lNam:Hardy')
         assert resp['status'] == 200
         targetDoc = resp['response']['doc']
-        assert targetDoc['fNam'] == sampItem['update']['actions']['$set']['flds']['fNam']
+        assert targetDoc['fNam'] == 'Sam'
+        assert targetDoc['lNam'] == 'Hardy'
 
         # update existing email address
-        sampItem = sampDat['PrsPut_emails_1']
-        resp = put(**sampItem)
+        resp = Put.cmd('set|Usr|q:slug:lwe,emails.address:bill@ms.com,emails.typ:work|emails.$.address:steve@apple.com|emails.$.typ:home')
         assert resp['status'] == 200
         targetDoc = resp['response']['doc']
         targetElem = targetDoc['emails'][0]
-        assert targetElem['address'] ==  "freddy@ms.com"
-
-        x=0
-
-
-    def test_tryToSetSecondPrimEmail(self):
-        sampDat = self.sampDat
-
-        doc = sampDat['PrsLarryStooge']
-
-        post         = ctrs.post.Post().post
-        put          = ctrs.put.Put().put
-
-        # Load one doc
-        resp = post(**{'docs': [doc]})
-        status = resp['status']
-        errors = resp['response']['errors'][0]['errors'][0] if not status == 200 else None
-        assert status == 200
-        assert len(resp['response']['docs']) == 1
-
-        sampItem = sampDat['PrsTryToAddSecondPrimaryEmail']
-        resp = put(**sampItem)
-        status = resp['status']
-        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
-        assert resp['status'] == 500
-        assert errors['prim'] == 'Only one permited primary item.'
-
-        x=0
-
+        assert targetElem['address'] ==  "steve@apple.com"
 
 if __name__ == "__main__":
     unittest.main()

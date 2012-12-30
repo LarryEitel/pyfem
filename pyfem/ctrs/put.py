@@ -7,6 +7,7 @@ import mdls
 import globals
 import ctrs
 from mdls import *
+from mdls.helpers import *
 
 class Put(object):
     def cmd(self, cmd):
@@ -54,7 +55,6 @@ class Put(object):
 
             data['update'] = dict(actions={'$push': dict(flds={fld: [flds]})})
             resp = put(**data)
-            assert resp['status'] == 200
             return resp
 
 

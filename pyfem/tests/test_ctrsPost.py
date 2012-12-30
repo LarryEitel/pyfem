@@ -17,132 +17,60 @@ class CtrsPostTests(BaseMongoTestCase):
         self.ucs     = ucs
         self.sampDat = myyaml.pyObj(self.tests_data_yaml_dir + 'ctrsPost')
 
-    def test_newWithApths(self):
-        ucs     = self.ucs
-        sampDat = self.sampDat
-        doc     = sampDat['PrsLarryWayne']
-
-        post    = ctrs.post.Post().post
-
-        # try one doc
-        resp    = post(**{'docs': [doc]})
-        status = resp['status']
-        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
-        assert resp['status'] == 200
-        assert len(resp['response']['docs']) == 1
-        #  cnts.update({"pths.pth" : "Prs.lwe,Cmp.ni"},{$set: {"pths.$.pth":"Prs.new"}})
-
-    #TODOs
-    # although testing is done in put to prevent multiple primary items in a list along with ability to prevent dup values like typ+address, THIS IS NOT TEST FOR POSTING new records. GOTTA RESOLVE and TEST
-
     def test_new(self):
-        ucs     = self.ucs
-        sampDat = self.sampDat
-        doc     = sampDat['PrsMoeStooge']
+        to_yaml = ctrs.d.to_yaml
+        debug   = self.g['logger'].debug
+        Post = ctrs.post.Post()
 
-        post    = ctrs.post.Post().post
-
-        # try one doc
-        resp    = post(**{'docs': [doc]})
+        #resp = Post.post(**{'docs': [{'_types': ['Prs'], 'lNam': 'Doe', '_cls': 'Prs', 'fNam': 'John', '_c': 'Prs', 'slug': 'jonndoe'}]})
+        resp = Post.cmd('Prs|slug:jonndoe|fNam:John|lNam:Doe')
         status = resp['status']
         errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == 1
 
     def test_newUsr(self):
-        ucs     = self.ucs
-        sampDat = self.sampDat
-        doc     = sampDat['UsrMoeStooge']
+        to_yaml = ctrs.d.to_yaml
+        debug   = self.g['logger'].debug
+        Post = ctrs.post.Post()
 
-        post    = ctrs.post.Post().post
-
-        # try one doc
-        resp    = post(**{'docs': [doc]})
+        resp = Post.cmd('Usr|slug:johndoe|uNam:johndoe|fNam:John|lNam:Doe')
         status = resp['status']
         errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
         assert resp['status'] == 200
         assert len(resp['response']['docs']) == 1
 
     def test_slug(self):
-        ucs     = self.ucs
-        sampDat = self.sampDat
+        to_yaml = ctrs.d.to_yaml
+        debug   = self.g['logger'].debug
+        Post = ctrs.post.Post()
 
-        post    = ctrs.post.Post().post
-
-        doc     = sampDat['PrsTryWithNoSlug']
-        resp    = post(**{'docs': [doc]})
+        resp = Post.cmd('Usr|uNam:johndoe|fNam:John|lNam:Doe')
         status = resp['status']
         errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
         assert resp['status'] == 200
+        assert [v for v in resp['response']['docs'].itervalues()][0]['slug'] == 'doe-john'
 
-        doc     = sampDat['PrsTryWithNoSlug2']
-        resp    = post(**{'docs': [doc]})
-        status = resp['status']
-        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
-        if errors: print errors
-        assert resp['status'] == 200
-        doc = resp['response']['docs'][resp['response']['docs'].keys()[0]]
-        assert doc['slug'] == 'stooge-moe-1'
-
-    def test_trySlugDup(self):
-        ucs     = self.ucs
-        sampDat = self.sampDat
-
-        post    = ctrs.post.Post().post
-
-        doc     = sampDat['PrsMoeStooge']
-        resp    = post(**{'docs': [doc]})
+        # try with same slug, it should increment
+        resp = Post.cmd('Usr|slug:doe-john|uNam:johndoe2|fNam:John|lNam:Doe')
         status = resp['status']
         errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
         assert resp['status'] == 200
-
-        doc     = sampDat['PrsMoeStooge']
-        resp    = post(**{'docs': [doc]})
-        status = resp['status']
-        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
-        assert resp['status'] == 200
-        doc = resp['response']['docs'][resp['response']['docs'].keys()[0]]
-        assert doc['slug'] == 'stooge-moe-1'
-
-
-    def test_tryNewPrsWithDupEmailTypAddress(self):
-        ucs     = self.ucs
-        sampDat = self.sampDat
-        doc     = sampDat['PrsInvalidWithDupEmailTryAddress']
-
-        post    = ctrs.post.Post().post
-
-        # try one doc
-        resp    = post(**{'docs': [doc]})
-        status = resp['status']
-        errors = resp['response']['errors'][0]['errors'] if not status == 200 else None
-        assert status == 500
-        assert errors[0]['errors']['address'] == 'address must be unique.'
-
-    def test_tryNewPrsWithDupPrimListItem(self):
-        ucs     = self.ucs
-        sampDat = self.sampDat
-        doc     = sampDat['PrsInvalidWithDupPrimListItem']
-
-        post    = ctrs.post.Post().post
-
-        # try one doc
-        resp    = post(**{'docs': [doc]})
-        assert resp['status'] == 500
-        assert resp['response']['errors'][0]['errors'][0]['errors']['prim'] == 'Only one permited primary item.'
-        x = 0
+        assert [v for v in resp['response']['docs'].itervalues()][0]['slug'] == 'doe-john-1'
 
     def test_newSeveral(self):
-        ucs     = self.ucs
-        sampDat = self.sampDat
+        to_yaml = ctrs.d.to_yaml
+        debug   = self.g['logger'].debug
+        Post = ctrs.post.Post()
 
-        post    = ctrs.post.Post().post
+        resp = Post.cmd([
+            'Usr|uNam:johndoe|fNam:John|lNam:Doe',
+            'Prs|fNam:Mary|lNam:Jane',
+            'Cmp|cNam:MS',
+                         ])
 
-        # try several docs, EXCEPT items with Invalid in the key
-        docs    = [sampDat[d] for d in sampDat if not 'Invalid' in d]
-        resp    = post(**{'docs': docs})
         assert resp['status'] == 200
-        assert len(resp['response']['docs']) == len(docs)
+        assert len(resp['response']['docs']) == 3
 
 if __name__ == "__main__":
     unittest.main()

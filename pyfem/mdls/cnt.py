@@ -1,6 +1,7 @@
 import datetime
 
 from app import app
+import ctrs
 import mdls
 from mdls import Mixin, Email, Note, D
 from mdls.myfields import MyStringField
@@ -40,7 +41,15 @@ class Cnt(D, Mixin):
 
             # we want to generate a slug and make sure whatever slug may have been
             # given, if any, will be unique
-            slugDefault = self.slug or self.dNam
+
+            if self.slug:
+                slugDefault = self.slug
+            else:
+                try:
+                    raw_data = dict([(k,v) for k,v in self._data.iteritems() if v])
+                    slugDefault = getattr(ctrs, self._c).vNam(**raw_data)
+                except:
+                    slugDefault = ''
             self.slug = self.generate_slug(slugDefault)
 
 
